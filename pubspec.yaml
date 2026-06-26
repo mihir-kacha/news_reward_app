@@ -1,0 +1,100 @@
+name: inshorts
+description: "A new Flutter project."
+
+publish_to: 'none'
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  #--------- shared_preferences ---------#
+  shared_preferences: ^2.5.5
+
+  #--------- Provider ---------#
+  provider: ^6.1.5+1
+
+  # --------- Utils --------- #
+  connectivity_plus: ^7.1.0
+  device_info_plus: ^13.1.0
+  intl: ^0.20.2
+  url_launcher: ^6.3.2
+
+  #--------- UI ---------#
+  flutter_svg: ^2.2.4
+  gap: ^3.0.1
+  shimmer: ^3.0.0
+  extended_image: ^10.0.1
+  lottie: ^3.3.2
+  share_plus: ^13.1.0
+  timeago: ^3.7.1
+
+  #----------- network -----------#
+  network:
+    path: network
+
+  #----------- Firebase -----------#
+  firebase_core: ^4.11.0
+  firebase_crashlytics: ^5.2.4
+  firebase_auth: ^6.5.4
+  cloud_firestore: ^6.6.0
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+  flutter_lints: ^6.0.0
+
+  #--------- Generator ---------#
+  build_runner: ^2.13.1
+  flutter_gen_runner: ^5.13.0+1
+
+#----------- asset generator configuration ----------#
+flutter_gen:
+  output: lib/generated/
+  integrations:
+    flutter_svg: true
+    lottie: true
+
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/icons/
+    - assets/icons/profile/
+    - assets/icons/category/
+    - assets/icons/on_boarding/
+    - assets/images/
+    - assets/images/challange_images/
+    - assets/images/category/
+
+
+  fonts:
+    - family: PlusJakartaSans
+      fonts:
+        - asset: assets/font/PlusJakartaSans-Bold.ttf
+        - asset: assets/font/PlusJakartaSans-BoldItalic.ttf
+        - asset: assets/font/PlusJakartaSans-ExtraBold.ttf
+        - asset: assets/font/PlusJakartaSans-ExtraBoldItalic.ttf
+        - asset: assets/font/PlusJakartaSans-ExtraLight.ttf
+        - asset: assets/font/PlusJakartaSans-ExtraLightItalic.ttf
+        - asset: assets/font/PlusJakartaSans-Italic.ttf
+        - asset: assets/font/PlusJakartaSans-Light.ttf
+        - asset: assets/font/PlusJakartaSans-LightItalic.ttf
+        - asset: assets/font/PlusJakartaSans-Medium.ttf
+        - asset: assets/font/PlusJakartaSans-MediumItalic.ttf
+        - asset: assets/font/PlusJakartaSans-Regular.ttf
+        - asset: assets/font/PlusJakartaSans-SemiBold.ttf
+        - asset: assets/font/PlusJakartaSans-SemiBoldItalic.ttf
+

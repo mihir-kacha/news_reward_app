@@ -1,0 +1,21 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gap/gap.dart';
+import 'package:inshorts/components/Inshorts_appbar.dart';
+import 'package:inshorts/components/Inshorts_coin_card.dart';
+import 'package:inshorts/components/model.dart';
+import 'package:inshorts/core/core.dart';
+import 'package:inshorts/data/preference/preference.dart';
+import 'package:inshorts/generated/assets.gen.dart';
+import 'package:inshorts/resources/resources.dart';
+import 'package:inshorts/ui/login/login.dart';
+import 'package:inshorts/ui/refer/refer.dart';
+import 'package:inshorts/utils/app_constant.dart';
+import 'package:inshorts/utils/common_button.dart';
+import 'package:inshorts/utils/common_functions.dart';
+import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
+
+part 'profile_screen.dart';
+part 'profile_provider.dart';
+part 'components/exit_sheet.dart';
