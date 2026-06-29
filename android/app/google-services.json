@@ -12,7 +12,20 @@
           "package_name": "com.example.inshorts"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "832096127020-i71f5g7hg149c5hp5v5c0qnbk5fdfao5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.inshorts",
+            "certificate_hash": "9a1627aa71b1a4ea460bc09e0b4a59560cc6f639"
+          }
+        },
+        {
+          "client_id": "832096127020-f5qmq45lp4f2tbf147aof341nkeaugsf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCo5QK9lHds9C6DDA9Fpyb7Pw8t_fpksSI"
@@ -20,7 +33,55 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "832096127020-6e2kaj3n1v1gdfv3panl1svfsuc92q18.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "832096127020-eh0uln6i4sd6sbo51mur3j32q1mqt6lg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.inshorts"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:832096127020:android:b39905bef2a6669b78a989",
+        "android_client_info": {
+          "package_name": "com.makemonefromnews.makemoneyfromreadingnews.dailynews.newsread.earnmoney.breakingnewsdaily"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "832096127020-f5qmq45lp4f2tbf147aof341nkeaugsf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCo5QK9lHds9C6DDA9Fpyb7Pw8t_fpksSI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "832096127020-6e2kaj3n1v1gdfv3panl1svfsuc92q18.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "832096127020-eh0uln6i4sd6sbo51mur3j32q1mqt6lg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.inshorts"
+              }
+            }
+          ]
         }
       }
     }

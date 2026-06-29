@@ -7,7 +7,11 @@ class TaskScreen extends StatelessWidget {
 
   static Widget builder(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => TaskProvider(context: context),
+      create: (context) => TaskProvider(
+        context: context,
+        loadingDialogHandler: LoadingDialogHandler(context: context),
+        userRepository: UserRepository(uid: Preference().userId ?? ""),
+      ),
       child: TaskScreen(),
     );
   }
@@ -15,14 +19,14 @@ class TaskScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: InshortsAppbar(title: Text("Daily Task"),showBack: false,),
+      appBar: NewsPayAppbar(title: Text("Daily Task"), showBack: false),
       body: SingleChildScrollView(
         padding: EdgeInsetsGeometry.all(Spacing.normal),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            InshortsCoinCard(),
+            NewsPayCoinCard(),
             Gap(Spacing.medium),
             Text(
               "Read News & Earn Rewards",

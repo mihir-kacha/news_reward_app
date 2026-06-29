@@ -1,0 +1,47 @@
+part of 'news_code.dart';
+
+final class NewsCodeProvider extends BaseProvider {
+  final NewsData newsData;
+  final UserRepository userRepository;
+  final LoadingDialogHandler loadingDialogHandler;
+
+  NewsCodeProvider({
+    required super.context,
+    required this.newsData,
+    required this.userRepository,
+    required this.loadingDialogHandler,
+  });
+
+  final TextEditingController codeController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  bool isLoading = false;
+  int oldCoins = 0;
+
+  Future<void> showNews() async {
+    await CommonFunc.openUrl(url: newsData.link ?? AppConstants.privacyPolicyUrl);
+  }
+
+  Future<void> earnCoins() async {
+    oldCoins = preference.userInfo.coins;
+
+    if ((formKey.currentState?.validate() ?? false) && context.mounted) {
+      await _processReward(coins: 300);
+      context.navigator.pushNamed(CongratulationScreen.routeName, arguments: oldCoins);
+      preference.readNews = preference.readNews + 1;
+      eventBus.fire(SurveyCompletedEvet());
+      codeController.clear();
+    }
+  }
+
+  Future<void> _processReward({required int coins}) async {
+    await processApi(
+      request: () async {
+        return await userRepository.addCoins(coins: coins);
+      },
+      onLoading: (loading) {
+        isLoading = loading;
+        notifyListeners();
+      },
+    );
+  }
+}

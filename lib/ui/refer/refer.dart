@@ -1,17 +1,26 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
-import 'package:inshorts/components/Inshorts_appbar.dart';
+import 'package:inshorts/components/loading_indicator.dart';
+import 'package:inshorts/components/news_pay_appbar.dart';
 import 'package:inshorts/components/app_input_field.dart';
 import 'package:inshorts/components/common_task_card.dart';
 import 'package:inshorts/components/dashed_border_container.dart';
 import 'package:inshorts/components/dynamic_grid_view.dart';
 import 'package:inshorts/core/core.dart';
+import 'package:inshorts/data/preference/preference.dart';
 import 'package:inshorts/generated/assets.gen.dart';
 import 'package:inshorts/resources/resources.dart';
 import 'package:inshorts/utils/common_button.dart';
+import 'package:inshorts/utils/common_functions.dart';
+import 'package:inshorts/utils/enum.dart';
+import 'package:network/helper/logger.dart';
+import 'package:network/network.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 part 'refer_screen.dart';
 part 'refer_provider.dart';

@@ -21,9 +21,8 @@ class NewsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = context.read<NewsProvider>();
-
     return Scaffold(
-      appBar: InshortsAppbar(title: Text(provider.category.label)),
+      appBar: NewsPayAppbar(title: Text(provider.category.label)),
       body: _Body(),
     );
   }
@@ -35,61 +34,32 @@ class _Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = context.read<NewsProvider>();
-    final currentIndex = context.select<NewsProvider, int>((provider) => provider.currentIndex);
-    final isDraggingDown = context.select<NewsProvider, bool>((provider) => provider.isDraggingDown);
-    final news = context.select<NewsProvider, List<NewsData>>((value) => value.news);
-    final progress = context.select<NewsProvider, double>((value) => value.dragProgress);
-    if (provider.currentNews == null) {
-      return SizedBox.shrink();
-    }
-    return SafeArea(
-      child: Padding(
-        padding: EdgeInsets.all(Spacing.small),
-        child: Stack(
-          children: [
-            if (isDraggingDown) ...[
-              if (currentIndex > 0)
-                BackgroundCard(
-                  index: currentIndex - 1,
-                  type: CardPosition.previous,
-                  data: news[currentIndex - 1],
-                  progress: progress,
-                ),
-              Positioned.fill(
-                child: DraggableNewsCard(
-                  key: ValueKey(currentIndex),
-                  index: currentIndex,
-                  data: news[currentIndex],
-                  changeNews: provider.changeNews,
-                  setDirection: provider.setDirection,
-                  updateProgress: provider.updateProgress,
-                  currentIndex: currentIndex,
-                  newsLength: provider.news.length,
-                ),
-              ),
-            ] else ...[
-              if (currentIndex < provider.news.length - 1)
-                BackgroundCard(
-                  index: currentIndex + 1,
-                  type: CardPosition.next,
-                  data: news[currentIndex + 1],
-                  progress: progress,
-                ),
-              Positioned.fill(
-                child: DraggableNewsCard(
-                  key: ValueKey(currentIndex),
-                  index: currentIndex,
-                  data: news[currentIndex],
-                  changeNews: provider.changeNews,
-                  setDirection: provider.setDirection,
-                  updateProgress: provider.updateProgress,
-                  currentIndex: currentIndex,
-                  newsLength: provider.news.length,
-                ),
-              ),
-            ],
-          ],
+    final list = context.select<NewsProvider, List<NewsData>>((value) => value.list);
+    final isLoading = context.select<NewsProvider, bool>((value) => value.loading);
+    if (provider.list.isEmpty) {
+      if (isLoading) {
+        return Center(child: LoadingIndicator());
+      }
+      return Center(
+        child: Text(
+          "No news for ${provider.category.name}",
+          style: context.textTheme.headlineSmall?.copyWith(color: provider.category.color),
         ),
+      );
+    }
+    return PaginationListener(
+      onRefresh: (context) => provider.onRefresh(),
+      onScrollToEnd: (context) => provider.onLoadMore(),
+      child: ListView.builder(
+        padding: EdgeInsets.symmetric(horizontal: Spacing.normal),
+        shrinkWrap: true,
+        physics: AlwaysScrollableScrollPhysics(),
+        scrollDirection: Axis.vertical,
+        itemCount: list.length,
+        itemBuilder: (context, index) {
+          final newsData = list[index];
+          return NewsCell(newsData: newsData);
+        },
       ),
     );
   }

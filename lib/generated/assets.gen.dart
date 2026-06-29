@@ -58,6 +58,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_wallet.svg
   SvgGenImage get icWallet => const SvgGenImage('assets/icons/ic_wallet.svg');
 
+  /// File path: assets/icons/ic_wifi.svg
+  SvgGenImage get icWifi => const SvgGenImage('assets/icons/ic_wifi.svg');
+
   /// Directory path: assets/icons/on_boarding
   $AssetsIconsOnBoardingGen get onBoarding => const $AssetsIconsOnBoardingGen();
 
@@ -78,6 +81,7 @@ class $AssetsIconsGen {
     icSearch,
     icTask,
     icWallet,
+    icWifi,
   ];
 }
 
@@ -103,6 +107,10 @@ class $AssetsImagesGen {
   AssetGenImage get imgCoinGroup =>
       const AssetGenImage('assets/images/img_coin_group.png');
 
+  /// File path: assets/images/img_confetti.png
+  AssetGenImage get imgConfetti =>
+      const AssetGenImage('assets/images/img_confetti.png');
+
   /// File path: assets/images/img_gift_with_coins.webp
   AssetGenImage get imgGiftWithCoins =>
       const AssetGenImage('assets/images/img_gift_with_coins.webp');
@@ -125,6 +133,10 @@ class $AssetsImagesGen {
   AssetGenImage get imgTips =>
       const AssetGenImage('assets/images/img_tips.webp');
 
+  /// File path: assets/images/img_trofee.png
+  AssetGenImage get imgTrofee =>
+      const AssetGenImage('assets/images/img_trofee.png');
+
   /// File path: assets/images/img_wallet.webp
   AssetGenImage get imgWallet =>
       const AssetGenImage('assets/images/img_wallet.webp');
@@ -138,15 +150,30 @@ class $AssetsImagesGen {
     imgApplicationWork,
     imgCoin,
     imgCoinGroup,
+    imgConfetti,
     imgGiftWithCoins,
     imgGoogle,
     imgLogin,
     imgOn1,
     imgOn2,
     imgTips,
+    imgTrofee,
     imgWallet,
     imgWalletWithCard,
   ];
+}
+
+class $AssetsJsonGen {
+  const $AssetsJsonGen();
+
+  /// File path: assets/json/news_read.json
+  String get newsRead => 'assets/json/news_read.json';
+
+  /// File path: assets/json/refer_friend.json
+  String get referFriend => 'assets/json/refer_friend.json';
+
+  /// List of all assets
+  List<String> get values => [newsRead, referFriend];
 }
 
 class $AssetsIconsCategoryGen {
@@ -371,8 +398,13 @@ class $AssetsImagesChallangeImagesGen {
 class Assets {
   const Assets._();
 
+  static const String aEnv = '.env';
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsJsonGen json = $AssetsJsonGen();
+
+  /// List of all assets
+  static List<String> get values => [aEnv];
 }
 
 class AssetGenImage {

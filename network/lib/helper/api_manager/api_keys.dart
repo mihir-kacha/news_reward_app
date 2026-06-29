@@ -10,4 +10,5 @@ abstract interface class ApiKeys {
   static const String accessToken = 'access_token';
 
   static const String apiKeys ='apikey';
+  static const String language ='language';
 }

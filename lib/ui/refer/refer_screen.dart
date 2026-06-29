@@ -7,7 +7,12 @@ class ReferScreen extends StatelessWidget {
 
   static Widget builder(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => ReferProvider(context: context),
+      create: (context) => ReferProvider(
+        context: context,
+        loadingDialogHandler: LoadingDialogHandler(context: context),
+        referralsRepository: ReferralsRepository(),
+        userRepository: UserRepository(uid: Preference().userId ?? ""),
+      ),
       child: ReferScreen(),
     );
   }
@@ -16,7 +21,7 @@ class ReferScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.colorScheme.surfaceContainerLow,
-      appBar: InshortsAppbar(
+      appBar: NewsPayAppbar(
         title: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,92 +38,115 @@ class ReferScreen extends StatelessWidget {
         ),
         autoLeading: true,
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: Spacing.normal, vertical: Spacing.large),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: _DataCell(
-                    icon: Assets.icons.profile.icCoin.path,
-                    title: "0",
-                    subTitle: "Earning",
-                    info: "Total points earned",
-                    color: Color(0XFFee9f10),
-                  ),
+      body: _Body(),
+    );
+  }
+}
+
+class _Body extends StatelessWidget {
+  const _Body();
+
+  @override
+  Widget build(BuildContext context) {
+    final provider = context.read<ReferProvider>();
+    final list = context.select<ReferProvider, List<ReferFriendModel>>((value) => value.list);
+    final referCode = context.select<ReferProvider, String?>((value) => value.inviterReferralCode);
+    final referralCount = context.select<ReferProvider, int?>((value) => value.referralCount);
+    final earningCoins = context.select<ReferProvider, int?>((value) => value.earningCoins);
+    final isLoading = context.select<ReferProvider, bool>((value) => value.isLoading);
+    if (isLoading) {
+      return LoadingIndicator();
+    }
+    return SingleChildScrollView(
+      padding: EdgeInsets.symmetric(horizontal: Spacing.normal, vertical: Spacing.large),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: _DataCell(
+                  icon: Assets.icons.profile.icCoin.path,
+                  title: "$earningCoins",
+                  subTitle: "Earning",
+                  info: "Total points earned",
+                  color: Color(0XFFee9f10),
                 ),
-                Gap(Spacing.normal),
-                Expanded(
-                  child: _DataCell(
-                    icon: Assets.icons.profile.icPeoples.path,
-                    title: "0",
-                    subTitle: "Referrals",
-                    info: "Total friend invited",
-                    color: Color(0XFF8d59ff),
-                  ),
+              ),
+              Gap(Spacing.normal),
+              Expanded(
+                child: _DataCell(
+                  icon: Assets.icons.profile.icPeoples.path,
+                  title: "$referralCount",
+                  subTitle: "Referrals",
+                  info: "Total friend invited",
+                  color: Color(0XFF8d59ff),
+                ),
+              ),
+            ],
+          ),
+          Gap(Spacing.medium),
+          _ReferCodeCell(),
+          Gap(Spacing.medium),
+          if (referCode == null) ...[_ReferCells()] else ...[_ReferCompletedCell()],
+          Gap(Spacing.medium),
+          FilledButton(
+            onPressed: provider.onInvite,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Assets.icons.profile.icShare.svg(
+                  height: 18,
+                  colorFilter: ColorFilter.mode(context.colorScheme.onPrimary, BlendMode.srcIn),
+                ),
+                Gap(Spacing.medium),
+                Text(
+                  "Invite Now",
+                  style: context.textTheme.headlineSmall?.copyWith(color: context.colorScheme.onPrimary),
                 ),
               ],
             ),
-            Gap(Spacing.medium),
-            _ReferCodeCell(),
-            Gap(Spacing.medium),
-            _ReferCells(),
-            Gap(Spacing.medium),
-            FilledButton(
-              // style: FilledButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: ShapeBorderRadius.medium)),
-              onPressed: () {},
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Assets.icons.profile.icShare.svg(
-                    height: 18,
-                    colorFilter: ColorFilter.mode(context.colorScheme.onPrimary, BlendMode.srcIn),
-                  ),
-                  Gap(Spacing.medium),
-                  Text(
-                    "Invite Now",
-                    style: context.textTheme.headlineSmall?.copyWith(color: context.colorScheme.onPrimary),
-                  ),
-                ],
-              ),
+          ),
+          Gap(Spacing.normal),
+          Text(
+            "Read News & Earn Rewards",
+            style: context.textTheme.titleLarge?.copyWith(
+              color: context.colorScheme.shadow,
+              fontWeight: FontWeight.w700,
             ),
-            Gap(Spacing.normal),
-            Text(
-              "Read News & Earn Rewards",
-              style: context.textTheme.titleLarge?.copyWith(
-                color: context.colorScheme.shadow,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            Gap(Spacing.small),
-            DynamicHeightGridView(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: 14,
-              builder: (context, index) {
-                final count = index + 1;
-                final coins = count * (5000);
-                return ReadingNewsTask(
-                  total: count * 10,
-                  coins: coins,
-                  title: "Invite ${count * 10} friends",
-                  subtitle: "Earn ${coins.formattedIndian} Points",
-                  onTap: () {},
-                  isPercentage: true,
-                  icon: Assets.icons.profile.icPeoples.svg(
-                    height: 24,
-                    colorFilter: ColorFilter.mode(context.colorScheme.primary, BlendMode.srcIn),
-                  ),
-                );
-              },
-              padding: EdgeInsets.only(bottom: context.padding.bottom + Spacing.xLarge),
-              crossAxisCount: 1,
-            ),
-          ],
-        ),
+          ),
+          Gap(Spacing.small),
+          DynamicHeightGridView(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: list.length,
+            builder: (context, index) {
+              final data = list[index];
+              final status = context.select<ReferProvider, ClaimStatus>(
+                (value) => value.buttonStatus(id: data.id ?? "", total: data.total ?? 0),
+              );
+              return ReadingNewsTask(
+                referFriends: referralCount,
+                status: status,
+                total: data.total ?? 0,
+                coins: data.coins ?? 0,
+                title: data.title ?? "",
+                subtitle: data.desc ?? "",
+                onTap: () {
+                  provider.getCoinForReferFriend(refer: data);
+                },
+                isPercentage: true,
+                icon: Assets.icons.profile.icPeoples.svg(
+                  height: 24,
+                  colorFilter: ColorFilter.mode(context.colorScheme.primary, BlendMode.srcIn),
+                ),
+              );
+            },
+            padding: EdgeInsets.only(bottom: context.padding.bottom + Spacing.xLarge),
+            crossAxisCount: 1,
+          ),
+        ],
       ),
     );
   }

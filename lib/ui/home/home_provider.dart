@@ -1,78 +1,64 @@
 part of 'home.dart';
 
-final class HomeProvider extends BaseProvider {
+final class HomeProvider extends BaseProvider implements PaginationProvider<NewsData> {
   final NewsRepository newsRepository;
-  final LoadingDialogHandler loadingDialogHandler;
 
-  HomeProvider({required super.context, required this.newsRepository, required this.loadingDialogHandler});
+  HomeProvider({required super.context, required this.newsRepository});
 
-  List<NewsData> news = [];
-
-  int currentIndex = 0;
-  bool isDraggingDown = false;
-  double dragProgress = 0;
+  List<NewsData> _list = [];
+  bool _loading = false;
+  bool _reachAtEnd = false;
+  DocumentSnapshot? _lastDocument;
 
   @override
   void initState() {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      getNews();
+      _getNews();
     });
   }
 
-  void updateProgress(double progress) {
-    dragProgress = progress.clamp(0.0, 1.0);
-    notifyListeners();
-  }
-
-  void setDirection(bool draggingDown) {
-    if (isDraggingDown == draggingDown) return;
-
-    isDraggingDown = draggingDown;
-    notifyListeners();
-  }
-
-  void changeNews(int index) {
-    if (index < 0 || index >= news.length) return;
-
-    currentIndex = index;
-    dragProgress = 0;
-    isDraggingDown = false;
-    notifyListeners();
-
-    preloadAround(context);
-  }
-
-  NewsData? get currentNews => news.isEmpty ? null : news[currentIndex];
-
-  void preloadAround(BuildContext context) {
-    final indexes = [currentIndex - 2, currentIndex - 1, currentIndex + 1, currentIndex + 2];
-
-    for (final index in indexes) {
-      if (index < 0 || index >= news.length) {
-        continue;
-      }
-
-      final imageUrl = news[index].imageUrl;
-
-      if (imageUrl?.isNotEmpty == true) {
-        precacheImage(NetworkImage(imageUrl!), context);
-      }
-    }
-  }
-
-  Future<void> getNews() async {
+  Future<void> _getNews() async {
     final result = await processApi(
       request: () async {
         return await newsRepository.getNewsFromFirebase();
       },
-      onLoading: loadingDialogHandler.handleLoading,
+      onLoading: (loading) {
+        _loading = loading;
+        notifyListeners();
+      },
     );
     if (result != null && context.mounted) {
-      news = [...result];
+      _lastDocument = result.lastDocument;
+      _list = [..._list, ...result.data];
+      _reachAtEnd = !result.hasMore;
       notifyListeners();
-      preloadAround(context);
     }
   }
+
+  @override
+  List<NewsData> get list => _list;
+
+  @override
+  bool get loading => _loading;
+
+  @override
+  Future<void> onLoadMore() async {
+    if (_loading || _reachAtEnd) return;
+    return _getNews();
+  }
+
+  @override
+  Future<void> onRefresh() async {
+    if (_loading) return;
+    _list = [];
+    _lastDocument = null;
+    _reachAtEnd = false;
+    notifyListeners();
+    return _getNews();
+  }
+
+  @override
+  bool get reachAtEnd => throw _reachAtEnd;
 }

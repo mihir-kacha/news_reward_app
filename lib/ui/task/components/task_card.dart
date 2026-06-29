@@ -23,9 +23,7 @@ class _TaskCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = context.read<TaskProvider>();
-
     final remaining = context.select<TaskProvider, Duration?>((v) => v.remainingFor(type));
-
     final isRunning = remaining != null && remaining > Duration.zero;
     return Container(
       width: context.width,

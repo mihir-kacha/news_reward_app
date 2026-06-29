@@ -1,13 +1,21 @@
 part of 'task.dart';
 
-final class TaskProvider extends BaseProvider {
-  TaskProvider({required super.context});
+final class TaskProvider extends BaseProvider with SubscriptionHelper {
+  final UserRepository userRepository;
+  final LoadingDialogHandler loadingDialogHandler;
+
+  TaskProvider({required super.context, required this.userRepository, required this.loadingDialogHandler});
 
   final _luckDuration = Duration(hours: 24);
   final _drinkWaterDuration = Duration(hours: 1);
   final _walkDuration = Duration(hours: 1);
   final _exerciseDuration = Duration(hours: 1);
   final _prayDuration = Duration(hours: 6);
+
+  List<NewsReadModel> list = [];
+  int readNews = 0;
+  Set<String> claimedIds = {};
+  bool isLoading = false;
 
   Timer? _challengeTimer;
 
@@ -19,17 +27,64 @@ final class TaskProvider extends BaseProvider {
 
   bool _disposed = false;
 
-  final List<int> coins = [1000, 2000, 3000, 5000, 7000, 10000, 12000, 15000, 17000, 20000];
-
   @override
   void initState() {
     super.initState();
     _init();
   }
 
-  void _init() {
+  Future<void> _init() async {
+    isLoading = true;
+    notifyListeners();
+    _checkAndResetDailyData();
+    subscriptions.addAll([eventBus.on<SurveyCompletedEvet>().listen(onSurveyCompleted)]);
+    await Future.wait([_loadDailyTask()]);
+    Log.debug(ChallengeType.luck.coins);
+    readNews = preference.readNews;
+    claimedIds = preference.claimedSurveyIds;
     _updateRemaining();
     _startChallengeTimer();
+    isLoading = false;
+    notifyListeners();
+  }
+
+  Future<void> _loadDailyTask() async {
+    final raw = await processApi(request: () async => await rootBundle.loadString(Assets.json.newsRead));
+    if (raw == null) return;
+    final decoded = json.decode(raw);
+    final jsonList = decoded['daily_task'] as List;
+    final result = jsonList.map((e) => NewsReadModel.fromJson(e)).toList();
+    list = result;
+    notifyListeners();
+  }
+
+  void onSurveyCompleted(SurveyCompletedEvet event) {
+    readNews = preference.readNews;
+    notifyListeners();
+  }
+
+  void _checkAndResetDailyData() {
+    final now = DateTime.now();
+    final lastReset = preference.surveyResetDate;
+
+    final bool isNewDay =
+        lastReset == null || lastReset.year != now.year || lastReset.month != now.month || lastReset.day != now.day;
+
+    if (!isNewDay) return;
+
+    preference.readNews = 0;
+    preference.claimedSurveyIds = {};
+    preference.surveyResetDate = DateTime(now.year, now.month, now.day);
+
+    readNews = 0;
+    claimedIds.clear();
+  }
+
+  ClaimStatus buttonStatus({required String id, required int total}) {
+    if (id.isEmpty) return ClaimStatus.locked;
+    if (claimedIds.contains(id)) return ClaimStatus.claimed;
+    if (readNews >= (total)) return ClaimStatus.claim;
+    return ClaimStatus.locked;
   }
 
   Duration? remainingFor(ChallengeType type) {
@@ -96,7 +151,7 @@ final class TaskProvider extends BaseProvider {
       }
     }
 
-    // await _processReward(coins: type.coins);
+    await _processReward(coins: type.coins);
     _setChallengeTimer(type, DateTime.now());
     _updateRemaining();
     notifyListeners();
@@ -136,6 +191,22 @@ final class TaskProvider extends BaseProvider {
       if (_disposed) return;
       _updateRemaining();
     });
+  }
+
+  Future<void> getCoinForReadNews({required NewsReadModel news}) async {
+    await _processReward(coins: news.coins ?? 0);
+    claimedIds.add(news.id!);
+    preference.claimedSurveyIds = claimedIds;
+    notifyListeners();
+  }
+
+  Future<void> _processReward({required int coins}) async {
+    await processApi(
+      request: () async {
+        return await userRepository.addCoins(coins: coins);
+      },
+      onLoading: loadingDialogHandler.handleLoading,
+    );
   }
 
   @override

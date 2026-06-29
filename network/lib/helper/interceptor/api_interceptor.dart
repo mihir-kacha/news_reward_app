@@ -7,14 +7,14 @@ class ApiInterceptor extends Interceptor {
 
   // ── onRequest ────────────────────────────────────────────────────────────────
 
-  @override
-  Future<void> onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
-    final token =  NetworkPrefs.getToken();
-    if (token != null) {
-      options.headers[ApiKeys.authorization] = '${ApiKeys.bearer} $token';
-    }
-    handler.next(options);
-  }
+  // @override
+  // Future<void> onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+  //   final token =  NetworkPrefs.getToken();
+  //   if (token != null) {
+  //     options.headers[ApiKeys.authorization] = '${ApiKeys.bearer} $token';
+  //   }
+  //   handler.next(options);
+  // }
 
   // ── onResponse ───────────────────────────────────────────────────────────────
 
@@ -108,16 +108,16 @@ class ApiInterceptor extends Interceptor {
 
   // ── Helpers ──────────────────────────────────────────────────────────────────
 
-  Future<Response> _retry(RequestOptions options) async {
-    final token = NetworkPrefs.getToken();
-    options.headers[ApiKeys.authorization] = '${ApiKeys.bearer} $token';
-    return DioClient.instance.request(
-      options.path,
-      data: options.data,
-      queryParameters: options.queryParameters,
-      options: Options(method: options.method, headers: options.headers),
-    );
-  }
+  // Future<Response> _retry(RequestOptions options) async {
+  //   final token = NetworkPrefs.getToken();
+  //   options.headers[ApiKeys.authorization] = '${ApiKeys.bearer} $token';
+  //   return DioClient.instance.request(
+  //     options.path,
+  //     data: options.data,
+  //     queryParameters: options.queryParameters,
+  //     options: Options(method: options.method, headers: options.headers),
+  //   );
+  // }
 
   void _rejectAll(DioException err) {
     for (final pending in _pendingRequests) {

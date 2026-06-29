@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:network/network.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'preference_keys.dart';
@@ -57,6 +60,68 @@ class Preference {
   set prayTimer(DateTime? value) => _setTimer(PreferenceKeys.prayTimer, value);
 
   DateTime? get prayTimer => _getTimer(PreferenceKeys.prayTimer);
+
+  //---------- Daily Limit states ----------//
+
+  set coins(int status) => prefs?.setInt(PreferenceKeys.coins, status);
+
+  int get coins => prefs?.getInt(PreferenceKeys.coins) ?? 0;
+
+  set minCoins(int status) => prefs?.setInt(PreferenceKeys.minCoins, status);
+
+  int get minCoins => prefs?.getInt(PreferenceKeys.minCoins) ?? 0;
+
+  set coinsConfig(CoinsConfig config) {
+    prefs?.setString(PreferenceKeys.coinsConfig, jsonEncode(config.toJson()));
+  }
+
+  CoinsConfig get coinsConfig {
+    final data = prefs?.getString(PreferenceKeys.coinsConfig);
+
+    if (data != null) {
+      return CoinsConfig.fromJson(jsonDecode(data) as Map<String, dynamic>);
+    }
+
+    return const CoinsConfig.empty();
+  }
+
+  //---------- user's common states ----------//
+
+  set userId(String? userId) => userId == null ? null : prefs?.setString(PreferenceKeys.userId, userId);
+
+  String? get userId => prefs?.getString(PreferenceKeys.userId);
+
+  set referCode(String? userId) => userId == null ? null : prefs?.setString(PreferenceKeys.referCode, userId);
+
+  String? get referCode => prefs?.getString(PreferenceKeys.referCode);
+
+  set userInfo(UserInfo userInfo) => prefs?.setString(PreferenceKeys.userInfo, jsonEncode(userInfo.toJson()));
+
+  UserInfo get userInfo {
+    final data = prefs?.getString(PreferenceKeys.userInfo);
+    if (data != null) {
+      return UserInfo.fromJson(jsonDecode(data) as Map<String, dynamic>);
+    }
+    return UserInfo.unknown();
+  }
+
+  //---------- News states ----------//
+
+  set readNews(int status) => prefs?.setInt(PreferenceKeys.readNews, status);
+
+  int get readNews => prefs?.getInt(PreferenceKeys.readNews) ?? 0;
+
+  set claimedSurveyIds(Set<String> ids) => prefs?.setStringList(PreferenceKeys.claimedSurveyIds, ids.toList());
+
+  Set<String> get claimedSurveyIds => (prefs?.getStringList(PreferenceKeys.claimedSurveyIds) ?? []).toSet();
+
+  set claimedReferFriendIds(Set<String> ids) => prefs?.setStringList(PreferenceKeys.claimedReferFriendIds, ids.toList());
+
+  Set<String> get claimedReferFriendIds => (prefs?.getStringList(PreferenceKeys.claimedReferFriendIds) ?? []).toSet();
+
+  set surveyResetDate(DateTime? value) => _setTimer(PreferenceKeys.surveyResetDate, value);
+
+  DateTime? get surveyResetDate => _getTimer(PreferenceKeys.surveyResetDate);
 
   void clear() {
     prefs?.clear();

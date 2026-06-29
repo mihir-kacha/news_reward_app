@@ -71,6 +71,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - .env
     - assets/icons/
     - assets/icons/profile/
     - assets/icons/category/
@@ -78,6 +79,7 @@ flutter:
     - assets/images/
     - assets/images/challange_images/
     - assets/images/category/
+    - assets/json/
 
 
   fonts:

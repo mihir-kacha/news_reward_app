@@ -7,13 +7,19 @@ class LoginScreen extends StatelessWidget {
 
   static Widget builder(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => LoginProvider(context: context),
+      create: (context) => LoginProvider(
+        context: context,
+        configRepository: ConfigRepository(),
+        loadingHandler: LoadingDialogHandler(context: context),
+        authRepository: AuthRepository(),
+      ),
       child: LoginScreen(),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.read<LoginProvider>();
     return Scaffold(
       backgroundColor: context.colorScheme.onPrimary,
       body: SafeArea(
@@ -121,8 +127,7 @@ class LoginScreen extends StatelessWidget {
               Gap(Spacing.normal),
               CommonButton.cupertino(
                 onTap: () {
-                  context.navigator.pushNamedAndRemoveUntil(DashboardScreen.routeName, (route) => false);
-                  Preference().isLogin = true;
+                  provider.onGoogleSignIn();
                 },
                 child: Container(
                   width: context.width,

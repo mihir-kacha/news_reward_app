@@ -15,14 +15,14 @@ class RedeemScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: InshortsAppbar(title: Text("Gift Card Coupons"), showBack: false),
+      appBar: NewsPayAppbar(title: Text("Gift Card Coupons"), showBack: false),
       body: SingleChildScrollView(
         padding: EdgeInsetsGeometry.all(Spacing.normal),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            InshortsCoinCard(),
+            NewsPayCoinCard(),
             Gap(Spacing.medium),
             _RedeemCoins(),
             // Text(

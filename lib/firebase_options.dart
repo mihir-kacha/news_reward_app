@@ -64,7 +64,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '832096127020',
     projectId: 'inshorts-c9418',
     storageBucket: 'inshorts-c9418.firebasestorage.app',
-    iosBundleId: 'com.example.inshorts',
+    iosBundleId: 'com.makemonefromnews.makemoneyfromreadingnews.dailynews.newsread.earnmoney.breakingnewsdaily',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -73,7 +73,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '832096127020',
     projectId: 'inshorts-c9418',
     storageBucket: 'inshorts-c9418.firebasestorage.app',
-    iosBundleId: 'com.example.inshorts',
+    iosBundleId: 'com.makemonefromnews.makemoneyfromreadingnews.dailynews.newsread.earnmoney.breakingnewsdaily',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(

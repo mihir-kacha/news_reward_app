@@ -3,20 +3,26 @@ part of 'pagination_helper.dart';
 class PaginatedListResult<T> extends Equatable {
   const PaginatedListResult({
     required this.data,
-    required this.totalCount,
+    this.totalCount,
+    this.lastDocument,
+    this.latestDocument,
     required this.hasMore,
   });
 
   const PaginatedListResult.empty({
     this.data = const [],
-    this.totalCount = 0,
+    this.totalCount,
+    this.lastDocument,
+    this.latestDocument,
     this.hasMore = false,
   });
 
   final Iterable<T> data;
-  final int totalCount;
+  final int? totalCount;
+  final DocumentSnapshot? lastDocument;
+  final DocumentSnapshot? latestDocument;
   final bool hasMore;
 
   @override
-  List<Object?> get props => [totalCount, data, hasMore];
+  List<Object?> get props => [lastDocument, totalCount, latestDocument, data, hasMore];
 }

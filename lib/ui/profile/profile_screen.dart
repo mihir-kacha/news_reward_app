@@ -7,7 +7,11 @@ class ProfileScreen extends StatelessWidget {
 
   static Widget builder(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => ProfileProvider(context: context),
+      create: (context) => ProfileProvider(
+        context: context,
+        loadingDialogHandler: LoadingDialogHandler(context: context),
+        authRepository: AuthRepository(),
+      ),
       child: ProfileScreen(),
     );
   }
@@ -15,13 +19,13 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: InshortsAppbar(title: Text("Bhagirathi"), showBack: false),
+      appBar: NewsPayAppbar(title: Text(Preference().userInfo.name), showBack: false),
       body: SingleChildScrollView(
         padding: EdgeInsetsGeometry.all(Spacing.normal),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [InshortsCoinCard(), Gap(Spacing.medium), _ProfileAction()],
+          children: [NewsPayCoinCard(), Gap(Spacing.medium), _ProfileAction()],
         ),
       ),
     );
@@ -33,6 +37,7 @@ class _ProfileAction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.read<ProfileProvider>();
     return Container(
       padding: EdgeInsets.all(Spacing.medium),
       decoration: BoxDecoration(
@@ -55,16 +60,6 @@ class _ProfileAction extends StatelessWidget {
               context.navigator.pushNamed(ReferScreen.routeName);
             },
           ),
-          // _Divider(),
-          // _ActionCell(
-          //   icon: Assets.icons.profile.icBulb.path,
-          //   color: Color(0XFFb84312),
-          //   title: "Tips",
-          //   subTitle: "Maximum your earning with pro tips!",
-          //   onTap: () {
-          //     context.navigator.pushNamed(TipsScreen.routeName);
-          //   },
-          // ),
           _Divider(),
           _ActionCell(
             icon: Assets.icons.profile.icShare.path,
@@ -112,14 +107,7 @@ class _ProfileAction extends StatelessWidget {
             title: "Logout",
             subTitle: "Securely end your session",
             onTap: () {
-              ExitSheet.show(
-                context: context,
-                onDone: () {
-                  context.navigator.pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
-                  Preference().isLogin = false;
-                  Preference().clear();
-                },
-              );
+              ExitSheet.show(context: context, onDone: provider.onLogout);
             },
           ),
         ],
@@ -193,11 +181,6 @@ class _Divider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Divider(
-      color: context.colorScheme.surfaceTint.withColorOpacity(.2),
-      endIndent: 0,
-      indent: 50,
-      height: 30,
-    );
+    return Divider(color: context.colorScheme.surfaceTint.withColorOpacity(.2), endIndent: 0, indent: 50, height: 30);
   }
 }

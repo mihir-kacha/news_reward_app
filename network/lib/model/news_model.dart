@@ -3,7 +3,6 @@ part of 'model.dart';
 abstract interface class NewsDataFields {
   static const String createdAt = 'created_at';
   static const String category = 'category';
-
 }
 
 class NewsModel {
@@ -71,6 +70,7 @@ class NewsData {
   final String? aiOrg;
   final String? aiSummary;
   final bool? duplicate;
+  final int? code;
 
   NewsData({
     this.articleId,
@@ -101,6 +101,7 @@ class NewsData {
     this.aiOrg,
     this.aiSummary,
     this.duplicate,
+    this.code,
   });
 
   factory NewsData.fromJson(Map<String, dynamic> json) {
@@ -133,6 +134,7 @@ class NewsData {
       aiOrg: json['ai_org'],
       aiSummary: json['ai_summary'],
       duplicate: json['duplicate'],
+      code: json['code'],
     );
   }
 
@@ -169,6 +171,7 @@ class NewsData {
 
       /// Firebase metadata
       'created_at': DateTime.now().toIso8601String(),
+      'code': code,
     };
   }
 
@@ -188,7 +191,7 @@ class NewsData {
     String? pubDateTz,
     DateTime? fetchedAt,
     String? imageUrl,
-    dynamic? videoUrl,
+    dynamic videoUrl,
     String? sourceId,
     String? sourceName,
     int? sourcePriority,
@@ -201,6 +204,7 @@ class NewsData {
     String? aiOrg,
     String? aiSummary,
     bool? duplicate,
+    int? code,
   }) {
     return NewsData(
       articleId: articleId ?? this.articleId,
@@ -231,6 +235,7 @@ class NewsData {
       aiOrg: aiOrg ?? this.aiOrg,
       aiSummary: aiSummary ?? this.aiSummary,
       duplicate: duplicate ?? this.duplicate,
+      code: code ?? this.code,
     );
   }
 }

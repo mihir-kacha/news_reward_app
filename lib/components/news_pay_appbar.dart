@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:inshorts/core/core.dart';
 import 'package:inshorts/generated/assets.gen.dart';
+import 'package:inshorts/provider/user_provider.dart';
 import 'package:inshorts/resources/resources.dart';
 import 'package:inshorts/utils/common_button.dart';
+import 'package:provider/provider.dart';
 
-class InshortsAppbar extends StatelessWidget implements PreferredSizeWidget {
+class NewsPayAppbar extends StatelessWidget implements PreferredSizeWidget {
   final Widget title;
   final Widget? leading;
   final bool? centerTitle;
@@ -17,7 +19,7 @@ class InshortsAppbar extends StatelessWidget implements PreferredSizeWidget {
   final Color? backgroundColor;
   final EdgeInsets? actionPadding;
 
-  const InshortsAppbar({
+  const NewsPayAppbar({
     super.key,
     required this.title,
     this.leading,
@@ -33,6 +35,7 @@ class InshortsAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final coin = context.select<UserProvider, int>((value) => value.userData.coins ?? 0);
     return AppBar(
       titleTextStyle: textStyle ?? context.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),
       automaticallyImplyLeading: autoLeading ?? false,
@@ -69,7 +72,7 @@ class InshortsAppbar extends StatelessWidget implements PreferredSizeWidget {
                   Assets.images.imgCoin.image(height: 18),
                   Gap(Spacing.xSmall),
                   Text(
-                    "100",
+                    "$coin",
                     style: context.textTheme.bodySmall?.copyWith(
                       color: context.colorScheme.onPrimary,
                       fontWeight: FontWeight.w600,

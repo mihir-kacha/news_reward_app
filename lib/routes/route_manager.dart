@@ -57,14 +57,31 @@ class AppRoutes {
       case NewsScreen.routeName:
         builder = NewsScreen.builder;
         break;
+      case NewsDetailScreen.routeName:
+        builder = NewsDetailScreen.builder;
+        break;
+      case NewsCodeScreen.routeName:
+        builder = NewsCodeScreen.builder;
+        break;
+      case CongratulationScreen.routeName:
+        builder = CongratulationScreen.builder;
+        break;
       default:
         return null;
     }
     return FadePageRoute(
+      builder: (context) => MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => UserProvider(
+              context: context,
+              userRepository: UserRepository(uid: Preference().userId ?? ""),
+            ),
+          ),
+        ],
+        child: builder!(context),
+      ),
       settings: settings,
-      builder: (BuildContext context) {
-        return builder!(context);
-      },
     );
   }
 }

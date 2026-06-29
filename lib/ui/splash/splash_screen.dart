@@ -10,6 +10,7 @@ class SplashScreen extends StatelessWidget {
       create: (context) => SplashProvider(
         context: context,
         newsRepository: NewsRepository(),
+        configRepository: ConfigRepository(),
         loadingDialogHandler: LoadingDialogHandler(context: context),
       ),
       child: SplashScreen(),
@@ -26,12 +27,12 @@ class SplashScreen extends StatelessWidget {
         children: [
           Center(
             child: Text(
-              "Inshorts",
+              "NewsPay",
               style: context.textTheme.headlineLarge?.copyWith(color: context.colorScheme.onPrimary),
             ),
           ),
-          Gap(Spacing.xxxLarge),
-          FilledButton(onPressed: provider.changeScreen, child: Text("Get API Data")),
+          // Gap(Spacing.xxxLarge),
+          // FilledButton(onPressed: provider.changeScreen, child: Text("Get API Data")),
         ],
       ),
     );

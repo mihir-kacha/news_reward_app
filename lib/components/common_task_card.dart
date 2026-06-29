@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:inshorts/core/core.dart';
+import 'package:inshorts/data/preference/preference.dart';
 import 'package:inshorts/generated/assets.gen.dart';
 import 'package:inshorts/resources/resources.dart';
 import 'package:inshorts/utils/common_button.dart';
-
-import '../core/core.dart';
+import 'package:inshorts/utils/enum.dart';
 
 class ReadingNewsTask extends StatelessWidget {
   final int total;
@@ -14,6 +15,8 @@ class ReadingNewsTask extends StatelessWidget {
   final VoidCallback onTap;
   final bool isPercentage;
   final Widget icon;
+  final ClaimStatus status;
+  final int? referFriends;
 
   const ReadingNewsTask({
     super.key,
@@ -24,11 +27,16 @@ class ReadingNewsTask extends StatelessWidget {
     required this.onTap,
     this.isPercentage = false,
     required this.icon,
+    required this.status,
+    this.referFriends,
   });
 
   @override
   Widget build(BuildContext context) {
-    final isCompleted = 1 == total;
+    final referFriendsCount = referFriends ?? 0;
+    final friends = (referFriendsCount >= total) ? total : referFriendsCount;
+    final readNews = Preference().readNews;
+    final news = (readNews >= total) ? total : readNews;
     return Container(
       width: context.width,
       padding: EdgeInsets.all(Spacing.medium),
@@ -99,7 +107,7 @@ class ReadingNewsTask extends StatelessWidget {
                   ),
                 ],
                 Gap(Spacing.small),
-                TaskProgressIndicator(current: 1, total: total, isPercentage: isPercentage),
+                TaskProgressIndicator(current: isPercentage ? friends : news, total: total, isPercentage: isPercentage),
               ],
             ),
           ),
@@ -120,33 +128,110 @@ class ReadingNewsTask extends StatelessWidget {
                 Gap(Spacing.small),
               ],
               CommonButton.cupertino(
-                onTap: isCompleted ? null : onTap,
+                onTap: (status != .claim) ? null : onTap,
                 child: Container(
-                  padding: EdgeInsets.symmetric(
-                    vertical: isPercentage ? Spacing.xSmall : Spacing.small,
-                    horizontal: Spacing.normal,
-                  ),
+                  padding: (status == .claimed)
+                      ? EdgeInsets.all(Spacing.xSmall)
+                      : EdgeInsets.symmetric(vertical: Spacing.small, horizontal: Spacing.normal),
                   decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: context.colorScheme.primary.withColorOpacity(.8),
-                        spreadRadius: 0,
-                        blurRadius: 8,
-                        offset: Offset(0, 0),
-                      ),
-                    ],
-                    color: context.colorScheme.primary,
-                    borderRadius: isPercentage ? ShapeBorderRadius.xxxLarge : ShapeBorderRadius.small,
+                    boxShadow: (status == .claim)
+                        ? [
+                            BoxShadow(
+                              color: context.colorScheme.primary.withColorOpacity(.8),
+                              spreadRadius: 0,
+                              blurRadius: 8,
+                              offset: Offset(0, 0),
+                            ),
+                          ]
+                        : null,
+                    color: (status == .claim) ? context.colorScheme.primary : context.colorScheme.outline,
+                    borderRadius: ShapeBorderRadius.small,
                   ),
                   child: Text(
-                    "Claim",
-                    style: context.textTheme.bodyMedium?.copyWith(
-                      color: context.colorScheme.onPrimary,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    status == .claimed ? "Available \n Tomorrow" : "Claim",
+                    style: (status == .claimed)
+                        ? context.textTheme.bodySmall?.copyWith(
+                            color: context.colorScheme.surfaceTint,
+                            fontWeight: FontWeight.w700,
+                          )
+                        : context.textTheme.bodyMedium?.copyWith(
+                            color: (status == .claim)
+                                ? context.colorScheme.onPrimary
+                                : context.colorScheme.onSurfaceVariant,
+                            fontWeight: FontWeight.w700,
+                          ),
                   ),
                 ),
               ),
+              // if (isPercentage) ...[
+              //   CommonButton.cupertino(
+              //     onTap: isCompleted ? onTap : null,
+              //     child: Container(
+              //       padding: EdgeInsets.symmetric(
+              //         vertical: isPercentage ? Spacing.xSmall : Spacing.small,
+              //         horizontal: Spacing.normal,
+              //       ),
+              //       decoration: BoxDecoration(
+              //         boxShadow: isCompleted
+              //             ? [
+              //                 BoxShadow(
+              //                   color: context.colorScheme.primary.withColorOpacity(.8),
+              //                   spreadRadius: 0,
+              //                   blurRadius: 8,
+              //                   offset: Offset(0, 0),
+              //                 ),
+              //               ]
+              //             : null,
+              //         color: (!isCompleted) ? context.colorScheme.outline : context.colorScheme.primary,
+              //         borderRadius: isPercentage ? ShapeBorderRadius.xxxLarge : ShapeBorderRadius.small,
+              //       ),
+              //       child: Text(
+              //         "Claim",
+              //         style: context.textTheme.bodyMedium?.copyWith(
+              //           color: isCompleted ? context.colorScheme.onPrimary : context.colorScheme.onSurfaceVariant,
+              //           fontWeight: FontWeight.w700,
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ] else ...[
+              //   CommonButton.cupertino(
+              //     onTap: (status != .claim) ? null : onTap,
+              //     child: Container(
+              //       padding: (status == .claimed)
+              //           ? EdgeInsets.all(Spacing.xSmall)
+              //           : EdgeInsets.symmetric(vertical: Spacing.small, horizontal: Spacing.normal),
+              //       decoration: BoxDecoration(
+              //         boxShadow: (status == .claim)
+              //             ? [
+              //                 BoxShadow(
+              //                   color: context.colorScheme.primary.withColorOpacity(.8),
+              //                   spreadRadius: 0,
+              //                   blurRadius: 8,
+              //                   offset: Offset(0, 0),
+              //                 ),
+              //               ]
+              //             : null,
+              //         color: (status == .claim) ? context.colorScheme.primary : context.colorScheme.outline,
+              //         borderRadius: ShapeBorderRadius.small,
+              //       ),
+              //       child: Text(
+              //         status == .claimed ? "Available \n Tomorrow" : "Claim",
+              //         style: (status == .claimed)
+              //             ? context.textTheme.bodySmall?.copyWith(
+              //                 color: context.colorScheme.surfaceTint,
+              //                 fontWeight: FontWeight.w700,
+              //               )
+              //             : context.textTheme.bodyMedium?.copyWith(
+              //                 color: (status == .claim)
+              //                     ? context.colorScheme.onPrimary
+              //                     : context.colorScheme.onSurfaceVariant,
+              //                 fontWeight: FontWeight.w700,
+              //               ),
+              //       ),
+              //     ),
+              //   ),
+              // ],
             ],
           ),
         ],
@@ -167,6 +252,7 @@ class TaskProgressIndicator extends StatelessWidget {
     final progress = (current / total);
     final percentage = progress * 100;
 
+    final read = (current >= total) ? total : current;
     return Row(
       children: [
         Expanded(
@@ -181,7 +267,7 @@ class TaskProgressIndicator extends StatelessWidget {
         ),
         Gap(Spacing.small),
         Text(
-          isPercentage ? '${percentage.percentage}%' : '$current/$total',
+          isPercentage ? '${percentage.percentage}%' : '$read/$total',
           style: context.textTheme.bodySmall?.copyWith(color: context.colorScheme.surfaceTint),
         ),
       ],

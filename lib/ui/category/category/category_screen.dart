@@ -16,7 +16,7 @@ class CategoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = context.read<CategoryProvider>();
     return Scaffold(
-      appBar: InshortsAppbar(
+      appBar: NewsPayAppbar(
         title: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,

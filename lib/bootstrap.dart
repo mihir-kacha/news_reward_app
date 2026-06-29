@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:inshorts/data/preference/preference.dart';
+import 'package:network/network.dart';
 
 import 'core/core.dart';
 
@@ -16,6 +17,7 @@ void bootstrap({required FutureOr<Widget> Function() builder}) {
         _configureFirebase(firebaseHelper: firebaseHelper),
         _configureSystemUi(),
         Preference().init(),
+        EnvHelper.instance.initialize(),
       ]);
       return runApp(await builder());
     },

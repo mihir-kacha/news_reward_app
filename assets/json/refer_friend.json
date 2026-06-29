@@ -1,0 +1,102 @@
+{
+  "daily_task": [
+    {
+      "id": "survey_10",
+      "title": "Invite 10 news daily",
+      "desc": "Earn 5,000 Points",
+      "coins": 5000,
+      "total": 10
+    },
+    {
+      "id": "survey_20",
+      "title": "Invite 20 news daily",
+      "desc": "Earn 10,000 Points",
+      "coins": 10000,
+      "total": 20
+    },
+    {
+      "id": "survey_30",
+      "title": "Invite 30 news daily",
+      "desc": "Earn 15,000 Points",
+      "coins": 15000,
+      "total": 30
+    },
+    {
+      "id": "survey_40",
+      "title": "Invite 40 news daily",
+      "desc": "Earn 20,000 Points",
+      "coins": 20000,
+      "total": 40
+    },
+    {
+      "id": "survey_50",
+      "title": "Invite 50 news daily",
+      "desc": "Earn 25,000 Points",
+      "coins": 25000,
+      "total": 50
+    },
+    {
+      "id": "survey_60",
+      "title": "Invite 60 news daily",
+      "desc": "Earn 10,000 Points",
+      "coins": 10000,
+      "total": 60
+    },
+    {
+      "id": "survey_70",
+      "title": "Invite 70 news daily",
+      "desc": "Earn 30,000 Points",
+      "coins": 30000,
+      "total": 70
+    },
+    {
+      "id": "survey_80",
+      "title": "Invite 80 news daily",
+      "desc": "Earn 35,000 Points",
+      "coins": 55000,
+      "total": 80
+    },
+    {
+      "id": "survey_90",
+      "title": "Invite 90 news daily",
+      "desc": "Earn 40,000 Points",
+      "coins": 40000,
+      "total": 90
+    },
+    {
+      "id": "survey_100",
+      "title": "Invite 100 news daily",
+      "desc": "Earn 45,000 Points",
+      "coins": 45000,
+      "total": 100
+    },
+    {
+      "id": "survey_110",
+      "title": "Invite 100 news daily",
+      "desc": "Earn 50,000 Points",
+      "coins": 50000,
+      "total": 110
+    },
+    {
+      "id": "survey_120",
+      "title": "Invite 100 news daily",
+      "desc": "Earn 55,000 Points",
+      "coins": 55000,
+      "total": 120
+    },
+    {
+      "id": "survey_130",
+      "title": "Invite 100 friends",
+      "desc": "Earn 60,000 Points",
+      "coins": 60000,
+      "total": 130
+    },
+    {
+      "id": "survey_140",
+      "title": "Invite 100 friends",
+      "desc": "friends 65,000 Points",
+      "coins": 65000,
+      "total": 140
+    }
+  ]
+}

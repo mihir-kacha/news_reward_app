@@ -38,7 +38,7 @@ class _Body extends StatelessWidget {
             children: [
               if (currentIndex == 0) ...[_OnboardingOne()] else ...[_OnboardingTwo()],
               Positioned.fill(
-                bottom: Spacing.normal,
+                bottom: context.padding.bottom,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.end,

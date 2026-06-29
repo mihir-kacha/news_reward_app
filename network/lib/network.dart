@@ -1,16 +1,16 @@
 import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
-
+import 'dart:math' show Random;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cloud_functions/cloud_functions.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:network/helper/logger.dart';
 import 'package:network/helper/pagination_helper/pagination_helper.dart';
 import 'package:network/model/model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 export 'model/model.dart';
 
@@ -22,6 +22,13 @@ part 'helper/api_manager/api_urls.dart';
 part 'helper/event_bus.dart';
 part 'helper/interceptor/api_interceptor.dart';
 part 'helper/dio_client/dio_client.dart';
-part 'helper/network_prefs/network_prefs.dart';
-part 'repository/news_repository.dart';
 part 'helper/firebase_helper/firebase_firestore_helper.dart';
+part 'helper/firebase_helper/env_helper.dart';
+part 'repository/config_repository.dart';
+part 'repository/news_repository.dart';
+part 'repository/auth_repository.dart';
+part 'repository/user_repository.dart';
+part 'utils/network_constants.dart';
+part 'utils/event.dart';
+part 'utils/refer_code_generator.dart';
+part 'repository/referrals_repository.dart';

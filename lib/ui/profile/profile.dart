@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:inshorts/components/Inshorts_appbar.dart';
-import 'package:inshorts/components/Inshorts_coin_card.dart';
+import 'package:inshorts/components/news_pay_appbar.dart';
+import 'package:inshorts/components/news_pay_coin_card.dart';
 import 'package:inshorts/components/model.dart';
 import 'package:inshorts/core/core.dart';
 import 'package:inshorts/data/preference/preference.dart';
@@ -13,6 +13,7 @@ import 'package:inshorts/ui/refer/refer.dart';
 import 'package:inshorts/utils/app_constant.dart';
 import 'package:inshorts/utils/common_button.dart';
 import 'package:inshorts/utils/common_functions.dart';
+import 'package:network/network.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 

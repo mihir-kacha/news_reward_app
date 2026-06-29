@@ -5,19 +5,26 @@ class _DailyNewsReadingTask extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final list = context.select<TaskProvider, List<int>>((value) => value.coins);
+    final provider = context.read<TaskProvider>();
+    final list = context.select<TaskProvider, List<NewsReadModel>>((value) => value.list);
     return DynamicHeightGridView(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: 10,
+      itemCount: list.length,
       builder: (context, index) {
-        final coins = list[index];
+        final data = list[index];
+        final status = context.select<TaskProvider, ClaimStatus>(
+          (value) => value.buttonStatus(id: data.id ?? "", total: data.total ?? 0),
+        );
         return ReadingNewsTask(
-          total: index + 1,
-          coins: coins,
-          title: "Read ${index + 1} news daily",
-          subtitle: "Read News Daily & Earn ${coins.formattedIndian} Points",
-          onTap: () {},
+          status: status,
+          total: data.total ?? 0,
+          coins: data.coins ?? 0,
+          title: data.title ?? '',
+          subtitle: data.desc ?? '',
+          onTap: () {
+            provider.getCoinForReadNews(news: data);
+          },
           icon: Image.asset(Assets.images.challangeImages.imgNewspaper.path, height: 30, width: 30),
         );
       },

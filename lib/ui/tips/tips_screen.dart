@@ -16,7 +16,7 @@ class TipsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.colorScheme.surfaceContainerLow,
-      appBar: InshortsAppbar(title: Text("Refer & Earn"), autoLeading: true),
+      appBar: NewsPayAppbar(title: Text("Refer & Earn"), autoLeading: true),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: Spacing.normal, vertical: Spacing.large),
         child: Column(

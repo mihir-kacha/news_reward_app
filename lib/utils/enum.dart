@@ -1,4 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:inshorts/core/core.dart';
+import 'package:inshorts/data/preference/preference.dart';
 import 'package:inshorts/generated/assets.gen.dart';
 
 enum CardPosition { previous, current, next }
@@ -117,11 +121,11 @@ enum ChallengeType {
   pray;
 
   int get coins => switch (this) {
-    ChallengeType.luck => 0,
-    ChallengeType.drinkWater => 2000,
-    ChallengeType.walk => 2000,
-    ChallengeType.exercise => 2000,
-    ChallengeType.pray => 2000,
+    ChallengeType.luck => Random().nextInt(10000),
+    ChallengeType.drinkWater => Preference().coinsConfig.drinkWaterCoins,
+    ChallengeType.walk => Preference().coinsConfig.walkCoins,
+    ChallengeType.exercise => Preference().coinsConfig.exerciseCoins,
+    ChallengeType.pray => Preference().coinsConfig.prayCoins,
   };
 
   String label(BuildContext context) {
@@ -151,4 +155,30 @@ enum ChallengeType {
     ChallengeType.exercise => Assets.images.challangeImages.imgExercise.path,
     ChallengeType.pray => Assets.images.challangeImages.imgPray.path,
   };
+}
+
+enum ClaimStatus { locked, claim, claimed }
+
+extension $SurveyStatusColor on ClaimStatus {
+  Color backgroundColor(BuildContext context) {
+    switch (this) {
+      case ClaimStatus.locked:
+        return context.colorScheme.primary;
+      case ClaimStatus.claim:
+        return const Color(0xFF22C55E);
+      case ClaimStatus.claimed:
+        return Colors.grey.shade200;
+    }
+  }
+
+  Color textColor(BuildContext context) {
+    switch (this) {
+      case ClaimStatus.locked:
+        return context.colorScheme.onPrimary;
+      case ClaimStatus.claim:
+        return Colors.white;
+      case ClaimStatus.claimed:
+        return Colors.grey.shade600;
+    }
+  }
 }

@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:inshorts/core/core.dart';
 import 'package:inshorts/generated/assets.gen.dart';
+import 'package:inshorts/provider/user_provider.dart';
 import 'package:inshorts/resources/resources.dart';
+import 'package:provider/provider.dart';
 
-class InshortsCoinCard extends StatelessWidget {
-  const InshortsCoinCard({super.key});
+class NewsPayCoinCard extends StatelessWidget {
+  const NewsPayCoinCard({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final coin = context.select<UserProvider, int>((value) => value.userData.coins ?? 0);
+    final amount = coin.toCurrency();
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -32,7 +36,12 @@ class InshortsCoinCard extends StatelessWidget {
                 style: context.textTheme.bodyMedium?.copyWith(color: context.colorScheme.onPrimary),
               ),
               Gap(Spacing.xSmall),
-              Text("100", style: context.textTheme.headlineLarge?.copyWith(color: context.colorScheme.onPrimary)),
+              Text(
+                "$coin",
+                style: context.textTheme.headlineLarge?.copyWith(color: context.colorScheme.onPrimary),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
               Gap(Spacing.xSmall),
               RichText(
                 text: TextSpan(
@@ -40,7 +49,7 @@ class InshortsCoinCard extends StatelessWidget {
                   style: context.textTheme.bodyLarge?.copyWith(color: context.colorScheme.onPrimary),
                   children: [
                     TextSpan(
-                      text: " \$3.3",
+                      text: " \$$amount",
                       style: context.textTheme.bodyLarge?.copyWith(color: context.colorScheme.onPrimary),
                     ),
                   ],
@@ -51,7 +60,7 @@ class InshortsCoinCard extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: Spacing.xSmall, horizontal: Spacing.medium),
                 decoration: BoxDecoration(
                   borderRadius: ShapeBorderRadius.xxxLarge,
-                  border: Border.all(color: context.colorScheme.onPrimary.withColorOpacity(.3),width: 2),
+                  border: Border.all(color: context.colorScheme.onPrimary.withColorOpacity(.3), width: 2),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -60,7 +69,7 @@ class InshortsCoinCard extends StatelessWidget {
                     Assets.images.imgCoin.image(height: 18),
                     Gap(Spacing.small),
                     Text(
-                      "100 coins",
+                      "$coin coins",
                       style: context.textTheme.bodyMedium?.copyWith(
                         color: context.colorScheme.onPrimary,
                         fontWeight: FontWeight.w600,
@@ -73,8 +82,8 @@ class InshortsCoinCard extends StatelessWidget {
           ),
         ),
         Positioned(
-          right: Spacing.normal,
-          child: Assets.images.imgWalletWithCard.image(width: context.width / 2.5, height: context.width / 2.5),
+          right: 0,
+          child: Assets.images.imgWalletWithCard.image(width: context.width / 3, height: context.width / 3),
         ),
       ],
     );
