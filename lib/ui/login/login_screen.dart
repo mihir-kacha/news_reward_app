@@ -31,7 +31,7 @@ class LoginScreen extends StatelessWidget {
             children: [
               RichText(
                 text: TextSpan(
-                  text: "InShorts: ",
+                  text: "NewsPay: ",
                   style: context.textTheme.headlineSmall,
                   children: [
                     TextSpan(
@@ -50,7 +50,7 @@ class LoginScreen extends StatelessWidget {
               ),
               Stack(
                 children: [
-                  Assets.images.imgLogin.image(),
+                  Assets.images.imgLogin.image(height: context.height/1.8),
                   Positioned(
                     left: 0,
                     right: 0,
@@ -170,7 +170,10 @@ class LoginScreen extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                         decoration: TextDecoration.underline,
                       ),
-                      recognizer: TapGestureRecognizer()..onTap = () {},
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          CommonFunc.openUrl(url: AppConstants.privacyPolicyUrl);
+                        },
                     ),
                     TextSpan(text: " and "),
                     TextSpan(
@@ -180,7 +183,10 @@ class LoginScreen extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                         decoration: TextDecoration.underline,
                       ),
-                      recognizer: TapGestureRecognizer()..onTap = () {},
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          CommonFunc.openUrl(url: AppConstants.termsAndConditions);
+                        },
                     ),
                   ],
                 ),

@@ -32,6 +32,7 @@ class AuthRepository {
         updatedAt: DateTime.now(),
         coins: coins,
         referCode: referCode,
+        claimedIds: {},
       );
       await _userRef.doc(userDocument.id).set(userDocument);
       await googleSignIn.signOut();

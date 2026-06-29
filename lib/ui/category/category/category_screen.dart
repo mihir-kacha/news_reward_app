@@ -21,7 +21,7 @@ class CategoryScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Inshorts", style: context.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700)),
+            Text("NewsPay", style: context.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700)),
             Text(
               "Choose a category to explore quick insights",
               style: context.textTheme.labelSmall?.copyWith(

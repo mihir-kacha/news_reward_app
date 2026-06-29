@@ -85,6 +85,20 @@ class Preference {
     return const CoinsConfig.empty();
   }
 
+  set referralCoinsConfig(ReferralConfig config) {
+    prefs?.setString(PreferenceKeys.referralCoinsConfig, jsonEncode(config.toJson()));
+  }
+
+  ReferralConfig get referralCoinsConfig {
+    final data = prefs?.getString(PreferenceKeys.referralCoinsConfig);
+
+    if (data != null) {
+      return ReferralConfig.fromJson(jsonDecode(data) as Map<String, dynamic>);
+    }
+
+    return const ReferralConfig.empty();
+  }
+
   //---------- user's common states ----------//
 
   set userId(String? userId) => userId == null ? null : prefs?.setString(PreferenceKeys.userId, userId);
@@ -115,7 +129,8 @@ class Preference {
 
   Set<String> get claimedSurveyIds => (prefs?.getStringList(PreferenceKeys.claimedSurveyIds) ?? []).toSet();
 
-  set claimedReferFriendIds(Set<String> ids) => prefs?.setStringList(PreferenceKeys.claimedReferFriendIds, ids.toList());
+  set claimedReferFriendIds(Set<String> ids) =>
+      prefs?.setStringList(PreferenceKeys.claimedReferFriendIds, ids.toList());
 
   Set<String> get claimedReferFriendIds => (prefs?.getStringList(PreferenceKeys.claimedReferFriendIds) ?? []).toSet();
 
@@ -124,6 +139,8 @@ class Preference {
   DateTime? get surveyResetDate => _getTimer(PreferenceKeys.surveyResetDate);
 
   void clear() {
+    final isShowOnBoarding = this.isShowOnBoarding;
     prefs?.clear();
+    this.isShowOnBoarding = isShowOnBoarding;
   }
 }

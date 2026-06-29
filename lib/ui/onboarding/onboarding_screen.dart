@@ -66,7 +66,7 @@ class _Body extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            (currentIndex == 0) ? "Get Start" : "Next",
+                            (currentIndex == 0) ? "Get Started" : "Next",
                             style: context.textTheme.bodyLarge?.copyWith(color: context.colorScheme.onPrimary),
                           ),
                           Gap(Spacing.normal),

@@ -13,7 +13,7 @@ class _OnBoardingAppBar extends StatelessWidget implements PreferredSizeWidget {
         borderRadius: BorderRadius.only(bottomLeft: RadiusValues.normal, bottomRight: RadiusValues.normal),
       ),
       child: Text(
-        "InShort : Read to Earn Money",
+        "NewsPay : Read to Earn Money",
         style: context.textTheme.headlineSmall?.copyWith(color: context.colorScheme.onPrimary),
       ),
     );

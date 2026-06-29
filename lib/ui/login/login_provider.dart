@@ -19,7 +19,8 @@ final class LoginProvider extends BaseProvider {
   }
 
   Future<void> _init() async {
-    Future.wait([_getWithdrawConfig(), _getCoinsConfig()]);
+    ConnectivityHelper.instance.updateContext(context);
+    Future.wait([_getWithdrawConfig(), _getCoinsConfig(), _getReferralCoinsConfig()]);
   }
 
   Future<void> _getWithdrawConfig() async {
@@ -47,6 +48,18 @@ final class LoginProvider extends BaseProvider {
     }
   }
 
+  Future<void> _getReferralCoinsConfig() async {
+    final result = await processApi(
+      request: () async {
+        return await configRepository.getReferralCoinConfig();
+      },
+    );
+    if (result != null) {
+      preference.referralCoinsConfig = result;
+      notifyListeners();
+    }
+  }
+
   Future<void> onGoogleSignIn() async {
     final referCode = await authRepository.generateUniqueReferCode();
 
@@ -70,6 +83,7 @@ final class LoginProvider extends BaseProvider {
       preference.userId = userData.id;
       preference.userInfo = userData.toGeneralInfo();
       preference.referCode = userData.referCode;
+      preference.claimedReferFriendIds = userData.claimedIds ?? {};
     }
   }
 }

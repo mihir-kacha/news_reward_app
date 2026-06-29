@@ -42,7 +42,7 @@ class _OnboardingOne extends StatelessWidget {
         ),
         Gap(Spacing.xSmall),
         _PointBullet(
-          text: 'Redeem available digital rewards such as PayPal, Amazon, Netflix, Zara and more.',
+          text: 'Redeem available digital rewards such as PayPal.',
           icons: Assets.icons.icGift.path,
         ),
       ],

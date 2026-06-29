@@ -16,6 +16,7 @@ final class ReferProvider extends BaseProvider {
   final TextEditingController codeController = TextEditingController();
 
   String? inviterReferralCode;
+  String? referralById;
 
   List<ReferFriendModel> list = [];
   int referralCount = 0;
@@ -33,8 +34,8 @@ final class ReferProvider extends BaseProvider {
   Future<void> _init() async {
     isLoading = true;
     notifyListeners();
-    claimedIds = preference.claimedReferFriendIds;
-    await Future.wait([_getInviterReferralCode(), _getReferralCount(), _loadDailyTask()]);
+    claimedIds = {...preference.claimedReferFriendIds};
+    await Future.wait([_getInviterReferralCode(), _getInviterReferralId(), _getReferralCount(), _loadDailyTask()]);
     _calculateEarningCoins();
     isLoading = false;
     notifyListeners();
@@ -49,9 +50,6 @@ final class ReferProvider extends BaseProvider {
     list = result;
   }
 
-  Future<void> onInvite() async {
-    await SharePlus.instance.share(ShareParams(text: 'Check out this awesome app!', subject: 'My App'));
-  }
 
   void _calculateEarningCoins() {
     earningCoins = 0;
@@ -83,6 +81,19 @@ final class ReferProvider extends BaseProvider {
     }
   }
 
+  Future<void> _getInviterReferralId() async {
+    final result = await processApi(
+      request: () async {
+        return await referralsRepository.getReferralCodeOfInviterId(currentUserId: preference.userId ?? "");
+      },
+    );
+
+    if (result != null) {
+      referralById = result;
+      notifyListeners();
+    }
+  }
+
   Future<void> onContinue() async {
     CommonFunc.closeKeyboard();
     if (formKey.currentState?.validate() ?? false) {
@@ -96,6 +107,9 @@ final class ReferProvider extends BaseProvider {
         onLoading: loadingDialogHandler.handleLoading,
       );
       await _getInviterReferralCode();
+      await _getInviterReferralId();
+      await _processReward(coins: preference.referralCoinsConfig.referralToCoins);
+      await _processReward(coins: preference.referralCoinsConfig.referralByCoins, userId: referralById);
       notifyListeners();
     }
   }
@@ -114,16 +128,25 @@ final class ReferProvider extends BaseProvider {
 
   Future<void> getCoinForReferFriend({required ReferFriendModel refer}) async {
     await _processReward(coins: refer.coins ?? 0);
+    await _addClaimedIdsToFirebase(refer: refer);
     claimedIds.add(refer.id!);
     preference.claimedReferFriendIds = claimedIds;
     _calculateEarningCoins();
     notifyListeners();
   }
 
-  Future<void> _processReward({required int coins}) async {
+  Future<void> _addClaimedIdsToFirebase({required ReferFriendModel refer}) async {
     await processApi(
       request: () async {
-        return await userRepository.addCoins(coins: coins);
+        await userRepository.addClaimedReferFriendId(id: refer.id!);
+      },
+    );
+  }
+
+  Future<void> _processReward({required int coins, String? userId}) async {
+    await processApi(
+      request: () async {
+        return await userRepository.addCoins(coins: coins, referralById: userId);
       },
       onLoading: loadingDialogHandler.handleLoading,
     );

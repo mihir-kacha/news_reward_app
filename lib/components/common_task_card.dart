@@ -130,8 +130,10 @@ class ReadingNewsTask extends StatelessWidget {
               CommonButton.cupertino(
                 onTap: (status != .claim) ? null : onTap,
                 child: Container(
-                  padding: (status == .claimed)
-                      ? EdgeInsets.all(Spacing.xSmall)
+                  padding: status == .claimed
+                      ? isPercentage
+                            ? EdgeInsets.symmetric(vertical: Spacing.small, horizontal: Spacing.normal)
+                            : EdgeInsets.all(Spacing.xSmall)
                       : EdgeInsets.symmetric(vertical: Spacing.small, horizontal: Spacing.normal),
                   decoration: BoxDecoration(
                     boxShadow: (status == .claim)
@@ -148,7 +150,11 @@ class ReadingNewsTask extends StatelessWidget {
                     borderRadius: ShapeBorderRadius.small,
                   ),
                   child: Text(
-                    status == .claimed ? "Available \n Tomorrow" : "Claim",
+                    status == .claimed
+                        ? isPercentage
+                              ? "Claimed"
+                              : "Available \n Tomorrow"
+                        : "Claim",
                     style: (status == .claimed)
                         ? context.textTheme.bodySmall?.copyWith(
                             color: context.colorScheme.surfaceTint,
@@ -160,6 +166,7 @@ class ReadingNewsTask extends StatelessWidget {
                                 : context.colorScheme.onSurfaceVariant,
                             fontWeight: FontWeight.w700,
                           ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),

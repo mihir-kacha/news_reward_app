@@ -18,6 +18,7 @@ abstract interface class PreferenceKeys {
   static const String coins = 'coins';
   static const String minCoins = 'min_coins';
   static const String coinsConfig = 'coins_config';
+  static const String referralCoinsConfig = 'referral_coins_config';
 
   //---------- user's common states ----------//
   static const String userId = 'user_id';

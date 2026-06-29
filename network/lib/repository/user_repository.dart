@@ -13,20 +13,22 @@ class UserRepository {
     });
   }
 
-  Future<void> _updateUserField(Map<String, dynamic> data) async {
+  Future<void> _updateUserField({required Map<String, dynamic> data, String? referralById}) async {
     try {
+      final userId = referralById ?? uid;
       data[UserModelFields.updatedAt] = Timestamp.now();
-      await _userRef.doc(uid).update(data);
+      await _userRef.doc(userId).update(data);
     } catch (e) {
       rethrow;
     }
   }
 
-  Future<bool> addCoins({required int coins}) async {
+  Future<bool> addCoins({required int coins, String? referralById}) async {
     try {
-      final snapshot = await _userRef.doc(uid).get();
+      final userId = referralById ?? uid;
+      final snapshot = await _userRef.doc(userId).get();
       final currentCoins = snapshot.data()?.coins ?? 0;
-      await _updateUserField({UserModelFields.coins: currentCoins + coins});
+      await _updateUserField(data: {UserModelFields.coins: currentCoins + coins}, referralById: referralById);
 
       return true;
     } catch (e) {
@@ -50,5 +52,15 @@ class UserRepository {
     }
   }
 
-
+  Future<void> addClaimedReferFriendId({required String id}) async {
+    try {
+      await _updateUserField(
+        data: {
+          UserModelFields.claimedIds: FieldValue.arrayUnion([id]),
+        },
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

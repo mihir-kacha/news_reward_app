@@ -60,16 +60,16 @@ class _ProfileAction extends StatelessWidget {
               context.navigator.pushNamed(ReferScreen.routeName);
             },
           ),
-          _Divider(),
-          _ActionCell(
-            icon: Assets.icons.profile.icShare.path,
-            color: Color(0XFF0fba80),
-            title: "Share App",
-            subTitle: "Share with friend and family",
-            onTap: () async {
-              await SharePlus.instance.share(ShareParams(text: 'Check out this awesome app!', subject: 'My App'));
-            },
-          ),
+          // _Divider(),
+          // _ActionCell(
+          //   icon: Assets.icons.profile.icShare.path,
+          //   color: Color(0XFF0fba80),
+          //   title: "Share App",
+          //   subTitle: "Share with friend and family",
+          //   onTap: () async {
+          //     await SharePlus.instance.share(ShareParams(text: 'Check out this awesome app!', subject: 'My App'));
+          //   },
+          // ),
           _Divider(),
           _ActionCell(
             icon: Assets.icons.profile.icPrivacy.path,
@@ -87,7 +87,7 @@ class _ProfileAction extends StatelessWidget {
             title: "Terms & Conditions",
             subTitle: "Read our rules & usage guidelines",
             onTap: () {
-              CommonFunc.openUrl(url: AppConstants.privacyPolicyUrl);
+              CommonFunc.openUrl(url: AppConstants.termsAndConditions);
             },
           ),
           _Divider(),
@@ -97,7 +97,7 @@ class _ProfileAction extends StatelessWidget {
             title: "Rate us",
             subTitle: "Love our app? Rate us on the store",
             onTap: () {
-              CommonFunc.openUrl(url: AppConstants.privacyPolicyUrl);
+              CommonFunc.openUrl(url: AppConstants.rateUsUrl);
             },
           ),
           _Divider(),

@@ -141,10 +141,14 @@ enum ChallengeType {
   String desc(BuildContext context) {
     return switch (this) {
       ChallengeType.luck => "Open once daily & win 0 - 10,000 Points",
-      ChallengeType.drinkWater => 'Stay hydrated & earn 2,000 Points (every 1 hours)',
-      ChallengeType.walk => 'Walk daily & earn 2,000 Points (every 1 hours)',
-      ChallengeType.exercise => 'Exercise & earn  2,000 Points (every 1 hours)',
-      ChallengeType.pray => 'Pray & earn  2,000 Points (every 6 hours)',
+      ChallengeType.drinkWater =>
+        'Stay hydrated & earn ${Preference().coinsConfig.drinkWaterCoins.formattedIndian} Points (every 1 hours)',
+      ChallengeType.walk =>
+        'Walk daily & earn ${Preference().coinsConfig.drinkWaterCoins.formattedIndian} Points (every 1 hours)',
+      ChallengeType.exercise =>
+        'Exercise & earn  ${Preference().coinsConfig.drinkWaterCoins.formattedIndian} Points (every 1 hours)',
+      ChallengeType.pray =>
+        'Pray & earn  ${Preference().coinsConfig.drinkWaterCoins.formattedIndian} Points (every 6 hours)',
     };
   }
 

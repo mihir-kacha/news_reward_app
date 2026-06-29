@@ -20,4 +20,13 @@ class ConfigRepository {
       rethrow;
     }
   }
+
+  Future<ReferralConfig> getReferralCoinConfig() async {
+    try {
+      final doc = await _configRef.doc('referral_coin').get();
+      return ReferralConfig.fromJson(doc.data() ?? {});
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

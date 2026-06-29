@@ -48,3 +48,27 @@ class CoinsConfig {
     );
   }
 }
+
+class ReferralConfig {
+  final int referralByCoins;
+  final int referralToCoins;
+
+  ReferralConfig({required this.referralByCoins, required this.referralToCoins});
+
+  Map<String, dynamic> toJson() {
+    return {'referral_by_coins': referralByCoins, 'referral_to_coins': referralToCoins};
+  }
+
+  const ReferralConfig.empty() : referralByCoins = 0, referralToCoins = 0;
+
+  factory ReferralConfig.fromJson(Map<String, dynamic> map) {
+    return ReferralConfig(referralByCoins: map['referral_by_coins'], referralToCoins: map['referral_to_coins']);
+  }
+
+  ReferralConfig copyWith({int? referralByCoins, int? referralToCoins}) {
+    return ReferralConfig(
+      referralByCoins: referralByCoins ?? this.referralByCoins,
+      referralToCoins: referralToCoins ?? this.referralToCoins,
+    );
+  }
+}

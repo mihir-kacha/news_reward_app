@@ -177,7 +177,7 @@ class _Body extends StatelessWidget {
                             ),
                             Gap(Spacing.xSmall),
                             Text(
-                              "400 Points",
+                              "300 Points",
                               style: context.textTheme.headlineSmall?.copyWith(
                                 color: context.colorScheme.primary,
                                 fontWeight: FontWeight.w900,
@@ -194,7 +194,7 @@ class _Body extends StatelessWidget {
           ),
           Gap(Spacing.large),
           Text(
-            "Steps to earn 400 Points :",
+            "Steps to earn 300 Points :",
             style: context.textTheme.bodyLarge?.copyWith(
               color: context.colorScheme.shadow,
               fontWeight: FontWeight.w700,
@@ -218,7 +218,7 @@ class _Body extends StatelessWidget {
           ),
           Gap(Spacing.xSmall),
           Text(
-            "3. Enter code to collect 400 Points.",
+            "3. Enter code to collect 300 Points.",
             style: context.textTheme.bodySmall?.copyWith(
               color: context.colorScheme.tertiary,
               fontWeight: FontWeight.w400,

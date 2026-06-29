@@ -92,7 +92,9 @@ class _Body extends StatelessWidget {
           if (referCode == null) ...[_ReferCells()] else ...[_ReferCompletedCell()],
           Gap(Spacing.medium),
           FilledButton(
-            onPressed: provider.onInvite,
+            onPressed: () {
+              CommonFunc.inviteFriends(referralCode: referCode ?? "");
+            },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -110,7 +112,7 @@ class _Body extends StatelessWidget {
           ),
           Gap(Spacing.normal),
           Text(
-            "Read News & Earn Rewards",
+            "Referral Rewards",
             style: context.textTheme.titleLarge?.copyWith(
               color: context.colorScheme.shadow,
               fontWeight: FontWeight.w700,

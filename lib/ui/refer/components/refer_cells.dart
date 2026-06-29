@@ -220,18 +220,33 @@ class _ReferCells extends StatelessWidget {
                 Expanded(
                   flex: 3,
                   child: AppInputField(
+                    maxLength: 8,
+                    textCapitalization: TextCapitalization.words,
+                    keyboardType: TextInputType.text,
+                    inputFormatters: [
+                      TextInputFormatter.withFunction((oldValue, newValue) {
+                        return newValue.copyWith(text: newValue.text.toUpperCase(), selection: newValue.selection);
+                      }),
+                      FilteringTextInputFormatter.allow(RegExp(r'[A-Z0-9]')),
+                      LengthLimitingTextInputFormatter(8),
+                    ],
                     controller: provider.codeController,
                     borderRadius: Spacing.medium,
                     fillColor: context.colorScheme.secondary.withColorOpacity(.1),
                     filled: true,
                     borderColor: context.colorScheme.primary.withColorOpacity(.1),
                     validator: (value) {
-                      if (value?.isEmpty ?? true) {
+                      final code = value?.trim() ?? "";
+                      if (code.isEmpty) {
                         return "Please enter referral code";
                       }
-                      if (value == referCode) {
-                        return "Can't use your own refer code";
+                      if (code == referCode) {
+                        return "Can't use your own referral code";
                       }
+                      if (!RegExp(r'^[A-Z0-9]{8}$').hasMatch(code)) {
+                        return "Referral code must be 8 uppercase letters/numbers";
+                      }
+
                       return null;
                     },
                   ),

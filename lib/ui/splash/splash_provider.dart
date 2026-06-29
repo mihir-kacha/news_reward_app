@@ -23,7 +23,7 @@ final class SplashProvider extends BaseProvider {
       ConnectivityHelper.instance.initialize(context);
     }
     await ConnectivityHelper.instance.waitForInternet();
-    await Future.wait([_getWithdrawConfig(), _getCoinsConfig()]);
+    await Future.wait([_getWithdrawConfig(), _getCoinsConfig(), _getReferralCoinsConfig()]);
     changeScreen();
   }
 
@@ -52,20 +52,33 @@ final class SplashProvider extends BaseProvider {
     }
   }
 
-  Future<void> changeScreen() async {
+  Future<void> _getReferralCoinsConfig() async {
     final result = await processApi(
       request: () async {
-        return await newsRepository.getNewsFromApi();
+        return await configRepository.getReferralCoinConfig();
       },
     );
-    if (result != null && context.mounted) {
-      if (preference.isShowOnBoarding) {
-        context.navigator.pushNamedAndRemoveUntil(OnboardingScreen.routeName, (route) => false);
-      } else if (preference.isLogin) {
-        context.navigator.pushNamedAndRemoveUntil(DashboardScreen.routeName, (route) => false);
-      } else {
-        context.navigator.pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
-      }
+    if (result != null) {
+      preference.referralCoinsConfig = result;
+      notifyListeners();
     }
+  }
+
+  Future<void> changeScreen() async {
+    // final result = await processApi(
+    //   request: () async {
+    //     return await newsRepository.getNewsFromApi();
+    //   },
+    // );
+    // if (result != null && context.mounted) {
+
+    if (preference.isShowOnBoarding) {
+      context.navigator.pushNamedAndRemoveUntil(OnboardingScreen.routeName, (route) => false);
+    } else if (preference.isLogin) {
+      context.navigator.pushNamedAndRemoveUntil(DashboardScreen.routeName, (route) => false);
+    } else {
+      context.navigator.pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
+    }
+    // }
   }
 }

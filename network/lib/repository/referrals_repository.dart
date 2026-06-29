@@ -44,16 +44,33 @@ class ReferralsRepository {
       if (referralSnapshot.docs.isEmpty) {
         return null;
       }
-
       final referral = referralSnapshot.docs.first.data();
-
       final userSnapshot = await _userRef.doc(referral.referBy).get();
-
       if (!userSnapshot.exists) {
         return null;
       }
-
       return userSnapshot.data()?.referCode;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<String?> getReferralCodeOfInviterId({required String currentUserId}) async {
+    try {
+      final referralSnapshot = await _referralsRef
+          .where(ReferralsDocumentFiled.referTo, isEqualTo: currentUserId)
+          .limit(1)
+          .get();
+
+      if (referralSnapshot.docs.isEmpty) {
+        return null;
+      }
+      final referral = referralSnapshot.docs.first.data();
+      final userSnapshot = await _userRef.doc(referral.referBy).get();
+      if (!userSnapshot.exists) {
+        return null;
+      }
+      return userSnapshot.data()?.id;
     } catch (e) {
       rethrow;
     }

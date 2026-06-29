@@ -8,6 +8,7 @@ abstract interface class UserModelFields {
   static const String createdAt = 'createdAt';
   static const String updatedAt = 'updatedAt';
   static const String referCode = 'referCode';
+  static const String claimedIds = 'claimedIds';
 }
 
 class UserModel {
@@ -18,6 +19,7 @@ class UserModel {
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final String? referCode;
+  final Set<String>? claimedIds;
 
   UserModel({
     required this.id,
@@ -27,6 +29,7 @@ class UserModel {
     this.updatedAt,
     this.coins,
     this.referCode,
+    this.claimedIds,
   });
 
   Map<String, dynamic> toJson() {
@@ -38,6 +41,7 @@ class UserModel {
       'createdAt': Timestamp.fromDate((createdAt ?? DateTime.now()).toUtc()),
       'updatedAt': Timestamp.fromDate((updatedAt ?? DateTime.now()).toUtc()),
       'referCode': referCode,
+      'claimedIds': claimedIds?.toList(),
     };
   }
 
@@ -50,6 +54,7 @@ class UserModel {
       createdAt: json['createdAt'] != null ? (json['createdAt'] as Timestamp).toDate().toLocal() : null,
       updatedAt: json['updatedAt'] != null ? (json['updatedAt'] as Timestamp).toDate().toLocal() : null,
       referCode: json['referCode'],
+      claimedIds: Set<String>.from(json['claimedIds'] ?? []),
     );
   }
 
@@ -61,6 +66,7 @@ class UserModel {
     DateTime? createdAt,
     DateTime? updatedAt,
     String? referCode,
+    Set<String>? claimedIds,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -70,6 +76,7 @@ class UserModel {
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       referCode: referCode ?? this.referCode,
+      claimedIds: claimedIds ?? this.claimedIds,
     );
   }
 }
