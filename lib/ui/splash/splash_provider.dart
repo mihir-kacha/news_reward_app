@@ -12,6 +12,8 @@ final class SplashProvider extends BaseProvider {
     required this.configRepository,
   });
 
+  bool isAdLoading = true;
+
   @override
   void initState() {
     super.initState();
@@ -25,6 +27,9 @@ final class SplashProvider extends BaseProvider {
     await ConnectivityHelper.instance.waitForInternet();
     await Future.wait([_getWithdrawConfig(), _getCoinsConfig(), _getReferralCoinsConfig()]);
     changeScreen();
+
+    isAdLoading = false;
+    notifyListeners();
   }
 
   Future<void> _getWithdrawConfig() async {

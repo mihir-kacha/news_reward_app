@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:inshorts/core/core.dart';
+import 'package:inshorts/generated/assets.gen.dart';
 import 'package:inshorts/resources/resources.dart';
 import 'package:inshorts/ui/dashboard/dashboard.dart';
 import 'package:inshorts/ui/login/login.dart';

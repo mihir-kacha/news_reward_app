@@ -145,6 +145,14 @@ class $AssetsImagesGen {
   AssetGenImage get imgWalletWithCard =>
       const AssetGenImage('assets/images/img_wallet_with_card.png');
 
+  /// File path: assets/images/news_pay_logo.png
+  AssetGenImage get newsPayLogo =>
+      const AssetGenImage('assets/images/news_pay_logo.png');
+
+  /// File path: assets/images/news_pay_splash.png
+  AssetGenImage get newsPaySplash =>
+      const AssetGenImage('assets/images/news_pay_splash.png');
+
   /// List of all assets
   List<AssetGenImage> get values => [
     imgApplicationWork,
@@ -160,6 +168,8 @@ class $AssetsImagesGen {
     imgTrofee,
     imgWallet,
     imgWalletWithCard,
+    newsPayLogo,
+    newsPaySplash,
   ];
 }
 
