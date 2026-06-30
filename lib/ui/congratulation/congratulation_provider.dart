@@ -62,5 +62,5 @@ final class CongratulationProvider extends BaseProvider implements PaginationPro
   }
 
   @override
-  bool get reachAtEnd => throw _reachAtEnd;
+  bool get reachAtEnd => _reachAtEnd;
 }

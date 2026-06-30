@@ -67,5 +67,5 @@ final class NewsProvider extends BaseProvider implements PaginationProvider<News
   }
 
   @override
-  bool get reachAtEnd => throw _reachAtEnd;
+  bool get reachAtEnd => _reachAtEnd;
 }

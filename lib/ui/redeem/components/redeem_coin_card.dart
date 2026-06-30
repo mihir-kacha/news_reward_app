@@ -6,7 +6,7 @@ class _RedeemCoins extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = context.read<RedeemProvider>();
-    final coins = 100;
+    final coins = context.select<UserProvider, int>((value) => value.userData.coins ?? 0);
     return Form(
       key: provider.formKey,
       child: Container(
@@ -148,7 +148,7 @@ class _RedeemCoins extends StatelessWidget {
             ),
             Gap(Spacing.normal),
             AppInputField(
-              controller: provider.upiController,
+              controller: provider.paymentController,
               fillColor: context.colorScheme.outlineVariant.withColorOpacity(.5),
               filled: true,
               prefixIcon: Padding(
@@ -165,7 +165,7 @@ class _RedeemCoins extends StatelessWidget {
                 if (value == null || value.trim().isEmpty) {
                   return "UPI ID is required";
                 }
-                if (!AppConstants.upiRegex.hasMatch(provider.upiController.text.trim())) {
+                if (!AppConstants.upiRegex.hasMatch(provider.paymentController.text.trim())) {
                   return 'Enter a valid PayPal email';
                 }
                 return null;
@@ -173,7 +173,7 @@ class _RedeemCoins extends StatelessWidget {
             ),
             Gap(Spacing.xLarge),
             FilledButton(
-              onPressed: () {},
+              onPressed: () => provider.withDraw(coins: coins),
               style: FilledButton.styleFrom(
                 fixedSize: Size.fromWidth(context.width),
                 shape: RoundedRectangleBorder(borderRadius: ShapeBorderRadius.normal),

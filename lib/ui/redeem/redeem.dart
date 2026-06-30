@@ -5,9 +5,13 @@ import 'package:inshorts/components/news_pay_coin_card.dart';
 import 'package:inshorts/components/app_input_field.dart';
 import 'package:inshorts/components/dynamic_grid_view.dart';
 import 'package:inshorts/core/core.dart';
+import 'package:inshorts/data/preference/preference.dart';
 import 'package:inshorts/generated/assets.gen.dart';
+import 'package:inshorts/provider/user_provider.dart';
 import 'package:inshorts/resources/resources.dart';
 import 'package:inshorts/utils/app_constant.dart';
+import 'package:inshorts/utils/common_functions.dart';
+import 'package:network/network.dart';
 import 'package:provider/provider.dart';
 
 part 'redeem_screen.dart';

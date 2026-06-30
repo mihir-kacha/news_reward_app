@@ -8,3 +8,4 @@ part 'user_info.dart';
 part 'news_read_model.dart';
 part 'referrals_document.dart';
 part 'refer_friend.dart';
+part 'withdrawal_document.dart';

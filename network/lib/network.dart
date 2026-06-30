@@ -32,3 +32,4 @@ part 'utils/network_constants.dart';
 part 'utils/event.dart';
 part 'utils/refer_code_generator.dart';
 part 'repository/referrals_repository.dart';
+part 'repository/withdrawal_repository.dart';

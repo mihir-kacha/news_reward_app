@@ -7,7 +7,11 @@ class RedeemScreen extends StatelessWidget {
 
   static Widget builder(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => RedeemProvider(context: context),
+      create: (context) => RedeemProvider(
+        context: context,
+        loadingDialogHandler: LoadingDialogHandler(context: context),
+        withdrawalRepository: WithdrawalRepository(),
+      ),
       child: RedeemScreen(),
     );
   }
