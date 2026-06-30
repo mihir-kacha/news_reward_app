@@ -70,7 +70,7 @@ class _AlertMessageContent extends StatelessWidget {
                     children: [
                       Text(
                         title,
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: foregroundColor),
+                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: foregroundColor),
                       ),
                       if (description != null && description!.isNotEmpty)
                         Text(

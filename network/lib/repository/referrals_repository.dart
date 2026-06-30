@@ -4,7 +4,7 @@ class ReferralsRepository {
   final _referralsRef = FireStoreHelper.referralsRef;
   final _userRef = FireStoreHelper.userRef;
 
-  Future<ReferralsDocument?> addReferralCode({required String currentUserId, required String referralCode}) async {
+  Future<bool> addReferralCode({required String currentUserId, required String referralCode}) async {
     try {
       final response = await _userRef.where(UserModelFields.referCode, isEqualTo: referralCode).limit(1).get();
 
@@ -13,9 +13,8 @@ class ReferralsRepository {
       }
 
       final ref = ReferralsDocument(referBy: response.docs.first.data().id, referTo: currentUserId);
-      final docRef = await _referralsRef.add(ref);
-      final snapshot = await docRef.get();
-      return snapshot.data();
+      await _referralsRef.add(ref);
+      return true;
     } catch (e) {
       rethrow;
     }

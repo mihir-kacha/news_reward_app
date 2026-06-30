@@ -16,5 +16,4 @@ import 'package:provider/provider.dart';
 
 part 'redeem_screen.dart';
 part 'redeem_provider.dart';
-part 'components/coupons_card.dart';
 part 'components/redeem_coin_card.dart';

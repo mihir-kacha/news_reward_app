@@ -9,22 +9,25 @@ class _OnboardingOne extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        RichText(
-          text: TextSpan(
-            text: "Read News & Earn",
-            style: context.textTheme.headlineSmall?.copyWith(
-              color: context.colorScheme.shadow,
-              fontWeight: FontWeight.w700,
-            ),
-            children: [
-              TextSpan(
-                text: " Gift Cash",
-                style: context.textTheme.headlineSmall?.copyWith(
-                  color: context.colorScheme.primary,
-                  fontWeight: FontWeight.w700,
-                ),
+        Center(
+          child: RichText(
+            text: TextSpan(
+              text: "Read News & Earn",
+              style: context.textTheme.headlineSmall?.copyWith(
+                color: context.colorScheme.shadow,
+                fontWeight: FontWeight.w700,
               ),
-            ],
+              children: [
+                TextSpan(
+                  text: " Gift Cash",
+                  style: context.textTheme.headlineSmall?.copyWith(
+                    color: context.colorScheme.primary,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
+            ),
+            textAlign: TextAlign.center,
           ),
         ),
         Gap(Spacing.normal),
@@ -41,10 +44,7 @@ class _OnboardingOne extends StatelessWidget {
           icons: Assets.icons.onBoarding.icCode.path,
         ),
         Gap(Spacing.xSmall),
-        _PointBullet(
-          text: 'Redeem available digital rewards such as PayPal.',
-          icons: Assets.icons.icGift.path,
-        ),
+        _PointBullet(text: 'Redeem available digital rewards such as PayPal.', icons: Assets.icons.icGift.path),
       ],
     );
   }

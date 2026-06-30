@@ -19,7 +19,7 @@ class RedeemScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: NewsPayAppbar(title: Text("Gift Card Coupons"), showBack: false),
+      appBar: NewsPayAppbar(title: Text("Withdraw Coins"), showBack: false),
       body: SingleChildScrollView(
         padding: EdgeInsetsGeometry.all(Spacing.normal),
         child: Column(
@@ -29,15 +29,6 @@ class RedeemScreen extends StatelessWidget {
             NewsPayCoinCard(),
             Gap(Spacing.medium),
             _RedeemCoins(),
-            // Text(
-            //   "PayPal Gift Cards",
-            //   style: context.textTheme.titleLarge?.copyWith(
-            //     color: context.colorScheme.shadow,
-            //     fontWeight: FontWeight.w700,
-            //   ),
-            // ),
-            // Gap(Spacing.small),
-            // _GiftCardGrid(),
           ],
         ),
       ),

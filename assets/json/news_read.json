@@ -3,70 +3,70 @@
     {
       "id": "survey_10",
       "title": "Read 10 news daily",
-      "desc": "Read News & Daily & Earn 1,000 Points!",
+      "desc": "Read 10 news & Earn 1,000 Points!",
       "coins": 1000,
       "total": 10
     },
     {
       "id": "survey_20",
       "title": "Read 20 news daily",
-      "desc": "Read News & Daily & Earn 2,000 Points!",
+      "desc": "Read 20 news & Earn 2,000 Points!",
       "coins": 2000,
       "total": 20
     },
     {
       "id": "survey_30",
       "title": "Read 30 news daily",
-      "desc": "Read News & Daily & Earn 3,000 Points!",
+      "desc": "Read 30 news & Earn 3,000 Points!",
       "coins": 3000,
       "total": 30
     },
     {
       "id": "survey_40",
       "title": "Read 40 news daily",
-      "desc": "Read News & Daily & Earn 5,000 Points!",
+      "desc": "Read 40 news & Earn 5,000 Points!",
       "coins": 5000,
       "total": 40
     },
     {
       "id": "survey_50",
       "title": "Read 50 news daily",
-      "desc": "Read News & Daily & Earn 7,000 Points!",
+      "desc": "Read 50 news & Earn 7,000 Points!",
       "coins": 7000,
       "total": 50
     },
     {
       "id": "survey_60",
       "title": "Read 60 news daily",
-      "desc": "Read News & Daily & Earn 10,000 Points!",
+      "desc": "Read 60 news & Earn 10,000 Points!",
       "coins": 10000,
       "total": 60
     },
     {
       "id": "survey_70",
       "title": "Read 70 news daily",
-      "desc": "Read News & Daily & Earn 12,000 Points!",
+      "desc": "Read 70 news & Earn 12,000 Points!",
       "coins": 12000,
       "total": 70
     },
     {
       "id": "survey_80",
       "title": "Read 80 news daily",
-      "desc": "Read News & Daily & Earn 15,000 Points!",
+      "desc": "Read 80 news & Earn 15,000 Points!",
       "coins": 15000,
       "total": 80
     },
     {
       "id": "survey_90",
       "title": "Read 90 news daily",
-      "desc": "Read News & Daily & Earn 17,000 Points!",
+      "desc": "Read 90 news & Earn 17,000 Points!",
       "coins": 17000,
       "total": 90
     },
     {
       "id": "survey_100",
       "title": "Read 100 news daily",
-      "desc": "Read News & Daily & Earn 20,000 Points!",
+      "desc": "Read 100 news & Earn 20,000 Points!",
       "coins": 20000,
       "total": 100
     }

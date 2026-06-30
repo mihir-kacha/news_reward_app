@@ -50,7 +50,6 @@ final class ReferProvider extends BaseProvider {
     list = result;
   }
 
-
   void _calculateEarningCoins() {
     earningCoins = 0;
 
@@ -97,20 +96,22 @@ final class ReferProvider extends BaseProvider {
   Future<void> onContinue() async {
     CommonFunc.closeKeyboard();
     if (formKey.currentState?.validate() ?? false) {
-      await processApi(
+      final result = await processApi(
         request: () async {
-          await referralsRepository.addReferralCode(
+          return await referralsRepository.addReferralCode(
             referralCode: codeController.text,
             currentUserId: preference.userId ?? "",
           );
         },
         onLoading: loadingDialogHandler.handleLoading,
       );
-      await _getInviterReferralCode();
-      await _getInviterReferralId();
-      await _processReward(coins: preference.referralCoinsConfig.referralToCoins);
-      await _processReward(coins: preference.referralCoinsConfig.referralByCoins, userId: referralById);
-      notifyListeners();
+      if (result ?? false) {
+        await _getInviterReferralCode();
+        await _getInviterReferralId();
+        await _processReward(coins: preference.referralCoinsConfig.referralToCoins);
+        await _processReward(coins: preference.referralCoinsConfig.referralByCoins, userId: referralById);
+        notifyListeners();
+      }
     }
   }
 

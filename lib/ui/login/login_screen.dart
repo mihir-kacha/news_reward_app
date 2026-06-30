@@ -44,13 +44,13 @@ class LoginScreen extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               Text(
-                "Welcome to InShorts - Stay Updated with News \nand earn Daily Rewards",
+                "Welcome to NewsPay - Stay Updated with News \nand earn Daily Rewards",
                 style: context.textTheme.labelSmall?.copyWith(color: context.colorScheme.surfaceTint),
                 textAlign: TextAlign.center,
               ),
               Stack(
                 children: [
-                  Assets.images.imgLogin.image(height: context.height/1.8),
+                  Assets.images.imgLogin.image(),
                   Positioned(
                     left: 0,
                     right: 0,

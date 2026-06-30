@@ -16,6 +16,7 @@ import 'package:inshorts/firebase_options.dart';
 import 'package:inshorts/resources/resources.dart';
 import 'package:intl/intl.dart';
 import 'package:network/helper/logger.dart';
+import 'package:network/network.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 part 'base/base_provider.dart';

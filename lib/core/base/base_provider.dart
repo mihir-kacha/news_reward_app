@@ -66,9 +66,9 @@ abstract base class BaseProvider extends ChangeNotifier {
         );
         break;
       //
-      // case DefaultException():
-      //   context.showErrorMessage(title: error.message, content: null);
-      //   break;
+      case DefaultException():
+        context.showErrorMessage(title: error.message, content: null);
+        break;
 
       default:
         context.showErrorMessage(

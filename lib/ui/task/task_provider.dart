@@ -39,7 +39,6 @@ final class TaskProvider extends BaseProvider with SubscriptionHelper {
     _checkAndResetDailyData();
     subscriptions.addAll([eventBus.on<SurveyCompletedEvet>().listen(onSurveyCompleted)]);
     await Future.wait([_loadDailyTask()]);
-    Log.debug(ChallengeType.luck.coins);
     readNews = preference.readNews;
     claimedIds = preference.claimedSurveyIds;
     _updateRemaining();
@@ -155,6 +154,9 @@ final class TaskProvider extends BaseProvider with SubscriptionHelper {
     _setChallengeTimer(type, DateTime.now());
     _updateRemaining();
     notifyListeners();
+    // if (type == ChallengeType.luck) {
+    //   return context.showSuccessMessage(title: "You received ${type.coins} coins.");
+    // }
   }
 
   void _updateRemaining() {

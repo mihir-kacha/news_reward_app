@@ -163,7 +163,7 @@ class _RedeemCoins extends StatelessWidget {
               borderColor: context.colorScheme.outline,
               validator: (value) {
                 if (value == null || value.trim().isEmpty) {
-                  return "UPI ID is required";
+                  return "PayPal email is required";
                 }
                 if (!AppConstants.upiRegex.hasMatch(provider.paymentController.text.trim())) {
                   return 'Enter a valid PayPal email';
