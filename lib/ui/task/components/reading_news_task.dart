@@ -23,7 +23,12 @@ class _DailyNewsReadingTask extends StatelessWidget {
           title: data.title ?? '',
           subtitle: data.desc ?? '',
           onTap: () {
-            provider.getCoinForReadNews(news: data);
+            provider.loadRewardAd(
+              onRewardEarned: () => provider.getCoinForReadNews(news: data),
+              onRewardFailed: () => RewardAdFailedDialog.show(context),
+              isThisAdPlaceEnable: Preference().adsConfig?.adPlaceConfig?.dailyReadNewsAd ?? false,
+              coins: data.coins ?? 0,
+            );
           },
           icon: Image.asset(Assets.images.challangeImages.imgNewspaper.path, height: 30, width: 30),
         );

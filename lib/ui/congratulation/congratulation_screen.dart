@@ -37,70 +37,80 @@ class _Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = context.read<CongratulationProvider>();
+    final nativeAdUnitId = context.select<CongratulationProvider, String?>((value) => value.nativeAdUnitId);
     return SingleChildScrollView(
-      padding: EdgeInsets.all(Spacing.normal),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Center(child: Assets.images.imgTrofee.image(height: 100, width: 100)),
-          Gap(Spacing.small),
-          Text("Congratulation!", style: context.textTheme.headlineMedium?.copyWith(color: context.colorScheme.shadow)),
-          Gap(Spacing.normal),
-          Container(
+          Padding(
             padding: EdgeInsets.all(Spacing.normal),
-            decoration: BoxDecoration(
-              color: context.colorScheme.onPrimary,
-              borderRadius: ShapeBorderRadius.medium,
-              boxShadow: [
-                BoxShadow(
-                  color: context.colorScheme.shadow.withColorOpacity(.08),
-                  offset: Offset(0, 2),
-                  spreadRadius: 0,
-                  blurRadius: 12,
-                ),
-              ],
-            ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  "Success! You've earned 300 rewards.",
-                  style: context.textTheme.bodyMedium?.copyWith(
-                    color: context.colorScheme.shadow,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                Center(child: Assets.images.imgTrofee.image(height: 100, width: 100)),
                 Gap(Spacing.small),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Assets.images.imgConfetti.image(height: 16, width: 16),
-                    Gap(Spacing.small),
-                    Text(
-                      "300 Points Added to Wallet!",
-                      style: context.textTheme.bodySmall?.copyWith(
-                        color: context.colorScheme.surfaceTint,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
+                Text(
+                  "Congratulation!",
+                  style: context.textTheme.headlineMedium?.copyWith(color: context.colorScheme.shadow),
                 ),
-                Gap(Spacing.xSmall),
-                RichText(
-                  text: TextSpan(
-                    text: "Wallet Balance : ${provider.oldCoins} ",
-                    style: context.textTheme.bodySmall?.copyWith(
-                      color: context.colorScheme.surfaceTint,
-                      fontWeight: FontWeight.w600,
-                    ),
+                Gap(Spacing.normal),
+                Container(
+                  padding: EdgeInsets.all(Spacing.normal),
+                  decoration: BoxDecoration(
+                    color: context.colorScheme.onPrimary,
+                    borderRadius: ShapeBorderRadius.medium,
+                    boxShadow: [
+                      BoxShadow(
+                        color: context.colorScheme.shadow.withColorOpacity(.08),
+                        offset: Offset(0, 2),
+                        spreadRadius: 0,
+                        blurRadius: 12,
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      TextSpan(
-                        text: "\u2192 ${Preference().userInfo.coins}",
-                        style: context.textTheme.bodySmall?.copyWith(
-                          color: context.colorScheme.primary,
-                          fontWeight: FontWeight.w600,
+                      Text(
+                        "Success! You've earned 300 rewards.",
+                        style: context.textTheme.bodyMedium?.copyWith(
+                          color: context.colorScheme.shadow,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      Gap(Spacing.small),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Assets.images.imgConfetti.image(height: 16, width: 16),
+                          Gap(Spacing.small),
+                          Text(
+                            "300 Points Added to Wallet!",
+                            style: context.textTheme.bodySmall?.copyWith(
+                              color: context.colorScheme.surfaceTint,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Gap(Spacing.xSmall),
+                      RichText(
+                        text: TextSpan(
+                          text: "Wallet Balance : ${provider.oldCoins} ",
+                          style: context.textTheme.bodySmall?.copyWith(
+                            color: context.colorScheme.surfaceTint,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: "\u2192 ${Preference().userInfo.coins}",
+                              style: context.textTheme.bodySmall?.copyWith(
+                                color: context.colorScheme.primary,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
@@ -109,6 +119,7 @@ class _Body extends StatelessWidget {
               ],
             ),
           ),
+          NativeAdComponent(adUnitId: nativeAdUnitId, nativeAdType: .detail),
           Gap(Spacing.large),
           Expanded(child: _News()),
         ],
@@ -124,7 +135,8 @@ class _News extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = context.read<CongratulationProvider>();
     final list = context.select<CongratulationProvider, List<NewsData>>((value) => value.list);
-    final isLoading = context.select<CongratulationProvider, bool>((value) => value.loading);
+    final isLoading = context.select<CongratulationProvider, bool>((value) => value.loading || value.adLoad);
+    final nativeAdUnitId = context.select<CongratulationProvider, String?>((value) => value.nativeAdUnitId);
     if (provider.list.isEmpty) {
       if (isLoading) {
         return Center(child: LoadingIndicator());
@@ -141,6 +153,9 @@ class _News extends StatelessWidget {
         itemCount: list.length,
         itemBuilder: (context, index) {
           final newsData = list[index];
+          if (index == 6) {
+            return NativeAdComponent(adUnitId: nativeAdUnitId, nativeAdType: NativeAdTyped.feed);
+          }
           return NewsCell(newsData: newsData);
         },
       ),

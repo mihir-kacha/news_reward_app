@@ -15,10 +15,11 @@ final class CongratulationProvider extends BaseProvider implements PaginationPro
   @override
   void initState() {
     super.initState();
-    Log.debug(oldCoins);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _getNews();
-    });
+    _getNews();
+    resolveAdUnitId(
+      slot: NativeAdTyped.feed,
+      isThisAdPlaceEnable: preference.adsConfig?.adPlaceConfig?.congratulationNewsAd ?? false,
+    );
   }
 
   Future<void> _getNews() async {

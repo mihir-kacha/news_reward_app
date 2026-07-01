@@ -145,6 +145,10 @@ class $AssetsImagesGen {
   AssetGenImage get imgWalletWithCard =>
       const AssetGenImage('assets/images/img_wallet_with_card.png');
 
+  /// File path: assets/images/img_watch_ad_failed.png
+  AssetGenImage get imgWatchAdFailed =>
+      const AssetGenImage('assets/images/img_watch_ad_failed.png');
+
   /// File path: assets/images/news_pay_logo.png
   AssetGenImage get newsPayLogo =>
       const AssetGenImage('assets/images/news_pay_logo.png');
@@ -168,6 +172,7 @@ class $AssetsImagesGen {
     imgTrofee,
     imgWallet,
     imgWalletWithCard,
+    imgWatchAdFailed,
     newsPayLogo,
     newsPaySplash,
   ];

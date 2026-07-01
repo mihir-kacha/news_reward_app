@@ -53,100 +53,127 @@ class _Body extends StatelessWidget {
     final referCode = context.select<ReferProvider, String?>((value) => value.inviterReferralCode);
     final referralCount = context.select<ReferProvider, int?>((value) => value.referralCount);
     final earningCoins = context.select<ReferProvider, int?>((value) => value.earningCoins);
-    final isLoading = context.select<ReferProvider, bool>((value) => value.isLoading);
+    final isLoading = context.select<ReferProvider, bool>((value) => value.isLoading || value.adLoad);
+    final nativeAdUnitId = context.select<ReferProvider, String?>((value) => value.nativeAdUnitId);
     if (isLoading) {
       return LoadingIndicator();
     }
     return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(horizontal: Spacing.normal, vertical: Spacing.large),
+      padding: EdgeInsets.symmetric(vertical: Spacing.large),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Expanded(
-                child: _DataCell(
-                  icon: Assets.icons.profile.icCoin.path,
-                  title: "$earningCoins",
-                  subTitle: "Earning",
-                  info: "Total points earned",
-                  color: Color(0XFFee9f10),
-                ),
-              ),
-              Gap(Spacing.normal),
-              Expanded(
-                child: _DataCell(
-                  icon: Assets.icons.profile.icPeoples.path,
-                  title: "$referralCount",
-                  subTitle: "Referrals",
-                  info: "Total friend invited",
-                  color: Color(0XFF8d59ff),
-                ),
-              ),
-            ],
-          ),
-          Gap(Spacing.medium),
-          _ReferCodeCell(),
-          Gap(Spacing.medium),
-          if (referCode == null) ...[_ReferCells()] else ...[_ReferCompletedCell()],
-          Gap(Spacing.medium),
-          FilledButton(
-            onPressed: () {
-              CommonFunc.inviteFriends(referralCode: referCode ?? "");
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+          Padding(
+            padding: EdgeInsetsGeometry.symmetric(horizontal: Spacing.normal),
+            child: Column(
               children: [
-                Assets.icons.profile.icShare.svg(
-                  height: 18,
-                  colorFilter: ColorFilter.mode(context.colorScheme.onPrimary, BlendMode.srcIn),
+                Row(
+                  children: [
+                    Expanded(
+                      child: _DataCell(
+                        icon: Assets.icons.profile.icCoin.path,
+                        title: "$earningCoins",
+                        subTitle: "Earning",
+                        info: "Total points earned",
+                        color: Color(0XFFee9f10),
+                      ),
+                    ),
+                    Gap(Spacing.normal),
+                    Expanded(
+                      child: _DataCell(
+                        icon: Assets.icons.profile.icPeoples.path,
+                        title: "$referralCount",
+                        subTitle: "Referrals",
+                        info: "Total friend invited",
+                        color: Color(0XFF8d59ff),
+                      ),
+                    ),
+                  ],
                 ),
                 Gap(Spacing.medium),
-                Text(
-                  "Invite Now",
-                  style: context.textTheme.headlineSmall?.copyWith(color: context.colorScheme.onPrimary),
+                _ReferCodeCell(),
+                Gap(Spacing.medium),
+                if (referCode == null) ...[_ReferCells()] else ...[_ReferCompletedCell()],
+                Gap(Spacing.medium),
+                FilledButton(
+                  onPressed: () {
+                    CommonFunc.inviteFriends(referralCode: referCode ?? "");
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Assets.icons.profile.icShare.svg(
+                        height: 18,
+                        colorFilter: ColorFilter.mode(context.colorScheme.onPrimary, BlendMode.srcIn),
+                      ),
+                      Gap(Spacing.medium),
+                      Text(
+                        "Invite Now",
+                        style: context.textTheme.headlineSmall?.copyWith(color: context.colorScheme.onPrimary),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
           ),
           Gap(Spacing.normal),
-          Text(
-            "Referral Rewards",
-            style: context.textTheme.titleLarge?.copyWith(
-              color: context.colorScheme.shadow,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          Gap(Spacing.small),
-          DynamicHeightGridView(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: list.length,
-            builder: (context, index) {
-              final data = list[index];
-              final status = context.select<ReferProvider, ClaimStatus>(
-                (value) => value.buttonStatus(id: data.id ?? "", total: data.total ?? 0),
-              );
-              return ReadingNewsTask(
-                referFriends: referralCount,
-                status: status,
-                total: data.total ?? 0,
-                coins: data.coins ?? 0,
-                title: data.title ?? "",
-                subtitle: data.desc ?? "",
-                onTap: () {
-                  provider.getCoinForReferFriend(refer: data);
-                },
-                isPercentage: true,
-                icon: Assets.icons.profile.icPeoples.svg(
-                  height: 24,
-                  colorFilter: ColorFilter.mode(context.colorScheme.primary, BlendMode.srcIn),
+          NativeAdComponent(adUnitId: nativeAdUnitId, nativeAdType: .detail),
+          Gap(Spacing.normal),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: Spacing.normal),
+                child: Text(
+                  "Referral Rewards",
+                  style: context.textTheme.titleLarge?.copyWith(
+                    color: context.colorScheme.shadow,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
-              );
-            },
-            padding: EdgeInsets.only(bottom: context.padding.bottom + Spacing.xLarge),
-            crossAxisCount: 1,
+              ),
+              Gap(Spacing.small),
+              DynamicHeightGridView(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: list.length,
+                builder: (context, index) {
+                  final data = list[index];
+                  final status = context.select<ReferProvider, ClaimStatus>(
+                    (value) => value.buttonStatus(id: data.id ?? "", total: data.total ?? 0),
+                  );
+                  if (index == 5) {
+                    return NativeAdComponent(adUnitId: nativeAdUnitId, nativeAdType: .feed);
+                  }
+                  return ReadingNewsTask(
+                    referFriends: referralCount,
+                    status: status,
+                    total: data.total ?? 0,
+                    coins: data.coins ?? 0,
+                    title: data.title ?? "",
+                    subtitle: data.desc ?? "",
+                    onTap: () {
+                      provider.loadRewardAd(
+                        onRewardEarned: () => provider.getCoinForReferFriend(refer: data),
+                        onRewardFailed: () => RewardAdFailedDialog.show(context),
+                        isThisAdPlaceEnable: Preference().adsConfig?.adPlaceConfig?.referFriendAd ?? false,
+                        coins: data.coins ?? 0,
+                      );
+                    },
+                    isPercentage: true,
+                    icon: Assets.icons.profile.icPeoples.svg(
+                      height: 24,
+                      colorFilter: ColorFilter.mode(context.colorScheme.primary, BlendMode.srcIn),
+                    ),
+                  );
+                },
+                padding: EdgeInsets.only(bottom: context.padding.bottom + Spacing.xLarge),
+                crossAxisCount: 1,
+              ),
+            ],
           ),
         ],
       ),

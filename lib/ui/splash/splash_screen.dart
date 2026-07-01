@@ -11,7 +11,8 @@ class SplashScreen extends StatelessWidget {
         context: context,
         newsRepository: NewsRepository(),
         configRepository: ConfigRepository(),
-        loadingDialogHandler: LoadingDialogHandler(context: context),
+        adsRepository: AdRepository(),
+        userRepository: UserRepository(uid: Preference().userId ?? ""),
       ),
       child: SplashScreen(),
     );

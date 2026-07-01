@@ -5,6 +5,15 @@ final class NewsDetailProvider extends BaseProvider {
 
   NewsDetailProvider({required super.context, required this.newsData});
 
+  @override
+  void initState() {
+    super.initState();
+    resolveAdUnitId(
+      slot: NativeAdTyped.detail,
+      isThisAdPlaceEnable: preference.adsConfig?.adPlaceConfig?.newsDetailAd ?? false,
+    );
+  }
+
   Future<void> showNews() async {
     await CommonFunc.openUrl(url: newsData.link ?? AppConstants.privacyPolicyUrl);
     await Future.delayed(200.milliseconds);

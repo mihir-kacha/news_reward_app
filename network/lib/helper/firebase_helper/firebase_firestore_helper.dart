@@ -12,6 +12,10 @@ class FireStoreHelper {
   static const referralsCollection = "referrals";
   static const withdrawalsCollection = "withdrawals";
 
+  ///dev
+  static const devAdsConfigCollection = "dev_ads_config";
+  static const devAdsIdsCollection = "dev_ads_id";
+
   ///------------------------------- Collection Reference -------------------------------///
 
   static final userCollectionRef = fireStore.collection(userCollection);
@@ -19,6 +23,10 @@ class FireStoreHelper {
   static final configCollectionRef = fireStore.collection(configCollection);
   static final referralsCollectionRef = fireStore.collection(referralsCollection);
   static final withdrawalsCollectionRef = fireStore.collection(withdrawalsCollection);
+
+  ///dev
+  static final devAdsConfigCollectionRef = fireStore.collection(devAdsConfigCollection);
+  static final devAdsIdsCollectionRef = fireStore.collection(devAdsIdsCollection);
 
   ///------------------------------- Reference -------------------------------///
 
@@ -40,5 +48,17 @@ class FireStoreHelper {
   static final withdrawalsRef = withdrawalsCollectionRef.withConverter(
     fromFirestore: (snapshot, options) => WithdrawalsDocument.fromJson(snapshot.data()!).copyWith(id: snapshot.id),
     toFirestore: (value, options) => value.toJson(),
+  );
+
+  ///dev
+  static final devAdsConfigRef = devAdsConfigCollectionRef.withConverter(
+    fromFirestore: (snapshot, options) => AdsConfigModel.fromJson(snapshot.data()!),
+    toFirestore: (value, options) => {},
+  );
+
+  ///dev
+  static final devAdsIdsRef = devAdsIdsCollectionRef.withConverter(
+    fromFirestore: (snapshot, options) => AdsIdsModel.fromJson(snapshot.data()!),
+    toFirestore: (value, options) => {},
   );
 }

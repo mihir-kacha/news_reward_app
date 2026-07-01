@@ -34,8 +34,11 @@ class _Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = context.read<NewsCodeProvider>();
-    final isLoading = context.select<NewsCodeProvider, bool>((value) => value.isLoading);
+    final isLoading = context.select<NewsCodeProvider, bool>((value) => value.isLoading || value.adLoad);
+    final nativeAdUnitId = context.select<NewsCodeProvider, String?>((value) => value.nativeAdUnitId);
     final news = provider.newsData;
+    // return Column(
+    //   children: [
     return SingleChildScrollView(
       padding: EdgeInsets.all(Spacing.normal),
       child: Column(
@@ -194,5 +197,15 @@ class _Body extends StatelessWidget {
         ],
       ),
     );
+    // Spacer(),
+    // Padding(
+    //   padding: EdgeInsets.only(bottom: context.padding.bottom),
+    //   child: Align(
+    //     alignment: AlignmentGeometry.bottomCenter,
+    //     child: NativeAdComponent(adUnitId: nativeAdUnitId, nativeAdType: NativeAdTyped.feed),
+    //   ),
+    // ),
+    // ],
+    // );
   }
-}
+ }

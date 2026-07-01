@@ -14,6 +14,8 @@ import 'package:inshorts/components/network_dialog.dart';
 import 'package:inshorts/data/preference/preference.dart';
 import 'package:inshorts/firebase_options.dart';
 import 'package:inshorts/resources/resources.dart';
+import 'package:inshorts/routes/routes.dart';
+import 'package:inshorts/utils/ad/ads.dart';
 import 'package:intl/intl.dart';
 import 'package:network/helper/logger.dart';
 import 'package:network/network.dart';
@@ -44,3 +46,4 @@ part 'helper/firebase_helper.dart';
 part 'extension/currency_ext.dart';
 
 part 'helper/connectivity_helper.dart';
+part 'helper/navigation_ad_helper.dart';

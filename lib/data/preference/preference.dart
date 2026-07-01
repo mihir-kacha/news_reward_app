@@ -138,6 +138,21 @@ class Preference {
 
   DateTime? get surveyResetDate => _getTimer(PreferenceKeys.surveyResetDate);
 
+  //---------- Ads states ----------//
+  set adsConfig(AdsConfigModel? adsConfig) =>
+      adsConfig == null ? null : prefs?.setString(PreferenceKeys.adsConfig, jsonEncode(adsConfig.toJson()));
+
+  AdsConfigModel? get adsConfig => prefs?.getString(PreferenceKeys.adsConfig) != null
+      ? AdsConfigModel.fromJson(jsonDecode(prefs?.getString(PreferenceKeys.adsConfig) ?? ""))
+      : null;
+
+  set adsIds(AdsIdsModel? adsIds) =>
+      adsIds == null ? null : prefs?.setString(PreferenceKeys.adsIds, jsonEncode(adsIds.toJson()));
+
+  AdsIdsModel? get adsIds => prefs?.getString(PreferenceKeys.adsIds) != null
+      ? AdsIdsModel.fromJson(jsonDecode(prefs?.getString(PreferenceKeys.adsIds) ?? ""))
+      : null;
+
   void clear() {
     final isShowOnBoarding = this.isShowOnBoarding;
     prefs?.clear();

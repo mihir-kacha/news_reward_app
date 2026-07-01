@@ -12,6 +12,15 @@ final class NewsCodeProvider extends BaseProvider {
     required this.loadingDialogHandler,
   });
 
+  @override
+  void initState() {
+    super.initState();
+    resolveAdUnitId(
+      slot: NativeAdTyped.feed,
+      isThisAdPlaceEnable: preference.adsConfig?.adPlaceConfig?.newsCodeAd ?? false,
+    );
+  }
+
   final TextEditingController codeController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   bool isLoading = false;

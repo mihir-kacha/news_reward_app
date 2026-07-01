@@ -211,6 +211,50 @@ final class TaskProvider extends BaseProvider with SubscriptionHelper {
     );
   }
 
+  Future<void> loadRewardAd({
+    required VoidCallback onRewardEarned,
+    required VoidCallback onRewardFailed,
+    required bool isThisAdPlaceEnable,
+    required int coins,
+  }) async {
+    if (!isThisAdPlaceEnable ||
+        !(preference.adsConfig?.adsStatusModel?.showAdsInApp ?? false) ||
+        !(preference.adsConfig?.adsStatusModel?.isRewardAdShow ?? false)) {
+      return;
+    }
+
+    final res = await RewardAdWatchDialog.show(context: context, coins: coins);
+    if (!res) return;
+
+    loadingDialogHandler.handleLoading(
+      true,
+      message:
+      (preference.adsConfig?.adsStatusModel?.showAdsInApp ?? false) &&
+          (preference.adsConfig?.adsStatusModel?.isRewardAdShow ?? false)
+          ? "Ad Loading"
+          : "",
+    );
+
+    final result = await AdHelper.instance.loadRewarded(isThisAdPlaceEnable: isThisAdPlaceEnable);
+
+    if (result.success) {
+      NavigationAdHelper.instance.isRewardAdActive = true;
+      AdHelper.instance.setRewardedCallbacks(
+        onRewardEarned: (_) {},
+        onFailed: (_) => onRewardFailed(),
+        onDismissed: () {
+          NavigationAdHelper.instance.isRewardAdActive = false;
+          loadingDialogHandler.handleLoading(false);
+          onRewardEarned();
+        },
+      );
+      await AdHelper.instance.showRewarded();
+    } else {
+      onRewardEarned.call();
+      loadingDialogHandler.handleLoading(false);
+    }
+  }
+
   @override
   void dispose() {
     _disposed = true;

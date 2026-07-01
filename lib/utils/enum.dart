@@ -5,6 +5,8 @@ import 'package:inshorts/core/core.dart';
 import 'package:inshorts/data/preference/preference.dart';
 import 'package:inshorts/generated/assets.gen.dart';
 
+enum AdType { banner, interstitial, rewarded, native, appOpen, rewardedInterstitial }
+
 enum CardPosition { previous, current, next }
 
 enum Category {

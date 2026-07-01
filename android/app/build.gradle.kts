@@ -10,7 +10,8 @@ plugins {
 }
 
 android {
-    namespace = "com.makemonefromnews.makemoneyfromreadingnews.dailynews.newsread.earnmoney.breakingnewsdaily"
+    namespace =
+        "com.makemonefromnews.makemoneyfromreadingnews.dailynews.newsread.earnmoney.breakingnewsdaily"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -25,7 +26,8 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.makemonefromnews.makemoneyfromreadingnews.dailynews.newsread.earnmoney.breakingnewsdaily"
+        applicationId =
+            "com.makemonefromnews.makemoneyfromreadingnews.dailynews.newsread.earnmoney.breakingnewsdaily"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
@@ -39,10 +41,29 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.getByName("debug")
+//            signingConfig = signingConfigs.getByName("release")
+        }
+    }
+
+    flavorDimensions += "app"
+
+    productFlavors {
+        create("dev") {
+            dimension = "app"
+            resValue("string", "app_name", "Dev NewsPay")
+        }
+        create("prod") {
+            dimension = "app"
+            resValue("string", "app_name", "NewsPay")
         }
     }
 }
 
 flutter {
     source = "../.."
+}
+
+
+dependencies {
+    implementation("com.google.android.gms:play-services-ads:25.4.0")
 }

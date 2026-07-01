@@ -162,7 +162,7 @@ class LoginScreen extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                   children: [
-                    TextSpan(text: "By Continue, you agree ton our\n"),
+                    TextSpan(text: "By Continue, you agree to our\n"),
                     TextSpan(
                       text: "Privacy Policy",
                       style: TextStyle(

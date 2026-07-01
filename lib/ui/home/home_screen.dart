@@ -7,10 +7,7 @@ class HomeScreen extends StatelessWidget {
 
   static Widget builder(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => HomeProvider(
-        context: context,
-        newsRepository: NewsRepository(),
-      ),
+      create: (context) => HomeProvider(context: context, newsRepository: NewsRepository()),
       child: HomeScreen(),
     );
   }
@@ -31,7 +28,8 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = context.read<HomeProvider>();
     final list = context.select<HomeProvider, List<NewsData>>((value) => value.list);
-    final isLoading = context.select<HomeProvider, bool>((value) => value.loading);
+    final isLoading = context.select<HomeProvider, bool>((value) => value.loading || value.adLoad);
+    final nativeAdUnitId = context.select<HomeProvider, String?>((value) => value.nativeAdUnitId);
     if (provider.list.isEmpty) {
       if (isLoading) {
         return Center(child: LoadingIndicator());
@@ -42,13 +40,15 @@ class _Body extends StatelessWidget {
       onRefresh: (context) => provider.onRefresh(),
       onScrollToEnd: (context) => provider.onLoadMore(),
       child: ListView.builder(
-        padding: EdgeInsets.symmetric(horizontal: Spacing.normal),
         shrinkWrap: true,
         physics: AlwaysScrollableScrollPhysics(),
         scrollDirection: Axis.vertical,
         itemCount: list.length,
         itemBuilder: (context, index) {
           final newsData = list[index];
+          if (index == 2) {
+            return NativeAdComponent(adUnitId: nativeAdUnitId, nativeAdType: NativeAdTyped.feed);
+          }
           return NewsCell(newsData: newsData);
         },
       ),

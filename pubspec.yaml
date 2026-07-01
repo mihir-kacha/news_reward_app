@@ -46,6 +46,11 @@ dependencies:
   firebase_auth: ^6.5.4
   cloud_firestore: ^6.6.0
 
+  #----------- Google Ads -----------#
+  google_mobile_ads: ^8.0.0
+  gma_mediation_inmobi: ^2.2.0
+  gma_mediation_unity: ^1.8.0
+
 
 dev_dependencies:
   flutter_test:

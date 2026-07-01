@@ -13,10 +13,11 @@ final class HomeProvider extends BaseProvider implements PaginationProvider<News
   @override
   void initState() {
     super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _getNews();
-    });
+    _getNews();
+    resolveAdUnitId(
+      slot: NativeAdTyped.feed,
+      isThisAdPlaceEnable: preference.adsConfig?.adPlaceConfig?.homeNative ?? false,
+    );
   }
 
   Future<void> _getNews() async {

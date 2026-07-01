@@ -35,7 +35,8 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = context.read<NewsProvider>();
     final list = context.select<NewsProvider, List<NewsData>>((value) => value.list);
-    final isLoading = context.select<NewsProvider, bool>((value) => value.loading);
+    final isLoading = context.select<NewsProvider, bool>((value) => value.loading || value.adLoad);
+    final nativeAdUnitId = context.select<NewsProvider, String?>((value) => value.nativeAdUnitId);
     if (provider.list.isEmpty) {
       if (isLoading) {
         return Center(child: LoadingIndicator());
@@ -51,13 +52,15 @@ class _Body extends StatelessWidget {
       onRefresh: (context) => provider.onRefresh(),
       onScrollToEnd: (context) => provider.onLoadMore(),
       child: ListView.builder(
-        padding: EdgeInsets.symmetric(horizontal: Spacing.normal),
         shrinkWrap: true,
         physics: AlwaysScrollableScrollPhysics(),
         scrollDirection: Axis.vertical,
         itemCount: list.length,
         itemBuilder: (context, index) {
           final newsData = list[index];
+          if (index % 8 == 0) {
+            return NativeAdComponent(adUnitId: nativeAdUnitId, nativeAdType: NativeAdTyped.feed);
+          }
           return NewsCell(newsData: newsData);
         },
       ),

@@ -31,4 +31,8 @@ abstract interface class PreferenceKeys {
   static const String surveyResetDate = 'survey_reset_date';
   static const String claimedReferFriendIds = 'claimed_refer_friends_ids';
 
+  //---------- Ads states ----------//
+  static const String adsConfig = 'ads_config';
+  static const String adsIds = 'ads_ids';
+
 }

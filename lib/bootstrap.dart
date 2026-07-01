@@ -7,12 +7,12 @@ import 'package:network/network.dart';
 
 import 'core/core.dart';
 
-void bootstrap({required FutureOr<Widget> Function() builder}) {
+void bootstrap({required FutureOr<Widget> Function() builder, required Environment env}) {
   return runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
       final firebaseHelper = FirebaseHelper();
-
+      Env().setEnvironment(env);
       await Future.wait([
         _configureFirebase(firebaseHelper: firebaseHelper),
         _configureSystemUi(),

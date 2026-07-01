@@ -21,18 +21,23 @@ class TaskScreen extends StatelessWidget {
     return Scaffold(
       appBar: NewsPayAppbar(title: Text("Daily Task"), showBack: false),
       body: SingleChildScrollView(
-        padding: EdgeInsetsGeometry.all(Spacing.normal),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            NewsPayCoinCard(),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: Spacing.normal),
+              child: NewsPayCoinCard(),
+            ),
             Gap(Spacing.medium),
-            Text(
-              "Read News & Earn Rewards",
-              style: context.textTheme.titleLarge?.copyWith(
-                color: context.colorScheme.shadow,
-                fontWeight: FontWeight.w700,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: Spacing.normal),
+              child: Text(
+                "Read News & Earn Rewards",
+                style: context.textTheme.titleLarge?.copyWith(
+                  color: context.colorScheme.shadow,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
             Gap(Spacing.small),
