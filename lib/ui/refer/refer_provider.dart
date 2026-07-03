@@ -186,7 +186,7 @@ final class ReferProvider extends BaseProvider {
     if (result.success) {
       NavigationAdHelper.instance.isRewardAdActive = true;
       AdHelper.instance.setRewardedCallbacks(
-        onRewardEarned: (_) {},
+        onRewardEarned: (_) => onRewardEarned(),
         onFailed: (_) => onRewardFailed(),
         onDismissed: () {
           NavigationAdHelper.instance.isRewardAdActive = false;

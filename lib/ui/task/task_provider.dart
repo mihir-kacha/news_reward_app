@@ -229,8 +229,8 @@ final class TaskProvider extends BaseProvider with SubscriptionHelper {
     loadingDialogHandler.handleLoading(
       true,
       message:
-          (preference.adsConfig?.adsStatusModel?.showAdsInApp ?? false) &&
-              (preference.adsConfig?.adsStatusModel?.isRewardAdShow ?? false)
+      (preference.adsConfig?.adsStatusModel?.showAdsInApp ?? false) &&
+          (preference.adsConfig?.adsStatusModel?.isRewardAdShow ?? false)
           ? "Ad Loading"
           : "",
     );
