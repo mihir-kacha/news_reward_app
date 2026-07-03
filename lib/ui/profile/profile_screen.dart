@@ -57,19 +57,13 @@ class _ProfileAction extends StatelessWidget {
             title: "Refer & Earn",
             subTitle: "Invite friends & earn rewards",
             onTap: () {
-              context.navigator.pushNamed(ReferScreen.routeName);
+              NavigationAdHelper.instance.navigate(
+                onComplete: () {
+                  context.navigator.pushNamed(ReferScreen.routeName);
+                },
+              );
             },
           ),
-          // _Divider(),
-          // _ActionCell(
-          //   icon: Assets.icons.profile.icShare.path,
-          //   color: Color(0XFF0fba80),
-          //   title: "Share App",
-          //   subTitle: "Share with friend and family",
-          //   onTap: () async {
-          //     await SharePlus.instance.share(ShareParams(text: 'Check out this awesome app!', subject: 'My App'));
-          //   },
-          // ),
           _Divider(),
           _ActionCell(
             icon: Assets.icons.profile.icPrivacy.path,

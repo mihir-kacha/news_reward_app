@@ -145,17 +145,17 @@ class $AssetsImagesGen {
   AssetGenImage get imgWalletWithCard =>
       const AssetGenImage('assets/images/img_wallet_with_card.png');
 
-  /// File path: assets/images/img_watch_ad_failed.png
+  /// File path: assets/images/img_watch_ad_failed.webp
   AssetGenImage get imgWatchAdFailed =>
-      const AssetGenImage('assets/images/img_watch_ad_failed.png');
+      const AssetGenImage('assets/images/img_watch_ad_failed.webp');
 
-  /// File path: assets/images/news_pay_logo.png
+  /// File path: assets/images/news_pay_logo.webp
   AssetGenImage get newsPayLogo =>
-      const AssetGenImage('assets/images/news_pay_logo.png');
+      const AssetGenImage('assets/images/news_pay_logo.webp');
 
-  /// File path: assets/images/news_pay_splash.png
+  /// File path: assets/images/news_pay_splash.webp
   AssetGenImage get newsPaySplash =>
-      const AssetGenImage('assets/images/news_pay_splash.png');
+      const AssetGenImage('assets/images/news_pay_splash.webp');
 
   /// List of all assets
   List<AssetGenImage> get values => [

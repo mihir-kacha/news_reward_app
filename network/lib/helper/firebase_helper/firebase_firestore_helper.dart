@@ -12,6 +12,10 @@ class FireStoreHelper {
   static const referralsCollection = "referrals";
   static const withdrawalsCollection = "withdrawals";
 
+  ///prod
+  static const adsConfigCollection = "ads_config";
+  static const adsIdsCollection = "ads_ids";
+
   ///dev
   static const devAdsConfigCollection = "dev_ads_config";
   static const devAdsIdsCollection = "dev_ads_id";
@@ -23,6 +27,10 @@ class FireStoreHelper {
   static final configCollectionRef = fireStore.collection(configCollection);
   static final referralsCollectionRef = fireStore.collection(referralsCollection);
   static final withdrawalsCollectionRef = fireStore.collection(withdrawalsCollection);
+
+  ///prod
+  static final adsConfigCollectionRef = fireStore.collection(adsConfigCollection);
+  static final adsIdsCollectionRef = fireStore.collection(adsIdsCollection);
 
   ///dev
   static final devAdsConfigCollectionRef = fireStore.collection(devAdsConfigCollection);

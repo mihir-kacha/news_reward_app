@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:inshorts/components/shimmer_skeleton.dart';
 import 'package:inshorts/core/core.dart';
+import 'package:inshorts/resources/resources.dart';
 import 'package:inshorts/utils/ad/ads.dart';
+
+enum DetailNativeLayout { buttonTop, buttonBottom }
 
 class NativeAdComponent extends StatefulWidget {
   const NativeAdComponent({
@@ -10,11 +13,14 @@ class NativeAdComponent extends StatefulWidget {
     required this.adUnitId,
     this.nativeAdType = NativeAdTyped.feed,
     this.height = 324,
+    this.detailLayout = DetailNativeLayout.buttonBottom,
   });
 
   final String? adUnitId;
   final NativeAdTyped nativeAdType;
   final double height;
+
+  final DetailNativeLayout detailLayout;
 
   @override
   State<NativeAdComponent> createState() => _NativeAdComponentState();
@@ -64,13 +70,25 @@ class _NativeAdComponentState extends State<NativeAdComponent> {
           height: _resolvedHeight,
           child: Stack(
             children: [
-              AndroidView(
-                viewType: 'custom_native_ad_view',
-                creationParams: {'adUnitId': widget.adUnitId, 'adSlot': widget.nativeAdType.name},
-                creationParamsCodec: const StandardMessageCodec(),
-                onPlatformViewCreated: _setupChannel,
+              ClipRRect(
+                borderRadius: ShapeBorderRadius.normal,
+                child: AndroidView(
+                  viewType: 'custom_native_ad_view',
+                  creationParams: {
+                    'adUnitId': widget.adUnitId,
+                    'adSlot': widget.nativeAdType.name,
+                    'detailLayout': widget.detailLayout.name,
+                  },
+                  creationParamsCodec: const StandardMessageCodec(),
+                  onPlatformViewCreated: _setupChannel,
+                ),
               ),
-              if (state == _AdState.loading) ...[ShimmerSkeleton(height: _resolvedHeight, width: context.width)],
+              if (state == _AdState.loading) ...[
+                ClipRRect(
+                  borderRadius: ShapeBorderRadius.normal,
+                  child: ShimmerSkeleton(height: _resolvedHeight, width: context.width),
+                ),
+              ],
             ],
           ),
         );

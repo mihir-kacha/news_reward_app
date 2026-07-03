@@ -17,9 +17,11 @@ class NewsCell extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: Spacing.small, horizontal: Spacing.normal),
       child: CommonButton.cupertino(
-        onTap: () {
-          context.navigator.pushNamed(NewsDetailScreen.routeName, arguments: newsData);
-        },
+        onTap: () => NavigationAdHelper.instance.navigate(
+          onComplete: () {
+            context.navigator.pushNamed(NewsDetailScreen.routeName, arguments: newsData);
+          },
+        ),
         child: Container(
           padding: EdgeInsets.all(Spacing.medium),
           decoration: BoxDecoration(

@@ -119,8 +119,6 @@ class _Body extends StatelessWidget {
             ),
           ),
           Gap(Spacing.normal),
-          NativeAdComponent(adUnitId: nativeAdUnitId, nativeAdType: .detail),
-          Gap(Spacing.normal),
           Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -145,9 +143,9 @@ class _Body extends StatelessWidget {
                   final status = context.select<ReferProvider, ClaimStatus>(
                     (value) => value.buttonStatus(id: data.id ?? "", total: data.total ?? 0),
                   );
-                  if (index == 5) {
-                    return NativeAdComponent(adUnitId: nativeAdUnitId, nativeAdType: .feed);
-                  }
+                  // if (index == 5) {
+                  //   return NativeAdComponent(adUnitId: nativeAdUnitId, nativeAdType: .feed);
+                  // }
                   return ReadingNewsTask(
                     referFriends: referralCount,
                     status: status,

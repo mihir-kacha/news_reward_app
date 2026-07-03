@@ -15,7 +15,11 @@ final class ProfileProvider extends BaseProvider {
     );
     if (context.mounted) {
       preference.clear();
-      context.navigator.pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
+      NavigationAdHelper.instance.navigate(
+        onComplete: () {
+          context.navigator.pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
+        },
+      );
     }
   }
 }

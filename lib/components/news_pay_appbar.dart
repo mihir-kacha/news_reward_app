@@ -44,13 +44,13 @@ class NewsPayAppbar extends StatelessWidget implements PreferredSizeWidget {
       leading:
           leading ??
           ((showBack ?? context.navigator.canPop())
-              ? Padding(
-                  padding: EdgeInsets.only(left: Spacing.normal),
-                  child: CommonButton.cupertino(
-                    onTap: () {
-                      context.navigator.pop();
-                    },
-                    child: Icon(Icons.arrow_back, size: 20, color: context.colorScheme.shadow),
+              ? CommonButton.cupertino(
+                  onTap: () {
+                    context.navigator.pop();
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.only(left: Spacing.normal),
+                    child: Icon(Icons.arrow_back, size: 24, color: context.colorScheme.shadow),
                   ),
                 )
               : null),

@@ -55,7 +55,7 @@ class RewardAdWatchDialog extends StatelessWidget {
                   Flexible(
                     child: Text(
                       "Your reward is ready to be claimed.",
-                      style: context.textTheme.titleMedium?.copyWith(
+                      style: context.textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.w700,
                         color: context.colorScheme.primary,
                       ),
@@ -78,7 +78,7 @@ class RewardAdWatchDialog extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             spacing: Spacing.xSmall,
             children: [
-              Assets.icons.icCoins.svg(height: 22),
+              Assets.images.imgCoin.image(height: 22),
               Text(
                 '$coins',
                 style: context.textTheme.titleLarge?.copyWith(

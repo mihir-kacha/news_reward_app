@@ -155,7 +155,11 @@ class Preference {
 
   void clear() {
     final isShowOnBoarding = this.isShowOnBoarding;
+    final adsConfig = this.adsConfig;
+    final adsIds = this.adsIds;
     prefs?.clear();
     this.isShowOnBoarding = isShowOnBoarding;
+    this.adsConfig = adsConfig;
+    this.adsIds = adsIds;
   }
 }

@@ -1,8 +1,10 @@
 part of '../network.dart';
 
 class AdRepository {
-  final _adsConfigRef = FireStoreHelper.devAdsConfigCollectionRef;
-  final _adsIdsRef = FireStoreHelper.devAdsIdsCollectionRef;
+  final _adsConfigRef = Env().isDevMode
+      ? FireStoreHelper.devAdsConfigCollectionRef
+      : FireStoreHelper.adsConfigCollectionRef;
+  final _adsIdsRef = Env().isDevMode ? FireStoreHelper.devAdsIdsCollectionRef : FireStoreHelper.adsIdsCollectionRef;
 
   Future<AdsConfigModel?> getAdsConfig() async {
     try {

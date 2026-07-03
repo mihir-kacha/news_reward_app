@@ -144,13 +144,10 @@ enum ChallengeType {
     return switch (this) {
       ChallengeType.luck => "Open once daily & win 0 - 10,000 Points",
       ChallengeType.drinkWater =>
-        'Stay hydrated & earn ${Preference().coinsConfig.drinkWaterCoins.formattedIndian} Points (every 1 hours)',
-      ChallengeType.walk =>
-        'Walk daily & earn ${Preference().coinsConfig.drinkWaterCoins.formattedIndian} Points (every 1 hours)',
-      ChallengeType.exercise =>
-        'Exercise & earn  ${Preference().coinsConfig.drinkWaterCoins.formattedIndian} Points (every 1 hours)',
-      ChallengeType.pray =>
-        'Pray & earn  ${Preference().coinsConfig.drinkWaterCoins.formattedIndian} Points (every 6 hours)',
+        'Stay hydrated & earn ${Preference().coinsConfig.drinkWaterCoins} Points (every 1 hours)',
+      ChallengeType.walk => 'Walk daily & earn ${Preference().coinsConfig.walkCoins} Points (every 1 hours)',
+      ChallengeType.exercise => 'Exercise & earn  ${Preference().coinsConfig.exerciseCoins} Points (every 1 hours)',
+      ChallengeType.pray => 'Pray & earn  ${Preference().coinsConfig.prayCoins} Points (every 6 hours)',
     };
   }
 

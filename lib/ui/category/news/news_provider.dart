@@ -22,15 +22,15 @@ final class NewsProvider extends BaseProvider implements PaginationProvider<News
     super.initState();
     _getNews();
     resolveAdUnitId(
-      slot: NativeAdTyped.feed,
-      isThisAdPlaceEnable: preference.adsConfig?.adPlaceConfig?.categoryNative ?? false,
+      slot: NativeAdTyped.detail,
+      isThisAdPlaceEnable: preference.adsConfig?.adPlaceConfig?.categoryNewsAd ?? false,
     );
   }
 
   Future<void> _getNews() async {
     final result = await processApi(
       request: () async {
-        return await newsRepository.getNewsByCategory(category: category.name);
+        return await newsRepository.getNewsByCategory(category: category.name, lastDocument: _lastDocument);
       },
       onLoading: (loading) {
         _loading = loading;

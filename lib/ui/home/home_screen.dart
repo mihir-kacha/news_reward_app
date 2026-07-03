@@ -41,13 +41,14 @@ class _Body extends StatelessWidget {
       onScrollToEnd: (context) => provider.onLoadMore(),
       child: ListView.builder(
         shrinkWrap: true,
+        padding: EdgeInsets.symmetric(vertical: Spacing.normal),
         physics: AlwaysScrollableScrollPhysics(),
         scrollDirection: Axis.vertical,
         itemCount: list.length,
         itemBuilder: (context, index) {
           final newsData = list[index];
-          if (index == 2) {
-            return NativeAdComponent(adUnitId: nativeAdUnitId, nativeAdType: NativeAdTyped.feed);
+          if (index == 0) {
+            return NativeAdComponent(adUnitId: nativeAdUnitId, nativeAdType: NativeAdTyped.detail);
           }
           return NewsCell(newsData: newsData);
         },

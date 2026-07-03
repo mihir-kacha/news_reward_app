@@ -17,6 +17,10 @@ final class NewsDetailProvider extends BaseProvider {
   Future<void> showNews() async {
     await CommonFunc.openUrl(url: newsData.link ?? AppConstants.privacyPolicyUrl);
     await Future.delayed(200.milliseconds);
-    context.navigator.pushNamed(NewsCodeScreen.routeName, arguments: newsData);
+    NavigationAdHelper.instance.navigate(
+      onComplete: () {
+        context.navigator.pushNamed(NewsCodeScreen.routeName, arguments: newsData);
+      },
+    );
   }
 }

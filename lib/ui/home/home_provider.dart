@@ -15,7 +15,7 @@ final class HomeProvider extends BaseProvider implements PaginationProvider<News
     super.initState();
     _getNews();
     resolveAdUnitId(
-      slot: NativeAdTyped.feed,
+      slot: NativeAdTyped.detail,
       isThisAdPlaceEnable: preference.adsConfig?.adPlaceConfig?.homeNative ?? false,
     );
   }
@@ -23,7 +23,7 @@ final class HomeProvider extends BaseProvider implements PaginationProvider<News
   Future<void> _getNews() async {
     final result = await processApi(
       request: () async {
-        return await newsRepository.getNewsFromFirebase();
+        return await newsRepository.getNewsFromFirebase(lastDocument: _lastDocument);
       },
       onLoading: (loading) {
         _loading = loading;

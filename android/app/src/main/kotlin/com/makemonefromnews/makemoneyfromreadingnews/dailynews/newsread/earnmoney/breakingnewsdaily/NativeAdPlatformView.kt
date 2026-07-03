@@ -21,17 +21,27 @@ class NativeAdPlatformView(
     private val context: Context,
     private val adUnitId: String,
     private val adSlot: String,
+    private val detailLayout: String,
     private val viewId: Int,
     private val binaryMessenger: BinaryMessenger
 ) : PlatformView {
 
     private val isMedium = adSlot == "detail" || adSlot == "nativeVideo"
 
-    private val adView: NativeAdView = LayoutInflater.from(context).inflate(
-        if (isMedium) R.layout.native_ad_layout_medium
-        else R.layout.native_ad_layout_small,
-        null
-    ) as NativeAdView
+    private val layoutRes = when {
+        !isMedium ->
+            R.layout.native_ad_layout_small
+
+        detailLayout == "buttonTop" ->
+            R.layout.native_ad_layout_medium_top
+
+        else ->
+            R.layout.native_ad_layout_medium
+    }
+
+    private val adView: NativeAdView =
+        LayoutInflater.from(context)
+            .inflate(layoutRes, null) as NativeAdView
 
     private val channel = MethodChannel(
         binaryMessenger,

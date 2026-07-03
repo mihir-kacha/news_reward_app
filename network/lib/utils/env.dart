@@ -8,7 +8,7 @@ class Env {
   factory Env() => _instance;
   late Environment environment;
 
-  bool get isDeviceMode => environment == Environment.dev;
+  bool get isDevMode => environment == Environment.dev;
 
   void setEnvironment(Environment env) {
     environment = env;

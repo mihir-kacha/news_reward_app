@@ -55,7 +55,7 @@ class NewsRepository {
 
       return PaginatedListResult(
         data: newsSnapshot.map((e) => e.data()).toList(),
-        lastDocument: lastDocument,
+        lastDocument: newsSnapshot.lastOrNull,
         hasMore: hasMore,
       );
     } catch (e) {

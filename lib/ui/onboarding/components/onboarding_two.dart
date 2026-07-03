@@ -6,6 +6,7 @@ class _OnboardingTwo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      padding: EdgeInsets.symmetric(horizontal: Spacing.normal) + EdgeInsets.only(top: Spacing.normal),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,

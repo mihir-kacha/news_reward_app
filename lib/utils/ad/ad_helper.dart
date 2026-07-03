@@ -178,7 +178,6 @@ class AdHelper {
       ..onAdShown = onShown;
   }
 
-
   /// banner ads
 
   Future<AdLoadResult> loadBanner({BuildContext? context}) async {

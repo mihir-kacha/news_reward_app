@@ -15,6 +15,11 @@ class CategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = context.read<CategoryProvider>();
+    final nativeAdUnitId = context.select<CategoryProvider, String?>((value) => value.nativeAdUnitId);
+    final adLoad = context.select<CategoryProvider, bool>((value) => value.adLoad);
+    if (adLoad) {
+      return SizedBox.shrink();
+    }
     return Scaffold(
       appBar: NewsPayAppbar(
         title: Column(
@@ -37,12 +42,25 @@ class CategoryScreen extends StatelessWidget {
         builder: (context, index) {
           return _CategoryCell(category: provider.categories[index]);
         },
+        adBuilder: (context, index) {
+          if (index == 2) {
+            return Padding(
+              padding: EdgeInsets.only(top: Spacing.medium),
+              child: NativeAdComponent(adUnitId: nativeAdUnitId, nativeAdType: .detail),
+            );
+          }
+          return SizedBox.shrink();
+        },
         itemCount: provider.categories.length,
         crossAxisCount: 2,
         physics: AlwaysScrollableScrollPhysics(),
         shrinkWrap: true,
         padding: EdgeInsets.only(
-            top: Spacing.normal, right: Spacing.medium, left: Spacing.medium ,bottom: Spacing.xxxLarge),
+          top: Spacing.normal,
+          right: Spacing.medium,
+          left: Spacing.medium,
+          bottom: Spacing.xxxLarge,
+        ),
         mainAxisSpacing: Spacing.medium,
         crossAxisSpacing: Spacing.medium,
       ),
@@ -59,7 +77,11 @@ class _CategoryCell extends StatelessWidget {
   Widget build(BuildContext context) {
     return CommonButton.cupertino(
       onTap: () {
-        context.navigator.pushNamed(NewsScreen.routeName, arguments: category);
+        NavigationAdHelper.instance.navigate(
+          onComplete: () {
+            context.navigator.pushNamed(NewsScreen.routeName, arguments: category);
+          },
+        );
       },
       child: Container(
         height: 140,

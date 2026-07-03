@@ -17,6 +17,7 @@ class NativeAdViewFactory(
             context,
             params["adUnitId"] as String,
             params["adSlot"] as? String ?: "feed",
+            params["detailLayout"] as? String ?: "buttonBottom",
             viewId,
             binaryMessenger
         )

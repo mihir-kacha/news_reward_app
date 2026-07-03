@@ -135,8 +135,7 @@ class _News extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = context.read<CongratulationProvider>();
     final list = context.select<CongratulationProvider, List<NewsData>>((value) => value.list);
-    final isLoading = context.select<CongratulationProvider, bool>((value) => value.loading || value.adLoad);
-    final nativeAdUnitId = context.select<CongratulationProvider, String?>((value) => value.nativeAdUnitId);
+    final isLoading = context.select<CongratulationProvider, bool>((value) => value.loading);
     if (provider.list.isEmpty) {
       if (isLoading) {
         return Center(child: LoadingIndicator());
@@ -153,9 +152,6 @@ class _News extends StatelessWidget {
         itemCount: list.length,
         itemBuilder: (context, index) {
           final newsData = list[index];
-          if (index == 6) {
-            return NativeAdComponent(adUnitId: nativeAdUnitId, nativeAdType: NativeAdTyped.feed);
-          }
           return NewsCell(newsData: newsData);
         },
       ),

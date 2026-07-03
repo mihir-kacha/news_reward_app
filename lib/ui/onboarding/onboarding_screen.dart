@@ -25,26 +25,29 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = context.read<OnboardingProvider>();
     final currentIndex = context.select<OnboardingProvider, int>((value) => value.currentIndex);
-    return Padding(
-      padding: EdgeInsetsGeometry.all(Spacing.normal),
-      child: Stack(
-        children: [
-          PageView.builder(
-            physics: AlwaysScrollableScrollPhysics(),
-            itemCount: 2,
-            clipBehavior: Clip.hardEdge,
-            scrollDirection: Axis.horizontal,
-            controller: provider.pageController,
-            itemBuilder: (context, index) {
-              if (currentIndex == 0) {
-                return _OnboardingOne();
-              } else {
-                return _OnboardingTwo();
-              }
-            },
-          ),
-          Positioned.fill(
-            bottom: context.padding.bottom,
+    return Stack(
+      children: [
+        PageView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: 2,
+          clipBehavior: Clip.hardEdge,
+          scrollDirection: Axis.horizontal,
+          controller: provider.pageController,
+          onPageChanged: (index) {
+            provider.onPageChanged(index: index);
+          },
+          itemBuilder: (context, index) {
+            if (index == 0) {
+              return _OnboardingOne();
+            } else {
+              return _OnboardingTwo();
+            }
+          },
+        ),
+        Positioned.fill(
+          bottom: context.padding.bottom,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: Spacing.normal) + EdgeInsets.only(bottom: context.padding.bottom),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.end,
@@ -83,8 +86,8 @@ class _Body extends StatelessWidget {
               ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -35,7 +35,11 @@ final class NewsCodeProvider extends BaseProvider {
 
     if ((formKey.currentState?.validate() ?? false) && context.mounted) {
       await _processReward(coins: 300);
-      context.navigator.pushNamed(CongratulationScreen.routeName, arguments: oldCoins);
+      NavigationAdHelper.instance.navigate(
+        onComplete: () {
+          context.navigator.pushNamed(CongratulationScreen.routeName, arguments: oldCoins);
+        },
+      );
       preference.readNews = preference.readNews + 1;
       eventBus.fire(SurveyCompletedEvet());
       codeController.clear();

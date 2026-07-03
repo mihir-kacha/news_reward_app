@@ -1,19 +1,26 @@
 part of 'onboarding.dart';
 
-final class OnboardingProvider extends BaseProvider{
+final class OnboardingProvider extends BaseProvider {
   OnboardingProvider({required super.context});
 
   final PageController pageController = PageController();
-  int currentIndex =0;
+  int currentIndex = 0;
+
+  void onPageChanged({required int index}) {
+    currentIndex = index;
+    notifyListeners();
+  }
 
   void onNext() {
     if (currentIndex == 1) {
-      context.navigator.pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false, arguments: false);
       preference.isShowOnBoarding = false;
+      NavigationAdHelper.instance.navigate(
+        onComplete: () {
+          context.navigator.pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false, arguments: false);
+        },
+      );
     } else {
-      currentIndex++;
-      notifyListeners();
-      pageController.animateToPage(currentIndex, duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+      pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
     }
   }
 }

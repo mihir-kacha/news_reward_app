@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:inshorts/core/core.dart';
 import 'package:shimmer/shimmer.dart';
@@ -15,7 +13,7 @@ class ShimmerSkeleton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: context.colorScheme.outline,
+      baseColor: context.colorScheme.surfaceTint.withColorOpacity(.15),
       highlightColor: context.colorScheme.surface,
       child: Builder(
         builder: (context) {
@@ -23,7 +21,10 @@ class ShimmerSkeleton extends StatelessWidget {
           return Container(
             height: height,
             width: width,
-            decoration: BoxDecoration(color:context.colorScheme.surfaceContainer.withColorOpacity(.6),borderRadius: radius),
+            decoration: BoxDecoration(
+              color: context.colorScheme.surfaceContainer.withColorOpacity(.6),
+              borderRadius: radius,
+            ),
           );
         },
       ),

@@ -25,7 +25,7 @@ final class CongratulationProvider extends BaseProvider implements PaginationPro
   Future<void> _getNews() async {
     final result = await processApi(
       request: () async {
-        return await newsRepository.getNewsFromFirebase();
+        return await newsRepository.getNewsFromFirebase(lastDocument: _lastDocument);
       },
       onLoading: (loading) {
         _loading = loading;

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:network/helper/logger.dart';
 
 part 'news_model.dart';
 part 'config_model.dart';

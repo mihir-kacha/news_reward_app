@@ -11,6 +11,7 @@ class AdPlaceConfig {
   final bool newsCodeAd;
   final bool referAd;
   final bool congratulationNewsAd;
+  final bool categoryNewsAd;
 
   AdPlaceConfig({
     required this.categoryNative,
@@ -18,7 +19,12 @@ class AdPlaceConfig {
     required this.dailyReadNewsAd,
     required this.dailyTaskClaimAd,
     required this.homeNative,
-    required this.referFriendAd, required this.newsDetailAd, required this.newsCodeAd, required this.referAd, required this.congratulationNewsAd,
+    required this.referFriendAd,
+    required this.newsDetailAd,
+    required this.newsCodeAd,
+    required this.referAd,
+    required this.congratulationNewsAd,
+    required this.categoryNewsAd,
   });
 
   Map<String, dynamic> toJson() {
@@ -29,10 +35,11 @@ class AdPlaceConfig {
       'daily_task_claim_ad': dailyTaskClaimAd,
       'home_native': homeNative,
       'refer_friend_ad': referFriendAd,
-      'news_detail_ad' : newsDetailAd,
-      'mews_code_ad' : newsCodeAd,
-      'refer_ad' : referAd,
-      'congratulation_news_ad' : congratulationNewsAd
+      'news_detail_ad': newsDetailAd,
+      'news_code_ad': newsCodeAd,
+      'refer_ad': referAd,
+      'congratulation_news_ad': congratulationNewsAd,
+      'category_news_ad': categoryNewsAd,
     };
   }
 
@@ -45,9 +52,10 @@ class AdPlaceConfig {
       homeNative: map['home_native'],
       referFriendAd: map['refer_friend_ad'],
       newsDetailAd: map['news_detail_ad'],
-      newsCodeAd: map['mews_code_ad'],
+      newsCodeAd: map['news_code_ad'],
       referAd: map['refer_ad'],
-      congratulationNewsAd: map['congratulation_news_ad']
+      congratulationNewsAd: map['congratulation_news_ad'],
+      categoryNewsAd: map['category_news_ad'],
     );
   }
 
@@ -62,6 +70,7 @@ class AdPlaceConfig {
     bool? newsCodeAd,
     bool? referAd,
     bool? congratulationNewsAd,
+    bool? categoryNewsAd,
   }) {
     return AdPlaceConfig(
       categoryNative: categoryNative ?? this.categoryNative,
@@ -74,6 +83,7 @@ class AdPlaceConfig {
       newsCodeAd: newsCodeAd ?? this.newsCodeAd,
       referAd: referAd ?? this.referAd,
       congratulationNewsAd: congratulationNewsAd ?? this.congratulationNewsAd,
+      categoryNewsAd: categoryNewsAd ?? this.categoryNewsAd,
     );
   }
 }
