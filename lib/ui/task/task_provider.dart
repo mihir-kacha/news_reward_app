@@ -229,8 +229,8 @@ final class TaskProvider extends BaseProvider with SubscriptionHelper {
     loadingDialogHandler.handleLoading(
       true,
       message:
-      (preference.adsConfig?.adsStatusModel?.showAdsInApp ?? false) &&
-          (preference.adsConfig?.adsStatusModel?.isRewardAdShow ?? false)
+          (preference.adsConfig?.adsStatusModel?.showAdsInApp ?? false) &&
+              (preference.adsConfig?.adsStatusModel?.isRewardAdShow ?? false)
           ? "Ad Loading"
           : "",
     );
@@ -240,7 +240,7 @@ final class TaskProvider extends BaseProvider with SubscriptionHelper {
     if (result.success) {
       NavigationAdHelper.instance.isRewardAdActive = true;
       AdHelper.instance.setRewardedCallbacks(
-        onRewardEarned: (_) {},
+        onRewardEarned: (_) => onRewardEarned(),
         onFailed: (_) => onRewardFailed(),
         onDismissed: () {
           NavigationAdHelper.instance.isRewardAdActive = false;
