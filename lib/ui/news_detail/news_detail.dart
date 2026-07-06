@@ -13,7 +13,9 @@ import 'package:inshorts/utils/ad/ads.dart';
 import 'package:inshorts/utils/app_constant.dart';
 import 'package:inshorts/utils/catches_network_images.dart';
 import 'package:inshorts/utils/common_functions.dart';
+import 'package:network/helper/logger.dart';
 import 'package:network/model/model.dart';
+import 'package:network/network.dart';
 import 'package:provider/provider.dart';
 
 part 'news_detail_screen.dart';

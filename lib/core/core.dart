@@ -52,3 +52,4 @@ part 'extension/currency_ext.dart';
 part 'helper/connectivity_helper.dart';
 part 'helper/navigation_ad_helper.dart';
 part 'helper/notification_helper.dart';
+part 'helper/lifecycle_handler.dart';

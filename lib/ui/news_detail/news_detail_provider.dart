@@ -14,7 +14,11 @@ final class NewsDetailProvider extends BaseProvider {
     );
   }
 
+  bool isAdShown = false;
+  bool isURLOpened = false;
+
   Future<void> showNews() async {
+    await loadAppOpenAd();
     await CommonFunc.openUrl(url: newsData.webLink ?? AppConstants.privacyPolicyUrl);
     await Future.delayed(200.milliseconds);
     NavigationAdHelper.instance.navigate(
@@ -22,5 +26,28 @@ final class NewsDetailProvider extends BaseProvider {
         context.navigator.pushNamed(NewsCodeScreen.routeName, arguments: newsData);
       },
     );
+  }
+
+  Future<void> loadAppOpenAd() async {
+    if (isAdShown) return;
+    Log.debug("loadAd");
+    if (preference.adsConfig?.adsStatusModel?.isOpenAppAdShow ?? false) {
+      await AdHelper.instance.loadAppOpen();
+    }
+  }
+
+  Future<void> showAppOpenAd() async {
+    if (isAdShown) return;
+    Log.debug("shownAd");
+    AdHelper.instance.setAppOpenCallbacks(
+      onDismissed: () {
+        isAdShown = false;
+      },
+      onFailed: (_) {},
+      onShown: () {
+        isAdShown = true;
+      },
+    );
+    await AdHelper.instance.showAppOpen();
   }
 }

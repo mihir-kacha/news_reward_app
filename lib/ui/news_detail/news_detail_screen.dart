@@ -16,26 +16,30 @@ class NewsDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = context.read<NewsDetailProvider>();
-    return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Padding(
-        padding: EdgeInsetsGeometry.symmetric(horizontal: Spacing.normal),
-        child: FilledButton(
-          style: FilledButton.styleFrom(fixedSize: Size.fromWidth(context.width)),
-          onPressed: provider.showNews,
-          child: Text(
-            "Open News to Earn 300 Points",
-            style: context.textTheme.bodyLarge?.copyWith(
-              color: context.colorScheme.onPrimary,
-              fontWeight: FontWeight.w700,
+    return LifecycleHandler(
+      onStart: provider.showAppOpenAd,
+      onStop: () {},
+      child: Scaffold(
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: Padding(
+          padding: EdgeInsetsGeometry.symmetric(horizontal: Spacing.normal),
+          child: FilledButton(
+            style: FilledButton.styleFrom(fixedSize: Size.fromWidth(context.width)),
+            onPressed: provider.showNews,
+            child: Text(
+              "Open News to Earn 300 Points",
+              style: context.textTheme.bodyLarge?.copyWith(
+                color: context.colorScheme.onPrimary,
+                fontWeight: FontWeight.w700,
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
           ),
         ),
+        appBar: NewsPayAppbar(title: Text("NewsPay")),
+        body: _Body(),
       ),
-      appBar: NewsPayAppbar(title: Text("NewsPay")),
-      body: _Body(),
     );
   }
 }
@@ -53,8 +57,7 @@ class _Body extends StatelessWidget {
     if (adLoad) return LoadingIndicator();
     return SingleChildScrollView(
       padding:
-          EdgeInsets.symmetric(horizontal: Spacing.normal, vertical: Spacing.large) +
-          EdgeInsets.only(bottom: kBottomNavigationBarHeight + context.padding.bottom),
+          EdgeInsets.all(Spacing.normal) + EdgeInsets.only(bottom: kBottomNavigationBarHeight + context.padding.bottom),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,19 +83,18 @@ class _Body extends StatelessWidget {
                 SizedBox(
                   child: Stack(
                     children: [
-                      AspectRatio(
-                        aspectRatio: 16 / 9,
-                        child: NetworkImageBuilder(
-                          url: news.imageUrl,
-                          radius: ShapeBorderRadius.medium,
-                          boxFit: BoxFit.cover,
-                          placeholderBuilder: (context) {
-                            return Container(
-                              color: context.colorScheme.primary.withColorOpacity(.03),
-                              child: Center(child: Icon(Icons.newspaper)),
-                            );
-                          },
-                        ),
+                      NetworkImageBuilder(
+                        height: 160,
+                        width: context.width,
+                        url: news.imageUrl,
+                        radius: ShapeBorderRadius.medium,
+                        boxFit: BoxFit.cover,
+                        placeholderBuilder: (context) {
+                          return Container(
+                            color: context.colorScheme.primary.withColorOpacity(.03),
+                            child: Center(child: Icon(Icons.newspaper)),
+                          );
+                        },
                       ),
                       Positioned(
                         bottom: 0,
@@ -135,32 +137,6 @@ class _Body extends StatelessWidget {
                 ),
                 Gap(Spacing.normal),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: Spacing.small, vertical: Spacing.xSmall),
-                  decoration: BoxDecoration(
-                    color: context.colorScheme.primary.withColorOpacity(.08),
-                    borderRadius: ShapeBorderRadius.xxxLarge,
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Assets.icons.icCategroy.svg(
-                        height: 12,
-                        width: 12,
-                        colorFilter: ColorFilter.mode(context.colorScheme.primary, BlendMode.srcIn),
-                      ),
-                      Gap(Spacing.xSmall),
-                      Text(
-                        news.category[0],
-                        style: context.textTheme.bodySmall?.copyWith(
-                          color: context.colorScheme.primary,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Gap(Spacing.normal),
-                Container(
                   padding: EdgeInsets.symmetric(horizontal: Spacing.normal, vertical: Spacing.medium),
                   decoration: BoxDecoration(
                     color: context.colorScheme.primary.withColorOpacity(.08),
@@ -178,7 +154,7 @@ class _Body extends StatelessWidget {
                           children: [
                             Text(
                               "TOTAL REWARD",
-                              style: context.textTheme.bodySmall?.copyWith(
+                              style: context.textTheme.labelSmall?.copyWith(
                                 color: context.colorScheme.surfaceTint,
                                 fontWeight: FontWeight.w700,
                               ),
@@ -186,7 +162,7 @@ class _Body extends StatelessWidget {
                             Gap(Spacing.xSmall),
                             Text(
                               "300 Points",
-                              style: context.textTheme.headlineSmall?.copyWith(
+                              style: context.textTheme.titleLarge?.copyWith(
                                 color: context.colorScheme.primary,
                                 fontWeight: FontWeight.w900,
                               ),
