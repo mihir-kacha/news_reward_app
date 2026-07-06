@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:inshorts/components/alert_message.dart';
 import 'package:inshorts/components/loading_indicator.dart';
 import 'package:inshorts/components/network_dialog.dart';
@@ -19,6 +21,8 @@ import 'package:inshorts/utils/ad/ads.dart';
 import 'package:intl/intl.dart';
 import 'package:network/helper/logger.dart';
 import 'package:network/network.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:timezone/timezone.dart' as tz;
 import 'package:timeago/timeago.dart' as timeago;
 
 part 'base/base_provider.dart';
@@ -47,3 +51,4 @@ part 'extension/currency_ext.dart';
 
 part 'helper/connectivity_helper.dart';
 part 'helper/navigation_ad_helper.dart';
+part 'helper/notification_helper.dart';

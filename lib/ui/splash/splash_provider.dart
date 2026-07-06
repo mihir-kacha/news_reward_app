@@ -23,6 +23,10 @@ final class SplashProvider extends BaseProvider {
   }
 
   Future<void> _init() async {
+    tz.initializeTimeZones();
+    final TimezoneInfo timezoneInfo = await FlutterTimezone.getLocalTimezone();
+    tz.setLocalLocation(tz.getLocation(timezoneInfo.identifier));
+    await NotificationHelper.instance.initialize();
     if (context.mounted) {
       ConnectivityHelper.instance.initialize(context);
     }

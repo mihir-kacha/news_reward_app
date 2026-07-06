@@ -45,6 +45,9 @@ dependencies:
   firebase_crashlytics: ^5.2.4
   firebase_auth: ^6.5.4
   cloud_firestore: ^6.6.0
+  firebase_messaging: ^16.4.1
+  flutter_local_notifications: ^22.0.0
+  flutter_timezone: ^5.1.0
 
   #----------- Google Ads -----------#
   google_mobile_ads: ^8.0.0

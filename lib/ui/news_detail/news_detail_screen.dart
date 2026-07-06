@@ -234,14 +234,6 @@ class _Body extends StatelessWidget {
               fontWeight: FontWeight.w400,
             ),
           ),
-          Gap(Spacing.xSmall),
-          Text(
-            "4. Code is : ${news.code}",
-            style: context.textTheme.bodySmall?.copyWith(
-              color: context.colorScheme.tertiary,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
         ],
       ),
     );

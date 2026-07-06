@@ -71,6 +71,7 @@ class NewsData {
   final String? aiSummary;
   final bool? duplicate;
   final int? code;
+  final String? webLink;
 
   NewsData({
     this.articleId,
@@ -101,7 +102,7 @@ class NewsData {
     this.aiOrg,
     this.aiSummary,
     this.duplicate,
-    this.code,
+    this.code,  this.webLink,
   });
 
   factory NewsData.fromJson(Map<String, dynamic> json) {
@@ -135,6 +136,7 @@ class NewsData {
       aiSummary: json['ai_summary'],
       duplicate: json['duplicate'],
       code: json['code'],
+      webLink: json['web_url']
     );
   }
 
@@ -168,6 +170,7 @@ class NewsData {
       'ai_org': aiOrg,
       'ai_summary': aiSummary,
       'duplicate': duplicate,
+      'web_url' : webLink,
 
       /// Firebase metadata
       'created_at': DateTime.now().toIso8601String(),
@@ -191,7 +194,7 @@ class NewsData {
     String? pubDateTz,
     DateTime? fetchedAt,
     String? imageUrl,
-    dynamic videoUrl,
+    dynamic? videoUrl,
     String? sourceId,
     String? sourceName,
     int? sourcePriority,
@@ -205,6 +208,7 @@ class NewsData {
     String? aiSummary,
     bool? duplicate,
     int? code,
+    String? webLink,
   }) {
     return NewsData(
       articleId: articleId ?? this.articleId,
@@ -236,6 +240,7 @@ class NewsData {
       aiSummary: aiSummary ?? this.aiSummary,
       duplicate: duplicate ?? this.duplicate,
       code: code ?? this.code,
+      webLink: webLink ?? this.webLink,
     );
   }
 }
