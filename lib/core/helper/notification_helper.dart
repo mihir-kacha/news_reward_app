@@ -23,8 +23,8 @@ class NotificationHelper {
   static final List<CampaignNotification> _dailyNotification = [
     CampaignNotification(
       day: 1,
-      hour: 17,
-      minute: 13,
+      hour: 9,
+      minute: 00,
       title: "🚨 You're leaving free coins on the table 🪙",
       body: "💰 50 coins are already yours. Open now before they disappear ⏳",
       button: "Claim Now",
@@ -32,8 +32,8 @@ class NotificationHelper {
     ),
     CampaignNotification(
       day: 1,
-      hour: 17,
-      minute: 15,
+      hour: 20,
+      minute: 30,
       title: "👀 This is why everyone's downloading right now",
       body: "🔥 People are earning while you're scrolling something else. Don't be last 🏃",
       button: "See Why",
@@ -41,8 +41,8 @@ class NotificationHelper {
     ),
     CampaignNotification(
       day: 2,
-      hour: 14,
-      minute: 55,
+      hour: 8,
+      minute: 00,
       title: "😴 Your coins doubled while you slept",
       body: "📈 Tap now to see how much you're really earning 🪙",
       button: "Check Balance",
