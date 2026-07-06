@@ -41,16 +41,24 @@ class DashboardScreen extends StatelessWidget {
           ],
         ),
       ),
-      body: IndexedStack(
-        index: currentIndex,
-        children: [
-          HomeScreen.builder(context),
-          CategoryScreen.builder(context),
-          TaskScreen.builder(context),
-          RedeemScreen.builder(context),
-          ProfileScreen.builder(context),
-        ],
-      ),
+      body: switch (currentIndex) {
+        0 => HomeScreen.builder(context),
+        1 => CategoryScreen.builder(context),
+        2 => TaskScreen.builder(context),
+        3 => RedeemScreen.builder(context),
+        4 => ProfileScreen.builder(context),
+        _ => SizedBox.shrink(),
+      },
+      // body: IndexedStack(
+      //   index: currentIndex,
+      //   children: [
+      //     HomeScreen.builder(context),
+      //     CategoryScreen.builder(context),
+      //     TaskScreen.builder(context),
+      //     RedeemScreen.builder(context),
+      //     ProfileScreen.builder(context),
+      //   ],
+      // ),
     );
   }
 }
