@@ -35,9 +35,3 @@ extension $IntExtension on int? {
     return this! < 0 ? '-${buffer.toString()}' : buffer.toString();
   }
 }
-
-String getNewsTime(DateTime? dateTime) {
-  if (dateTime == null) return '';
-
-  return timeago.format(dateTime, allowFromNow: false);
-}

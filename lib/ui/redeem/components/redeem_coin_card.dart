@@ -81,6 +81,7 @@ class _RedeemCoins extends StatelessWidget {
             ),
             Gap(Spacing.normal),
             AppInputField(
+              autofocus: false,
               controller: provider.coinController,
               fillColor: context.colorScheme.outlineVariant.withColorOpacity(.5),
               filled: true,

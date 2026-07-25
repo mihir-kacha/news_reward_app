@@ -8,7 +8,6 @@ import 'package:inshorts/data/preference/preference.dart';
 import 'package:inshorts/utils/enum.dart';
 import 'package:network/helper/logger.dart';
 import 'package:network/network.dart';
-import 'package:gma_mediation_unity/gma_mediation_unity.dart';
 
 part 'ad_helper.dart';
 part 'interstitial_ads_loader.dart';

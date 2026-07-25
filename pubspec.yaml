@@ -4,7 +4,7 @@ description: "A new Flutter project."
 publish_to: 'none'
 
 
-version: 1.0.0+1
+version: 1.0.3+103
 
 environment:
   sdk: ^3.11.0
@@ -23,7 +23,6 @@ dependencies:
 
   # --------- Utils --------- #
   connectivity_plus: ^7.1.0
-  device_info_plus: ^13.1.0
   intl: ^0.20.2
   url_launcher: ^6.3.2
 
@@ -32,9 +31,7 @@ dependencies:
   gap: ^3.0.1
   shimmer: ^3.0.0
   extended_image: ^10.0.1
-  lottie: ^3.3.2
   share_plus: ^13.1.0
-  timeago: ^3.7.1
 
   #----------- network -----------#
   network:
@@ -45,14 +42,11 @@ dependencies:
   firebase_crashlytics: ^5.2.4
   firebase_auth: ^6.5.4
   cloud_firestore: ^6.6.0
-  firebase_messaging: ^16.4.1
   flutter_local_notifications: ^22.0.0
   flutter_timezone: ^5.1.0
 
   #----------- Google Ads -----------#
   google_mobile_ads: ^8.0.0
-  gma_mediation_inmobi: ^2.2.0
-  gma_mediation_unity: ^1.8.0
 
 
 dev_dependencies:

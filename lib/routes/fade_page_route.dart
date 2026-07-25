@@ -29,16 +29,16 @@ class FadePageRoute<T> extends PageRoute<T> {
     Animation<double> secondaryAnimation,
     Widget child,
   ) {
-    if (Platform.isIOS) {
-      // Default iOS transition
-      return CupertinoPageTransitionsBuilder().buildTransitions(
-        this, // Reference to the current route
-        context,
-        animation,
-        secondaryAnimation,
-        child,
-      );
-    }
+    // if (Platform.isIOS) {
+    //   // Default iOS transition
+    //   return CupertinoPageTransitionsBuilder().buildTransitions(
+    //     this, // Reference to the current route
+    //     context,
+    //     animation,
+    //     secondaryAnimation,
+    //     child,
+    //   );
+    // }
 
     // Fade transition for other platforms
     return FadeTransition(

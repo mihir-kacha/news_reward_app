@@ -23,7 +23,6 @@ import 'package:network/helper/logger.dart';
 import 'package:network/network.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/timezone.dart' as tz;
-import 'package:timeago/timeago.dart' as timeago;
 
 part 'base/base_provider.dart';
 

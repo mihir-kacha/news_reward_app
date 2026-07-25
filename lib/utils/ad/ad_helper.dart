@@ -42,9 +42,6 @@ class AdHelper {
       return;
     }
 
-    GmaMediationUnity().setGDPRConsent(true);
-    GmaMediationUnity().setCCPAConsent(true);
-
     await MobileAds.instance.initialize();
 
     _appOpenAdsLoader = AppOpenAdsLoader()
