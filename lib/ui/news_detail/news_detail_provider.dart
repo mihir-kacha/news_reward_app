@@ -8,6 +8,7 @@ final class NewsDetailProvider extends BaseProvider {
   @override
   void initState() {
     super.initState();
+    Log.debug("Web link ===> ${newsData.webLink}");
     resolveAdUnitId(
       slot: NativeAdTyped.detail,
       isThisAdPlaceEnable: preference.adsConfig?.adPlaceConfig?.newsDetailAd ?? false,
@@ -19,7 +20,12 @@ final class NewsDetailProvider extends BaseProvider {
 
   Future<void> showNews() async {
     await loadAppOpenAd();
-    await CommonFunc.openUrl(url: newsData.webLink ?? AppConstants.privacyPolicyUrl);
+    Log.success(newsData.webLink);
+    if (newsData.webLink == null) {
+      context.showErrorMessage(title: "News Url not available");
+      return;
+    }
+    await CommonFunc.openUrl(url: newsData.webLink ?? '');
     await Future.delayed(200.milliseconds);
     NavigationAdHelper.instance.navigate(
       onComplete: () {

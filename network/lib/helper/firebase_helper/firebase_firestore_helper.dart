@@ -14,7 +14,7 @@ class FireStoreHelper {
 
   ///prod
   static const adsConfigCollection = "ads_config";
-  static const adsIdsCollection = "ads_ids";
+  static const adsIdsCollection = "ads_id";
 
   ///dev
   static const devAdsConfigCollection = "dev_ads_config";
@@ -44,7 +44,7 @@ class FireStoreHelper {
   );
 
   static final newsRef = newsCollectionRef.withConverter(
-    fromFirestore: (snapshot, options) => NewsData.fromJson(snapshot.data()!).copyWith(articleId: snapshot.id),
+    fromFirestore: (snapshot, options) => NewsData.fromJson(snapshot.data()!),
     toFirestore: (value, options) => value.toJson(),
   );
 

@@ -27,7 +27,11 @@ final class NewsCodeProvider extends BaseProvider {
   int oldCoins = 0;
 
   Future<void> showNews() async {
-    await CommonFunc.openUrl(url: newsData.link ?? AppConstants.privacyPolicyUrl);
+    if (newsData.webLink == null) {
+      context.showErrorMessage(title: "News Url not available");
+      return;
+    }
+    await CommonFunc.openUrl(url: newsData.link ?? "");
   }
 
   Future<void> earnCoins() async {
