@@ -8,7 +8,7 @@ class NavigationAdHelper {
   int navigationCount = 0;
   bool isRewardAdActive = false;
 
-  Future<void> navigate({required VoidCallback onComplete, bool isFromSurvey = false}) async {
+  Future<void> navigate({required VoidCallback onComplete, bool isHowItWorks = false}) async {
     if (navigatorKey.currentContext == null) {
       Log.error("navigatorKey.currentContext is null");
       return;
@@ -16,7 +16,7 @@ class NavigationAdHelper {
     LoadingDialogHandler loadingDialogHandler = LoadingDialogHandler(context: navigatorKey.currentContext!);
     navigationCount++;
 
-    final threshold = Preference().adsConfig?.adsCountsModel?.interstitialAdsIntervalCount ?? 5;
+    final threshold = isHowItWorks ? 0 : Preference().adsConfig?.adsCountsModel?.interstitialAdsIntervalCount ?? 5;
 
     if (navigationCount >= threshold && !isRewardAdActive) {
       navigationCount = 0;
@@ -28,6 +28,7 @@ class NavigationAdHelper {
                 (Preference().adsConfig?.adsStatusModel?.isInterstitialShow ?? false)
             ? "Ad Loading"
             : "",
+        showAdLoading: true,
       );
 
       AdLoadResult result = await AdHelper.instance.loadInterstitial();

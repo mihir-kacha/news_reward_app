@@ -4,12 +4,9 @@ import 'package:gap/gap.dart';
 import 'package:inshorts/core/core.dart';
 import 'package:inshorts/generated/assets.gen.dart';
 import 'package:inshorts/resources/resources.dart';
-import 'package:inshorts/ui/how_it_works/how_it_works.dart';
 import 'package:inshorts/ui/login/login.dart';
+import 'package:inshorts/utils/ad/ads.dart';
 import 'package:provider/provider.dart';
 
-part 'onboarding_screen.dart';
-part 'onboarding_provider.dart';
-part 'components/on_boarding_app_bar.dart';
-part 'components/onboarding_one.dart';
-part 'components/onboarding_two.dart';
+part 'how_it_works_screen.dart';
+part 'how_it_works_provider.dart';

@@ -12,6 +12,8 @@ class AdPlaceConfig {
   final bool referAd;
   final bool congratulationNewsAd;
   final bool categoryNewsAd;
+  final bool openInterOnInitial;
+  final bool onBoardingNativeAd;
 
   AdPlaceConfig({
     required this.categoryNative,
@@ -25,6 +27,8 @@ class AdPlaceConfig {
     required this.referAd,
     required this.congratulationNewsAd,
     required this.categoryNewsAd,
+    required this.openInterOnInitial,
+    required this.onBoardingNativeAd,
   });
 
   Map<String, dynamic> toJson() {
@@ -40,22 +44,26 @@ class AdPlaceConfig {
       'refer_ad': referAd,
       'congratulation_news_ad': congratulationNewsAd,
       'category_news_ad': categoryNewsAd,
+      'open_inter_on_initial': openInterOnInitial,
+      'on_boarding_native_ad': onBoardingNativeAd,
     };
   }
 
   factory AdPlaceConfig.fromJson(Map<String, dynamic> map) {
     return AdPlaceConfig(
-      categoryNative: map['category_native'],
-      dailyActivityReward: map['daily_activity_reward'],
-      dailyReadNewsAd: map['daily_read_news_ad'],
-      dailyTaskClaimAd: map['daily_task_claim_ad'],
-      homeNative: map['home_native'],
-      referFriendAd: map['refer_friend_ad'],
-      newsDetailAd: map['news_detail_ad'],
-      newsCodeAd: map['news_code_ad'],
-      referAd: map['refer_ad'],
-      congratulationNewsAd: map['congratulation_news_ad'],
-      categoryNewsAd: map['category_news_ad'],
+      categoryNative: map['category_native'] ?? false,
+      dailyActivityReward: map['daily_activity_reward'] ?? false,
+      dailyReadNewsAd: map['daily_read_news_ad'] ?? false,
+      dailyTaskClaimAd: map['daily_task_claim_ad'] ?? false,
+      homeNative: map['home_native'] ?? false,
+      referFriendAd: map['refer_friend_ad'] ?? false,
+      newsDetailAd: map['news_detail_ad'] ?? false,
+      newsCodeAd: map['news_code_ad'] ?? false,
+      referAd: map['refer_ad'] ?? false,
+      congratulationNewsAd: map['congratulation_news_ad'] ?? false,
+      categoryNewsAd: map['category_news_ad'] ?? false,
+      openInterOnInitial: map['open_inter_on_initial'] ?? false,
+      onBoardingNativeAd: map['on_boarding_native_ad'] ?? false,
     );
   }
 
@@ -71,6 +79,8 @@ class AdPlaceConfig {
     bool? referAd,
     bool? congratulationNewsAd,
     bool? categoryNewsAd,
+    bool? openInterOnInitial,
+    bool? onBoardingNativeAd,
   }) {
     return AdPlaceConfig(
       categoryNative: categoryNative ?? this.categoryNative,
@@ -84,6 +94,8 @@ class AdPlaceConfig {
       referAd: referAd ?? this.referAd,
       congratulationNewsAd: congratulationNewsAd ?? this.congratulationNewsAd,
       categoryNewsAd: categoryNewsAd ?? this.categoryNewsAd,
+      openInterOnInitial: openInterOnInitial ?? this.openInterOnInitial,
+      onBoardingNativeAd: onBoardingNativeAd ?? this.onBoardingNativeAd,
     );
   }
 }

@@ -140,7 +140,7 @@ class AdHelper {
     Log.success('✅ AdMob SDK initialized.');
 
     if (preloadOnInit) {
-      unawaited(Future.wait([loadInterstitial(), loadAppOpen()]));
+      unawaited(Future.wait([ loadAppOpen()]));
     }
   }
 

@@ -15,7 +15,7 @@ class NewsCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: Spacing.small, horizontal: Spacing.normal),
+      padding: EdgeInsets.symmetric(vertical: Spacing.small),
       child: CommonButton.cupertino(
         onTap: () => NavigationAdHelper.instance.navigate(
           onComplete: () {

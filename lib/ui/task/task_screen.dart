@@ -21,6 +21,7 @@ class TaskScreen extends StatelessWidget {
     return Scaffold(
       appBar: NewsPayAppbar(title: Text("Daily Task"), showBack: false),
       body: SingleChildScrollView(
+        padding: EdgeInsets.only(top: Spacing.normal),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,

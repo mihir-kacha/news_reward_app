@@ -8,6 +8,7 @@ import 'package:inshorts/resources/resources.dart';
 import 'package:inshorts/ui/dashboard/dashboard.dart';
 import 'package:inshorts/ui/login/login.dart';
 import 'package:inshorts/ui/onboarding/onboarding.dart';
+import 'package:inshorts/ui/read_news/read_news.dart';
 import 'package:inshorts/utils/ad/ads.dart';
 import 'package:network/helper/logger.dart';
 import 'package:network/network.dart';

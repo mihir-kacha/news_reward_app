@@ -3,13 +3,13 @@ part of '../core.dart';
 abstract class LoadingHandler {
   const LoadingHandler();
 
-  void startLoading({String? message, bool? showBookLoader});
+  void startLoading({String? message, bool? showAdLoader});
 
   void stopLoading();
 
-  void handleLoading(bool loading, {String? message, bool showBookLoading = false}) {
+  void handleLoading(bool loading, {String? message, bool showAdLoading = false}) {
     if (loading) {
-      startLoading(message: message, showBookLoader: showBookLoading);
+      startLoading(message: message, showAdLoader: showAdLoading);
     } else {
       stopLoading();
     }
@@ -22,7 +22,7 @@ class LoadingDialogHandler extends LoadingHandler {
   final BuildContext _context;
   Route? _dialogRoutes;
 
-  Route _buildDialogRoute(BuildContext context) {
+  Route _buildDialogRoute(BuildContext context, {String? message, bool? showAdLoader}) {
     assert(debugCheckHasCupertinoLocalizations(context));
     final CapturedThemes themes = InheritedTheme.capture(from: context, to: context.navigator.context);
     return DialogRoute(
@@ -30,14 +30,14 @@ class LoadingDialogHandler extends LoadingHandler {
       barrierDismissible: false,
       useSafeArea: true,
       themes: themes,
-      builder: (context) => PopScope(child: LoadingIndicator()),
+      builder: (context) => PopScope(child: LoadingIndicator(showAdLoading: showAdLoader ?? false)),
     );
   }
 
   @override
-  void startLoading({String? message, bool? showBookLoader}) {
+  void startLoading({String? message, bool? showAdLoader}) {
     if (_dialogRoutes != null) return;
-    _dialogRoutes = _buildDialogRoute(_context);
+    _dialogRoutes = _buildDialogRoute(_context, showAdLoader: showAdLoader);
     _context.navigator.push(_dialogRoutes!);
   }
 

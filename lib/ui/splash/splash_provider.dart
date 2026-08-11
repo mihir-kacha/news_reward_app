@@ -90,16 +90,35 @@ final class SplashProvider extends BaseProvider {
 
     if (preference.adsConfig?.adsStatusModel?.showAdsInApp ?? false) {
       await AdHelper.instance.initialized();
-
-      if (preference.adsConfig?.adsStatusModel?.isOpenAppAdShow ?? false) {
-        final result = await AdHelper.instance.loadAppOpen();
-
-        if (result.success) {
-          AdHelper.instance.setAppOpenCallbacks(onDismissed: _changeScreen, onFailed: (_) => _changeScreen());
-          await AdHelper.instance.showAppOpen();
-          return;
+      if (preference.isShowOnBoarding) {
+        if (preference.adsConfig?.adsStatusModel?.isOpenAppAdShow ?? false) {
+          final result = await AdHelper.instance.loadAppOpen();
+          if (result.success) {
+            AdHelper.instance.setAppOpenCallbacks(onDismissed: _changeScreen, onFailed: (_) => _changeScreen());
+            await AdHelper.instance.showAppOpen();
+            return;
+          }
+        }
+      } else {
+        if (preference.adsConfig?.adsStatusModel?.isInterstitialShow ?? false) {
+          AdHelper.instance.loadInterstitial().then((_) async {
+            isAdLoading = true;
+            await _showInterAd();
+          });
         }
       }
+    }
+
+    isAdLoading = false;
+    notifyListeners();
+    // _changeScreen();
+  }
+
+  Future<void> _showInterAd() async {
+    if (isAdLoading) {
+      AdHelper.instance.setInterstitialCallbacks(onDismissed: _changeScreen, onFailed: (_) => _changeScreen());
+      await AdHelper.instance.showInterstitial(onAdClosed: _changeScreen);
+      return;
     }
 
     isAdLoading = false;
@@ -127,7 +146,7 @@ final class SplashProvider extends BaseProvider {
     // );
     // if (result != null && context.mounted) {
     if (preference.isShowOnBoarding) {
-      context.navigator.pushNamedAndRemoveUntil(OnboardingScreen.routeName, (route) => false);
+      context.navigator.pushNamedAndRemoveUntil(ReadNewsScreen.routeName, (route) => false);
     } else if (preference.isLogin) {
       context.navigator.pushNamedAndRemoveUntil(DashboardScreen.routeName, (route) => false);
     } else {

@@ -16,7 +16,8 @@ final class OnboardingProvider extends BaseProvider {
       preference.isShowOnBoarding = false;
       NavigationAdHelper.instance.navigate(
         onComplete: () {
-          context.navigator.pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false, arguments: false);
+          // context.navigator.pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
+          context.navigator.pushNamedAndRemoveUntil(HowItWorksScreen.routeName, (route) => false);
         },
       );
     } else {

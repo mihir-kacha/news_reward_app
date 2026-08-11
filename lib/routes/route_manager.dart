@@ -66,6 +66,15 @@ class AppRoutes {
       case CongratulationScreen.routeName:
         builder = CongratulationScreen.builder;
         break;
+      case HowItWorksScreen.routeName:
+        builder = HowItWorksScreen.builder;
+        break;
+      case ReadNewsScreen.routeName:
+        builder = ReadNewsScreen.builder;
+        break;
+      case VerifyScreen.routeName:
+        builder = VerifyScreen.builder;
+        break;
       default:
         return null;
     }

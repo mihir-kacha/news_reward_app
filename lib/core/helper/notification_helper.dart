@@ -394,7 +394,7 @@ class NotificationHelper {
             priority: Priority.max,
             icon: "@drawable/ic_notification",
             actions: [AndroidNotificationAction("open", notification.button)],
-            sound: const RawResourceAndroidNotificationSound("notification_sound"),
+            // sound: const RawResourceAndroidNotificationSound("notification_sound"),
           ),
           iOS: const DarwinNotificationDetails(
             presentAlert: true,

@@ -99,6 +99,14 @@ class $AssetsImagesGen {
   AssetGenImage get imgApplicationWork =>
       const AssetGenImage('assets/images/img_application_work.webp');
 
+  /// File path: assets/images/img_boarding_first.png
+  AssetGenImage get imgBoardingFirst =>
+      const AssetGenImage('assets/images/img_boarding_first.png');
+
+  /// File path: assets/images/img_boarding_second.png
+  AssetGenImage get imgBoardingSecond =>
+      const AssetGenImage('assets/images/img_boarding_second.png');
+
   /// File path: assets/images/img_coin.png
   AssetGenImage get imgCoin =>
       const AssetGenImage('assets/images/img_coin.png');
@@ -118,6 +126,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/img_google.png
   AssetGenImage get imgGoogle =>
       const AssetGenImage('assets/images/img_google.png');
+
+  /// File path: assets/images/img_how_it_works.png
+  AssetGenImage get imgHowItWorks =>
+      const AssetGenImage('assets/images/img_how_it_works.png');
 
   /// File path: assets/images/img_login.webp
   AssetGenImage get imgLogin =>
@@ -160,11 +172,14 @@ class $AssetsImagesGen {
   /// List of all assets
   List<AssetGenImage> get values => [
     imgApplicationWork,
+    imgBoardingFirst,
+    imgBoardingSecond,
     imgCoin,
     imgCoinGroup,
     imgConfetti,
     imgGiftWithCoins,
     imgGoogle,
+    imgHowItWorks,
     imgLogin,
     imgOn1,
     imgOn2,

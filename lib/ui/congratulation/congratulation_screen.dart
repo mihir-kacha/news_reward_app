@@ -121,7 +121,8 @@ class _Body extends StatelessWidget {
           ),
           NativeAdComponent(adUnitId: nativeAdUnitId, nativeAdType: .detail),
           Gap(Spacing.large),
-          Expanded(child: _News()),
+          // Expanded(child: _News()),
+          _News()
         ],
       ),
     );

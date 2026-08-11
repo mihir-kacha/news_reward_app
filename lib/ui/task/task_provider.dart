@@ -233,6 +233,7 @@ final class TaskProvider extends BaseProvider with SubscriptionHelper {
           (preference.adsConfig?.adsStatusModel?.isRewardAdShow ?? false)
           ? "Ad Loading"
           : "",
+      showAdLoading: true
     );
 
     final result = await AdHelper.instance.loadRewarded(isThisAdPlaceEnable: isThisAdPlaceEnable);

@@ -41,7 +41,7 @@ class _Body extends StatelessWidget {
       onScrollToEnd: (context) => provider.onLoadMore(),
       child: ListView.builder(
         shrinkWrap: true,
-        padding: EdgeInsets.symmetric(vertical: Spacing.normal),
+        padding: EdgeInsets.all(Spacing.normal),
         physics: AlwaysScrollableScrollPhysics(),
         scrollDirection: Axis.vertical,
         itemCount: list.length,
