@@ -16,30 +16,26 @@ class NewsDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = context.read<NewsDetailProvider>();
-    return LifecycleHandler(
-      onStart: provider.showAppOpenAd,
-      onStop: () {},
-      child: Scaffold(
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: Padding(
-          padding: EdgeInsetsGeometry.symmetric(horizontal: Spacing.normal),
-          child: FilledButton(
-            style: FilledButton.styleFrom(fixedSize: Size.fromWidth(context.width)),
-            onPressed: provider.showNews,
-            child: Text(
-              "Open News to Earn 300 Points",
-              style: context.textTheme.bodyLarge?.copyWith(
-                color: context.colorScheme.onPrimary,
-                fontWeight: FontWeight.w700,
-              ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
+    return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Padding(
+        padding: EdgeInsetsGeometry.symmetric(horizontal: Spacing.normal),
+        child: FilledButton(
+          style: FilledButton.styleFrom(fixedSize: Size.fromWidth(context.width)),
+          onPressed: provider.showNews,
+          child: Text(
+            "Open News to Earn 300 Points",
+            style: context.textTheme.bodyLarge?.copyWith(
+              color: context.colorScheme.onPrimary,
+              fontWeight: FontWeight.w700,
             ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
         ),
-        appBar: NewsPayAppbar(title: Text("NewsPay")),
-        body: _Body(),
       ),
+      appBar: NewsPayAppbar(title: Text("NewsPay")),
+      body: _Body(),
     );
   }
 }

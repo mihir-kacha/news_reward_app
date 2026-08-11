@@ -12,7 +12,7 @@ class NativeAdComponent extends StatefulWidget {
     super.key,
     required this.adUnitId,
     this.nativeAdType = NativeAdTyped.feed,
-    this.height = 324,
+    this.height = 312,
     this.detailLayout = DetailNativeLayout.buttonBottom,
   });
 

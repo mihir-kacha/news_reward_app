@@ -27,11 +27,7 @@ final class NewsDetailProvider extends BaseProvider {
     }
     await CommonFunc.openUrl(url: newsData.webLink ?? '');
     await Future.delayed(200.milliseconds);
-    NavigationAdHelper.instance.navigate(
-      onComplete: () {
-        context.navigator.pushNamed(NewsCodeScreen.routeName, arguments: newsData);
-      },
-    );
+    context.navigator.pushNamed(NewsCodeScreen.routeName, arguments: newsData);
   }
 
   Future<void> loadAppOpenAd() async {

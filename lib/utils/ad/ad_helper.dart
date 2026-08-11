@@ -139,9 +139,10 @@ class AdHelper {
     _initialized = true;
     Log.success('✅ AdMob SDK initialized.');
 
-    if (preloadOnInit) {
-      unawaited(Future.wait([ loadAppOpen()]));
-    }
+    // if (preloadOnInit) {
+    //   unawaited(Future.wait([ loadAppOpen()]));
+    // }
+    AppLifecycleReactor(adHelper: this).listenToAppStateChanges();
   }
 
   /// app open ads

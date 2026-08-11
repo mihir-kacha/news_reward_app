@@ -25,30 +25,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 part 'base/base_provider.dart';
-
 part 'extension/build_context_ext.dart';
-
 part 'extension/color_ext.dart';
-
 part 'extension/double_ext.dart';
-
 part 'extension/int_ext.dart';
-
 part 'extension/string_extension.dart';
-
 part 'helper/alerts_helper.dart';
-
 part 'helper/loading_handler.dart';
-
 part 'helper/subscription_helper.dart';
-
 part 'extension/list_ext.dart';
-
 part 'helper/firebase_helper.dart';
-
 part 'extension/currency_ext.dart';
-
 part 'helper/connectivity_helper.dart';
 part 'helper/navigation_ad_helper.dart';
 part 'helper/notification_helper.dart';
-part 'helper/lifecycle_handler.dart';
