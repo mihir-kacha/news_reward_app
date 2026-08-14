@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
@@ -39,3 +40,4 @@ part 'extension/currency_ext.dart';
 part 'helper/connectivity_helper.dart';
 part 'helper/navigation_ad_helper.dart';
 part 'helper/notification_helper.dart';
+part 'helper/firebase_analytics_helper.dart';

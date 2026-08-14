@@ -33,6 +33,9 @@ dependencies:
   extended_image: ^10.0.1
   share_plus: ^13.1.0
 
+  # --------- Analytics -------------#
+  firebase_analytics: ^12.4.6
+
   #----------- network -----------#
   network:
     path: network
