@@ -12,21 +12,6 @@ abstract base class BaseProvider extends ChangeNotifier {
 
   void initState() {}
 
-  Future<void> resolveAdUnitId({required NativeAdTyped slot, required bool isThisAdPlaceEnable}) async {
-    if (!isThisAdPlaceEnable) return;
-    adLoad = true;
-    notifyListeners();
-
-    final result = AdHelper.instance.nativeAdUnitId(slot: slot, isThisAdPlaceEnable: isThisAdPlaceEnable);
-
-    if (result?.isNotEmpty ?? false) {
-      nativeAdUnitId = result;
-      await AdHelper.instance.preloadNativeAd(adUnitId: result!, adSlot: slot.name);
-    }
-    adLoad = false;
-    notifyListeners();
-  }
-
   Future<T?> processApi<T>({required Future<T?> Function() request, void Function(bool loading)? onLoading}) async {
     onLoading?.call(true);
 

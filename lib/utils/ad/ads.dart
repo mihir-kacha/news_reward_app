@@ -18,7 +18,6 @@ part 'rewarded_interstitial_ads_loader.dart';
 part 'reward_ads_loader.dart';
 part 'banner_ads_loader.dart';
 part 'app_open_ads_loader.dart';
-part 'native_ad_loader.dart';
 part 'app_lifecycle_reactor.dart';
 
 typedef OnAdLoaded = void Function(String userId);

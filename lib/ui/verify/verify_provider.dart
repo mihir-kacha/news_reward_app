@@ -6,9 +6,5 @@ final class VerifyProvider extends BaseProvider {
   @override
   void initState() {
     super.initState();
-    resolveAdUnitId(
-      slot: NativeAdTyped.detail,
-      isThisAdPlaceEnable: preference.adsConfig?.adPlaceConfig?.onBoardingNativeAd ?? false,
-    );
   }
 }

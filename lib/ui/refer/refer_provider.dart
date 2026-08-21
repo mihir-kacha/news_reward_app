@@ -29,10 +29,6 @@ final class ReferProvider extends BaseProvider {
     super.initState();
     _init();
     Log.debug(referralCount);
-    resolveAdUnitId(
-      slot: NativeAdTyped.detail,
-      isThisAdPlaceEnable: preference.adsConfig?.adPlaceConfig?.referAd ?? false,
-    );
   }
 
   Future<void> _init() async {
