@@ -1,6 +1,6 @@
 part of 'ads.dart';
 
-class InterstitialAdsLoader extends BaseAdLoader<InterstitialAd> {
+class InterstitialAdsLoader extends BaseAdLoader<AdManagerInterstitialAd> {
   OnAdLoaded? onAdLoaded;
   OnAdFailed? onAdFailed;
   OnAdDismissed? onAdDismissed;
@@ -10,14 +10,15 @@ class InterstitialAdsLoader extends BaseAdLoader<InterstitialAd> {
   AdType get adType => .interstitial;
 
   @override
-  void disposeAdObject(InterstitialAd? ad) async => ad?.dispose();
+  void disposeAdObject(AdManagerInterstitialAd? ad) async => ad?.dispose();
 
   @override
   Future<void> loadAdFroUnit(String unitId) async {
-    InterstitialAd.load(
+
+    AdManagerInterstitialAd.load(
       adUnitId: unitId,
-      request: const AdRequest(),
-      adLoadCallback: InterstitialAdLoadCallback(
+      request: const AdManagerAdRequest(),
+      adLoadCallback: AdManagerInterstitialAdLoadCallback(
         onAdLoaded: (ad) {
           _wireCallbacks(ad, unitId);
           onLoaded(ad, unitId);
@@ -44,7 +45,7 @@ class InterstitialAdsLoader extends BaseAdLoader<InterstitialAd> {
     return true;
   }
 
-  void _wireCallbacks(InterstitialAd ad, String unitId) {
+  void _wireCallbacks(AdManagerInterstitialAd ad, String unitId) {
     ad.fullScreenContentCallback = FullScreenContentCallback(
       onAdShowedFullScreenContent: (ad) {
         onAdShown?.call();

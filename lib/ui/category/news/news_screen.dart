@@ -60,7 +60,10 @@ class _Body extends StatelessWidget {
         itemBuilder: (context, index) {
           final newsData = list[index];
           if (index == 0) {
-            return NativeAdComponent(adUnitId: nativeAdUnitId, nativeAdType: NativeAdTyped.detail);
+            return AdManagerNativeAd(
+              adUnitId: Preference().adsIds?.nativeAdsIds?.firstOrNull ?? "",
+              isShowAd: Preference().adsConfig?.adPlaceConfig?.categoryNewsAd ?? false,
+            );
           }
           return NewsCell(newsData: newsData);
         },

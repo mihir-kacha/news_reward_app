@@ -16,10 +16,6 @@ final class CongratulationProvider extends BaseProvider implements PaginationPro
   void initState() {
     super.initState();
     _getNews();
-    resolveAdUnitId(
-      slot: NativeAdTyped.feed,
-      isThisAdPlaceEnable: preference.adsConfig?.adPlaceConfig?.congratulationNewsAd ?? false,
-    );
   }
 
   Future<void> _getNews() async {

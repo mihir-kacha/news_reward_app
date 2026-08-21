@@ -14,7 +14,7 @@ class RewardAdsLoader extends BaseAdLoader<RewardedAd> {
   Future<void> loadAdFroUnit(String unitId) async {
     RewardedAd.load(
       adUnitId: unitId,
-      request: const AdRequest(),
+      request: const AdManagerAdRequest(),
       rewardedAdLoadCallback: RewardedAdLoadCallback(
         onAdLoaded: (ad) {
           _wireCallbacks(ad);

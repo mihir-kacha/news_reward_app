@@ -118,7 +118,10 @@ class _Body extends StatelessWidget {
             ],
           ),
           Gap(Spacing.normal),
-          NativeAdComponent(adUnitId: nativeAdUnitId, nativeAdType: .detail),
+          AdManagerNativeAd(
+            adUnitId: Preference().adsIds?.nativeAdsIds?.firstOrNull ?? "",
+            isShowAd: Preference().adsConfig?.adPlaceConfig?.congratulationNewsAd ?? false,
+          ),
           Gap(Spacing.small),
           // Expanded(child: _News()),
           _News(),

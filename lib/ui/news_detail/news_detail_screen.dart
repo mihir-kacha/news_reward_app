@@ -173,8 +173,8 @@ class _Body extends StatelessWidget {
             ),
           ),
           Gap(Spacing.large),
-          NativeAdComponent(adUnitId: nativeAdUnitId, detailLayout: .buttonTop, nativeAdType: .detail),
-          Gap(Spacing.large),
+          // AdManagerBannerAdSlot(adUnitId: Preference().adsIds?.bannerAdsIds?.firstOrNull ?? ""),
+          // Gap(Spacing.large),
           Text(
             "Steps to earn 300 Points :",
             style: context.textTheme.bodyLarge?.copyWith(

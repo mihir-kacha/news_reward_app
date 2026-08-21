@@ -49,10 +49,6 @@ class _BoardingSecond extends StatelessWidget {
                     ),
                   ),
                   Gap(Spacing.small),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: Spacing.normal),
-                    child: NativeAdComponent(adUnitId: nativeAdUnitId, nativeAdType: .detail),
-                  ),
                 ],
               ),
             ),

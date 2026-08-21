@@ -21,10 +21,6 @@ final class NewsProvider extends BaseProvider implements PaginationProvider<News
   void initState() {
     super.initState();
     _getNews();
-    resolveAdUnitId(
-      slot: NativeAdTyped.detail,
-      isThisAdPlaceEnable: preference.adsConfig?.adPlaceConfig?.categoryNewsAd ?? false,
-    );
   }
 
   Future<void> _getNews() async {

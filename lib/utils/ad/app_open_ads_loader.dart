@@ -16,7 +16,7 @@ class AppOpenAdsLoader extends BaseAdLoader<AppOpenAd> {
   Future<void> loadAdFroUnit(String unitId) async {
     AppOpenAd.load(
       adUnitId: unitId,
-      request: const AdRequest(),
+      request: const AdManagerAdRequest(),
       adLoadCallback: AppOpenAdLoadCallback(
         onAdLoaded: (ad) {
           _wireCallbacks(ad);

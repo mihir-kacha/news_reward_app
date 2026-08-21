@@ -24,9 +24,13 @@ final class SplashProvider extends BaseProvider {
 
   Future<void> _init() async {
     tz.initializeTimeZones();
+    print("initializeTimeZones");
     final TimezoneInfo timezoneInfo = await FlutterTimezone.getLocalTimezone();
+    print("timezoneInfo");
     tz.setLocalLocation(tz.getLocation(timezoneInfo.identifier));
+    print("setLocalLocation");
     await NotificationHelper.instance.initialize();
+    print("NotificationHelper");
     if (context.mounted) {
       ConnectivityHelper.instance.initialize(context);
     }
@@ -35,13 +39,12 @@ final class SplashProvider extends BaseProvider {
   }
 
   Future<void> _fetchAppConfigs() async {
-    await Future.wait([
-      _getWithdrawConfig(),
-      _getCoinsConfig(),
-      _getReferralCoinsConfig(),
-      _getAdsConfig(),
-      _getUserInfo(),
-    ]);
+    print("object");
+    await _getWithdrawConfig();
+    await _getCoinsConfig();
+    await _getReferralCoinsConfig();
+    await _getAdsConfig();
+    await _getUserInfo();
   }
 
   Future<void> _getWithdrawConfig() async {
@@ -82,29 +85,32 @@ final class SplashProvider extends BaseProvider {
   }
 
   Future<void> _getAdsConfig() async {
+    print("0");
     final adsConfig = await adsRepository.getAdsConfig();
     preference.adsConfig = adsConfig;
+    print("1");
 
     final adsIds = await adsRepository.getAdsIds();
     preference.adsIds = adsIds;
-
+    print("2");
+    _changeScreen();
+    return;
     if (preference.adsConfig?.adsStatusModel?.showAdsInApp ?? false) {
+      print("3");
       await AdHelper.instance.initialized();
-      if (preference.isShowOnBoarding) {
-        if (preference.adsConfig?.adsStatusModel?.isOpenAppAdShow ?? false) {
-          final result = await AdHelper.instance.loadAppOpen();
-          if (result.success) {
-            AdHelper.instance.setAppOpenCallbacks(onDismissed: _changeScreen, onFailed: (_) => _changeScreen());
-            await AdHelper.instance.showAppOpen();
-            return;
-          }
-        }
-      } else {
-        if (preference.adsConfig?.adsStatusModel?.isInterstitialShow ?? false) {
-          AdHelper.instance.loadInterstitial().then((_) async {
-            isAdLoading = true;
-            await _showInterAd();
-          });
+      print("4");
+      if (preference.adsConfig?.adsStatusModel?.isOpenAppAdShow ?? false) {
+        final result = await AdHelper.instance.loadAppOpen();
+        print("5");
+        if (result.success) {
+          print("6");
+          AdHelper.instance.setAppOpenCallbacks(onDismissed: _changeScreen, onFailed: (_) => _changeScreen());
+          print("7");
+          await AdHelper.instance.showAppOpen();
+          return;
+        } else {
+          _changeScreen();
+          print("8");
         }
       }
     }

@@ -13,8 +13,6 @@ class AdHelper {
   late final BannerAdsLoader _bannerAdsLoader;
   late final AppOpenAdsLoader _appOpenAdsLoader;
 
-  final Map<NativeAdTyped, NativeAdLoader> _nativeLoader = {};
-
   AdsStatusModel? get _status => Preference().adsConfig?.adsStatusModel;
 
   bool get _adsEnabled => _status?.showAdsInApp ?? false;
@@ -116,25 +114,6 @@ class AdHelper {
       ..onAdFailed = (err) {
         Log.error('Banner: All units failed: $err');
       };
-
-    for (final slot in NativeAdTyped.values) {
-      _nativeLoader[slot] = NativeAdLoader(slot: slot)
-        ..unitIdsResolver = () {
-          return _resolveIds((ids) {
-            return switch (slot) {
-              NativeAdTyped.feed => ids.nativeAdsIds,
-              NativeAdTyped.detail => ids.nativeAdsIds,
-              NativeAdTyped.nativeVideo => ids.nativeVideoAdsIds,
-            };
-          });
-        }
-        ..onNativeAdLoaded = (ad, unitId) {
-          Log.success('Native[${slot.name}] Ready ✓');
-        }
-        ..onAdFailed = (err) {
-          Log.error('Native[${slot.name}] All units failed: $err');
-        };
-    }
 
     _initialized = true;
     Log.success('✅ AdMob SDK initialized.');
@@ -299,22 +278,6 @@ class AdHelper {
     }
   }
 
-  NativeAdLoader createNativeLoader(NativeAdTyped slot) {
-    final loader = NativeAdLoader(slot: slot)
-      ..unitIdsResolver = () {
-        return resolveNativeIds(slot);
-      }
-      ..onNativeAdLoaded = (ad, unitId) {
-        Log.success('Native[${slot.name}] Ready ✓');
-      }
-      ..onAdFailed = (err) {
-        Log.error('Native[${slot.name}] Failed: $err');
-      };
-
-    loader.load();
-    return loader;
-  }
-
   List<String> resolveNativeIds(NativeAdTyped slot) {
     return _resolveIds((ids) {
       return switch (slot) {
@@ -335,68 +298,12 @@ class AdHelper {
 
   final ValueNotifier<AdLoadState> _emptyNotifier = ValueNotifier(AdLoadState.failed);
 
-  ValueNotifier<AdLoadState> nativeStateNotifier({NativeAdTyped slot = NativeAdTyped.feed}) {
-    final isEnabled = switch (slot) {
-      NativeAdTyped.nativeVideo => _status?.isNativeVideoShow ?? false,
-      _ => _status?.isNativeShow ?? false,
-    };
-
-    if (!_canUseAds() || !isEnabled) {
-      return _emptyNotifier;
-    }
-
-    final loader = _nativeLoader[slot]!;
-
-    if (loader.state == AdLoadState.idle || loader.state == AdLoadState.failed) {
-      loader.load();
-    }
-
-    return loader.stateNotifier;
-  }
-
-  Future<AdLoadResult> loadNative({NativeAdTyped slot = NativeAdTyped.feed}) {
-    final isEnabled = switch (slot) {
-      NativeAdTyped.nativeVideo => _status?.isNativeVideoShow ?? false,
-      _ => _status?.isNativeShow ?? false,
-    };
-
-    if (!_canUseAds() || !isEnabled) {
-      return Future.value(AdLoadResult.failure(""));
-    }
-
-    return _nativeLoader[slot]!.load();
-  }
-
-  Widget? nativeWidget({NativeAdTyped slot = NativeAdTyped.feed, double height = 120}) {
-    final isEnabled = switch (slot) {
-      NativeAdTyped.nativeVideo => _status?.isNativeVideoShow ?? false,
-      _ => _status?.isNativeShow ?? false,
-    };
-
-    if (!_canUseAds() || !isEnabled) {
-      return null;
-    }
-
-    return _nativeLoader[slot]?.buildWidget(height: height);
-  }
-
-  AdLoadState nativeState({NativeAdTyped slot = NativeAdTyped.feed}) => _nativeLoader[slot]?.state ?? AdLoadState.idle;
-
-  String? nativeAdUnitId({required NativeAdTyped slot, required bool isThisAdPlaceEnable}) {
-    if (!isNativeEnabled(slot: slot, isThisAdPlaceEnable: isThisAdPlaceEnable)) return null;
-    final ids = resolveNativeIds(slot);
-    return ids.isNotEmpty ? ids.first : null;
-  }
-
   void disposeAll() {
     _interstitialAdLoader.dispose();
     _rewardAdsLoader.dispose();
     _bannerAdsLoader.dispose();
     _appOpenAdsLoader.dispose();
     _rewardedInterstitialAdLoader.dispose();
-    for (final loader in _nativeLoader.values) {
-      loader.dispose();
-    }
   }
 
   bool _canUseAds() {

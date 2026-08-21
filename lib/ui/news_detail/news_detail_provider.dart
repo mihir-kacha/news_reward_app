@@ -5,16 +5,6 @@ final class NewsDetailProvider extends BaseProvider {
 
   NewsDetailProvider({required super.context, required this.newsData});
 
-  @override
-  void initState() {
-    super.initState();
-    Log.debug("Web link ===> ${newsData.webLink}");
-    resolveAdUnitId(
-      slot: NativeAdTyped.detail,
-      isThisAdPlaceEnable: preference.adsConfig?.adPlaceConfig?.newsDetailAd ?? false,
-    );
-  }
-
   bool isAdShown = false;
   bool isURLOpened = false;
 

@@ -17,6 +17,7 @@ class CategoryScreen extends StatelessWidget {
     final provider = context.read<CategoryProvider>();
     final nativeAdUnitId = context.select<CategoryProvider, String?>((value) => value.nativeAdUnitId);
     final adLoad = context.select<CategoryProvider, bool>((value) => value.adLoad);
+    final isShowAd = Preference().adsConfig?.adPlaceConfig?.categoryNative ?? false;
     if (adLoad) {
       return SizedBox.shrink();
     }
@@ -46,7 +47,10 @@ class CategoryScreen extends StatelessWidget {
           if (index == 2) {
             return Padding(
               padding: EdgeInsets.only(top: Spacing.medium),
-              child: NativeAdComponent(adUnitId: nativeAdUnitId, nativeAdType: .detail),
+              child: AdManagerNativeAd(
+                adUnitId: Preference().adsIds?.nativeAdsIds?.firstOrNull ?? "",
+                isShowAd: Preference().adsConfig?.adPlaceConfig?.categoryNative ?? false,
+              ),
             );
           }
           return SizedBox.shrink();
